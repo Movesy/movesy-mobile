@@ -1,7 +1,9 @@
 package hu.bme.aut.movesy.model
 
+import com.squareup.moshi.Json
+
 class Quote (
-    var id: String,
+    @Json(name = "_id") val id: String,
     var transporterID: String,
     var packageID: String,
     var price: Int

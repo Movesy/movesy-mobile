@@ -1,7 +1,9 @@
 package hu.bme.aut.movesy.model
 
+import com.squareup.moshi.Json
+
 data class User (
-    var id: String,
+    @Json(name = "_id") val id: String,
     var username: String,
     var password: String,
     var email: String,
