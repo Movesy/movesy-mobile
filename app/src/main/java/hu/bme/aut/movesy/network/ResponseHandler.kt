@@ -9,21 +9,25 @@ import retrofit2.Retrofit
 
 class ResponseHandler<T> (
     private val context: Context,
-    private val onSuccess: () -> Unit,
+    private val onSuccess: (res: T) -> Unit = { },
 
-): Callback<T> {
+    ): Callback<T> {
 
     override fun onResponse(call: Call<T>, response: Response<T>) {
         if(response.isSuccessful){
             Log.d("network", "Request successful")
-            onSuccess()
+            Log.d("network", response.body().toString())
+            onSuccess(response.body()!!)
         } else {
-            Toast.makeText(context, response.message().toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(context,"Error while connecting to server:${response.message()}", Toast.LENGTH_LONG).show()
         }
 
     }
 
     override fun onFailure(call: Call<T>, t: Throwable) {
-        Toast.makeText(context, t.cause.toString(), Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "No internet connection: ${t.message.toString()}", Toast.LENGTH_LONG).show()
+        Log.d("network failure message", t.message.toString())
+        Log.d("network failure cause", t.cause.toString())
+        Log.d("network failure", t.toString())
     }
 }

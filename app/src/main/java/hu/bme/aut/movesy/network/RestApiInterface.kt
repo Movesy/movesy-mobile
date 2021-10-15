@@ -1,7 +1,9 @@
 package hu.bme.aut.movesy.network
 
-import hu.bme.aut.movesy.model.Quote
+import hu.bme.aut.movesy.model.Offer
+import hu.bme.aut.movesy.model.Review
 import hu.bme.aut.movesy.model.User
+import hu.bme.aut.movesy.model.Package
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -58,18 +60,19 @@ interface RestApiInterface {
     ): Call<Package>
 
     @GET("package/user/userId")
-    fun getPackageOwner(
+    fun getPackagesOfUser(
         @Path(value = "userId") packageId: String,
-    ): Call<User>
+    ): Call<List<Package>>
 
     @GET("package/transporter/transporterId")
-    fun getPackageTransporter(
+    fun getPackagesOfTransporter(
         @Path(value= "transporterId") transformerId: String,
-    ): Call<User>
+    ): Call<List<Package>>
 
     @PUT("package/edit/{packageId}")
     fun editPackage(
         @Path(value="packageId") packageId: String,
+        @Body packageToEdit: Package
     ): Call<ResponseBody>
 
     @DELETE("package/delete/packageId")
@@ -77,36 +80,67 @@ interface RestApiInterface {
         @Path(value = "packageId") packageId: String,
     ): Call<ResponseBody>
 
-    //--------------------------------------
+    //-------------------------------------
     //      REVIEW
     //--------------------------------------
 
-    @GET("quote/{packageId}")
-    fun getQuotes(
-        @Path(value="packageId") packageId: String,
-    ): Call<List<Quote>>
+    @GET("review/{packageID}")
+    fun getReviewOfPackage(
+        @Path(value = "packageID") packageId: String,
+    ): Call<Review>
 
-    @POST("quote/create/{packageId}")
-    fun createQuote(
+    @GET("review/transporter/{transporterID}")
+    fun getReviewsOfTransporter(
+        @Path(value = "transporterID") transformerId: String
+    ): Call<List<Review>>
+
+    @POST("review/create")
+    fun crateReview(
+        @Body review: Review,
+    ): Call<ResponseBody>
+
+    @PUT("review/edit/{reviewID}")
+    fun updateReview(
+        @Path(value = "reviewID") reviewID: String,
+        @Body review: Review
+    ): Call<ResponseBody>
+
+    @DELETE("review/delete/{reviewID}")
+    fun deleteReview(
+        @Path(value = "reviewID") reviewID: String
+    ): Call<ResponseBody>
+
+
+    //--------------------------------------
+    //      OFFER
+    //--------------------------------------
+
+    @GET("offer/{packageId}")
+    fun getOffersOnPackage(
+        @Path(value="packageId") packageId: String,
+    ): Call<List<Offer>>
+
+    @POST("offer/create/{packageId}")
+    fun createOffer(
         @Path(value = "packageId") packageId: String,
-        @Body quote: Quote
+        @Body offer: Offer
     ): Call<ResponseBody>
 
-    @POST("quote/accept/packageId")
-    fun acceptQuote(
+    @POST("offer/accept/{packageId}")
+    fun acceptOffer(
         @Path(value="packageId") packageId: String,
-        @Body quote: Quote
+        @Body offer: Offer
     ): Call<ResponseBody>
 
-    @PUT("quote/edit/{quoteId}")
-    fun editQuote(
-        @Path(value = "quoteId") quoteId:String,
-        @Body quote: Quote
+    @PUT("offer/edit/{offerId}")
+    fun editOffer(
+        @Path(value = "offerId") offerID:String,
+        @Body offer: Offer
     ): Call<ResponseBody>
 
-    @DELETE("quote/delete/{quoteId}")
-    fun deleteQuote(
-        @Path(value = "quoteId") quoteId: String
+    @DELETE("offer/delete/{offerId}")
+    fun deleteOffer(
+        @Path(value = "offerId") offerID: String
     ):Call<ResponseBody>
 
 }
