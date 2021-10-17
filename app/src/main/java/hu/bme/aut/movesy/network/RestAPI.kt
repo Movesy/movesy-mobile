@@ -2,6 +2,7 @@ package hu.bme.aut.movesy.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import hu.bme.aut.movesy.dagger.BaseApplication
 import hu.bme.aut.movesy.model.User
 import hu.bme.aut.movesy.model.Offer
 import hu.bme.aut.movesy.model.Review
@@ -9,20 +10,18 @@ import hu.bme.aut.movesy.model.Package
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Inject
 
-class RestAPI {
+
+class RestAPI (private val moshi: Moshi){
 
     private val restApiInterface: RestApiInterface
 
     companion object{
-        ///TODO replace with proper url
         const val BASE_URL = "https://movesy.herokuapp.com/"
     }
 
     init{
-        val moshi = Moshi.Builder()
-            .addLast(KotlinJsonAdapterFactory())
-            .build()
         val retrofit = Retrofit
             .Builder()
             .baseUrl(BASE_URL)

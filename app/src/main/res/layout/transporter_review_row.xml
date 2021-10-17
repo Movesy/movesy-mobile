@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/rounded_corner"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Customer: mintaberci987" />
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        android:layout_width="235dp"
+        android:layout_height="57dp"
+        android:numStars="5"
+        android:rating="4"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:transformPivotX="200dp"
+        android:transformPivotY="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim nibh lacus, porta fermentum lectus efficitur quis. Phasellus eu maximus urna. Pellentesque luctus velit sed nulla pharetra, a venenatis urna maximus. Maecenas sagittis magna ut orci auctor, et euismod sem blandit. Nam interdum orci sit amet eros laoreet, in consectetur nibh mollis. Maecenas porttitor sem at neque ultricies, a cursus eros tempor. Nullam sed ornare nunc. Praesent interdum non tortor eget dapibus. Nulla eget efficitur tellus. Nullam volutpat metus felis, et mollis leo fermentum id. Phasellus a ante eu sapien aliquam feugiat. Integer sollicitudin quis eros non semper. Cras dapibus massa non purus interdum laoreet. Ut pretium erat in dapibus maximus. Duis porta lorem eu justo porttitor sodales. Vivamus et quam ut lectus feugiat tempus." />
+</androidx.constraintlayout.widget.ConstraintLayout>
