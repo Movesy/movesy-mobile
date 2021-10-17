@@ -16,7 +16,7 @@ class RestAPI {
 
     companion object{
         ///TODO replace with proper url
-        const val BASE_URL = "https://localhost:8000"
+        const val BASE_URL = "https://movesy.herokuapp.com/"
     }
 
     init{
@@ -83,6 +83,10 @@ class RestAPI {
 
     fun getPackageOfTransporter(transporterID: String, handler: ResponseHandler<List<Package>>){
         restApiInterface.getPackagesOfTransporter(transporterID).enqueue(handler)
+    }
+
+    fun createPackage(newPackage: Package, handler: ResponseHandler<ResponseBody>){
+        restApiInterface.createPackage(newPackage).enqueue(handler)
     }
 
     fun editPackage(packageToEdit: Package, handler: ResponseHandler<ResponseBody>){

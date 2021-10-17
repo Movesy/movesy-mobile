@@ -14,12 +14,12 @@ interface RestApiInterface {
     //      AUTHENTICATION
     //--------------------------------------
 
-    @POST("login")
+    @POST("user/login")
     fun loginUser(
         @Body user: User,
     ): Call<ResponseBody>
 
-    @POST("register")
+    @POST("user/register")
     fun registerUser(
         @Body user: User,
     ): Call<ResponseBody>
@@ -28,70 +28,75 @@ interface RestApiInterface {
     //      USER
     //--------------------------------------
 
-    @GET("user/{userId}")
+    @GET("user/")
     fun getUser(
-        @Path(value = "userId") userId: String,
+        @Query(value = "userId") userId: String,
     ): Call<User>
 
-    @GET("allusers")
+    @GET("user/list")
     fun getAllUsers(): Call<List<User>>
 
-    @PUT("user/edit/{userId}")
+    @PUT("user/edit/")
     fun updateUser(
-        @Path(value = "userId") userId: String,
+        @Query(value = "userId") userId: String,
         @Body user: User,
     ): Call<ResponseBody>
 
-    @DELETE("user/delete/{userId}")
+    @DELETE("user/delete/")
     fun deleteUser(
-        @Path(value = "userId") userId: String,
+        @Query(value = "userId") userId: String,
     ): Call<ResponseBody>
 
     //--------------------------------------
     //      PACKAGE
     //--------------------------------------
 
-    @GET("package/all")
+    @GET("package/list")
     fun getAllPackages(): Call<List<Package>>
 
-    @GET("package/{packageId}")
+    @GET("package/")
     fun getPackage(
-        @Path(value = "packageId") packageId: String,
+        @Query(value = "packageId") packageId: String,
     ): Call<Package>
 
     @GET("package/user/userId")
     fun getPackagesOfUser(
-        @Path(value = "userId") packageId: String,
+        @Query(value = "userId") packageId: String,
     ): Call<List<Package>>
 
     @GET("package/transporter/transporterId")
     fun getPackagesOfTransporter(
-        @Path(value= "transporterId") transformerId: String,
+        @Query(value= "transporterId") transformerId: String,
     ): Call<List<Package>>
 
-    @PUT("package/edit/{packageId}")
+    @POST("package/create/")
+    fun createPackage(
+        @Body newPackage: Package
+    ): Call<ResponseBody>
+
+    @PUT("package/edit/")
     fun editPackage(
-        @Path(value="packageId") packageId: String,
+        @Query(value="packageId") packageId: String,
         @Body packageToEdit: Package
     ): Call<ResponseBody>
 
     @DELETE("package/delete/packageId")
     fun deletePackage(
-        @Path(value = "packageId") packageId: String,
+        @Query(value = "packageId") packageId: String,
     ): Call<ResponseBody>
 
     //-------------------------------------
     //      REVIEW
     //--------------------------------------
 
-    @GET("review/{packageID}")
+    @GET("review/")
     fun getReviewOfPackage(
-        @Path(value = "packageID") packageId: String,
+        @Query(value = "packageID") packageId: String,
     ): Call<Review>
 
-    @GET("review/transporter/{transporterID}")
+    @GET("review/transporter/")
     fun getReviewsOfTransporter(
-        @Path(value = "transporterID") transformerId: String
+        @Query(value = "transporterID") transformerId: String
     ): Call<List<Review>>
 
     @POST("review/create")
@@ -99,15 +104,15 @@ interface RestApiInterface {
         @Body review: Review,
     ): Call<ResponseBody>
 
-    @PUT("review/edit/{reviewID}")
+    @PUT("review/edit/")
     fun updateReview(
-        @Path(value = "reviewID") reviewID: String,
+        @Query(value = "reviewID") reviewID: String,
         @Body review: Review
     ): Call<ResponseBody>
 
-    @DELETE("review/delete/{reviewID}")
+    @DELETE("review/delete/")
     fun deleteReview(
-        @Path(value = "reviewID") reviewID: String
+        @Query(value = "reviewID") reviewID: String
     ): Call<ResponseBody>
 
 
@@ -115,32 +120,32 @@ interface RestApiInterface {
     //      OFFER
     //--------------------------------------
 
-    @GET("offer/{packageId}")
+    @GET("offer/")
     fun getOffersOnPackage(
-        @Path(value="packageId") packageId: String,
+        @Query(value="packageId") packageId: String,
     ): Call<List<Offer>>
 
-    @POST("offer/create/{packageId}")
+    @POST("offer/create/")
     fun createOffer(
-        @Path(value = "packageId") packageId: String,
+        @Query(value = "packageId") packageId: String,
         @Body offer: Offer
     ): Call<ResponseBody>
 
-    @POST("offer/accept/{packageId}")
+    @POST("offer/accept/")
     fun acceptOffer(
-        @Path(value="packageId") packageId: String,
+        @Query(value="packageId") packageId: String,
         @Body offer: Offer
     ): Call<ResponseBody>
 
-    @PUT("offer/edit/{offerId}")
+    @PUT("offer/edit/")
     fun editOffer(
-        @Path(value = "offerId") offerID:String,
+        @Query(value = "offerId") offerID:String,
         @Body offer: Offer
     ): Call<ResponseBody>
 
-    @DELETE("offer/delete/{offerId}")
+    @DELETE("offer/delete/")
     fun deleteOffer(
-        @Path(value = "offerId") offerID: String
+        @Query(value = "offerId") offerID: String
     ):Call<ResponseBody>
 
 }

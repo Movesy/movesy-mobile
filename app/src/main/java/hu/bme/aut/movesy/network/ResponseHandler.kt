@@ -19,6 +19,7 @@ class ResponseHandler<T> (
             Log.d("network", response.body().toString())
             onSuccess(response.body()!!)
         } else {
+            Log.w("network", response.toString())
             Toast.makeText(context,"Error while connecting to server:${response.message()}", Toast.LENGTH_LONG).show()
         }
 
@@ -26,8 +27,8 @@ class ResponseHandler<T> (
 
     override fun onFailure(call: Call<T>, t: Throwable) {
         Toast.makeText(context, "No internet connection: ${t.message.toString()}", Toast.LENGTH_LONG).show()
-        Log.d("network failure message", t.message.toString())
-        Log.d("network failure cause", t.cause.toString())
-        Log.d("network failure", t.toString())
+        Log.w("network failure message", t.message.toString())
+        Log.w("network failure cause", t.cause.toString())
+        Log.w("network failure", t.toString())
     }
 }
