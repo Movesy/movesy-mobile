@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvRatingUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Username"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvRatingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2021.10.17"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvRatingPackageName"
+        app:layout_constraintTop_toTopOf="@+id/tvRatingPackageName" />
+
+    <TextView
+        android:id="@+id/tvRatingPackageName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Valami csomag"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvRatingDate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRatingUsername" />
+
+    <TextView
+        android:id="@+id/tvRatingRatingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rating"
+        app:layout_constraintBottom_toTopOf="@+id/rtbRating"
+        app:layout_constraintStart_toStartOf="@+id/rtbRating" />
+
+    <RatingBar
+        android:id="@+id/rtbRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRatingPackageName" />
+
+    <TextView
+        android:id="@+id/tvRatingDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Description"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/etmlDescription"
+        app:layout_constraintStart_toStartOf="@+id/etmlDescription" />
+
+    <EditText
+        android:id="@+id/etmlDescription"
+        android:layout_width="264dp"
+        android:layout_height="251dp"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rtbRating" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etmlDescription" />
+</androidx.constraintlayout.widget.ConstraintLayout>
