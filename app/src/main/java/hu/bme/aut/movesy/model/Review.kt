@@ -3,7 +3,7 @@ package hu.bme.aut.movesy.model
 import com.squareup.moshi.Json
 
 class Review (
-    @Json(name = "_id") val id: String,
+    @Json(name = "id") val id: String,
     var transporterID: String,
     var packageID: String,
     var time: String,
