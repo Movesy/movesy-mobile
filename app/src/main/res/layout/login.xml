@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Movesy"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        tools:text="Movesy" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.74" />
+
+
+    <app.juky.squircleview.views.SquircleButton
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+
+        android:padding="16dp"
+        android:textColor="#FFFFFF"
+        app:squircle_gradient_end_color="#aa076b"
+        app:squircle_gradient_start_color="#61045f"
+        app:squircle_shadow_elevation="2dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <app.juky.squircleview.views.SquircleButton
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+
+        android:padding="16dp"
+        android:textColor="#FFFFFF"
+        app:squircle_gradient_end_color="#aa076b"
+        app:squircle_gradient_start_color="#61045f"
+        app:squircle_shadow_elevation="2dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.58" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        app:layout_constraintBottom_toTopOf="@+id/etPassword"
+        app:layout_constraintStart_toStartOf="@+id/etPassword" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="58dp"
+        android:layout_height="18dp"
+        android:text="Email"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        app:layout_constraintStart_toStartOf="@+id/etEmail" />
+
+    <app.juky.squircleview.views.SquircleButton
+        android:id="@+id/btnForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot password"
+
+        android:padding="16dp"
+        android:textColor="#FFFFFF"
+        app:squircle_gradient_end_color="#aa076b"
+        app:squircle_gradient_start_color="#61045f"
+        app:squircle_shadow_elevation="2dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- <?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <app.juky.squircleview.views.SquircleButton
+            android:id="@+id/normalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Normal button"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:squircle_gradient_end_color="#aa076b"
+            app:squircle_gradient_start_color="#61045f"
+
+            app:squircle_shadow_elevation="2dp" />
+
+            #1
+            app:squircle_gradient_end_color="#C5299b"
+            app:squircle_gradient_start_color="#FEAE51"
+            #2
+            app:squircle_gradient_end_color="#963cbd"
+            app:squircle_gradient_start_color="#ff6f61"
+            #3
+            app:squircle_gradient_end_color="#F93822"
+            app:squircle_gradient_start_color="#F2AA4C"
+            #4
+            app:squircle_gradient_end_color="#F93822"
+            app:squircle_gradient_start_color="#FDD20E"
+            #5
+            app:squircle_gradient_end_color="#FFA177"
+            app:squircle_gradient_start_color="#F5C7B8"
+            #6
+            app:squircle_gradient_end_color="#DF6589"
+            app:squircle_gradient_start_color="#F5C7B8"
+            #7
+            app:squircle_gradient_end_color="#DF6589"
+            app:squircle_gradient_start_color="#3C1053"
+            #8
+            app:squircle_gradient_end_color="#DD4132"
+            app:squircle_gradient_start_color="#9E1030"
+            #9
+            app:squircle_gradient_end_color="#00B1D2"
+            app:squircle_gradient_start_color="#FDDB27"
+            #10
+            app:squircle_gradient_end_color="#79C000"
+            app:squircle_gradient_start_color="#FDDB27"
+            #11
+            app:squircle_gradient_end_color="#eb3349"
+            app:squircle_gradient_start_color="#f45c43"
+            #12
+            app:squircle_gradient_end_color="#56ab2f "
+            app:squircle_gradient_start_color="#a8e063"
+            #13
+            app:squircle_gradient_end_color="#02aab0"
+            app:squircle_gradient_start_color="#00cdac"
+            #14
+            app:squircle_gradient_end_color="#000428"
+            app:squircle_gradient_start_color="#004e92"
+            #15
+            app:squircle_gradient_end_color="#43cea2"
+            app:squircle_gradient_start_color="#185a9d"
+            #16
+            app:squircle_gradient_end_color="#ff5f6d"
+            app:squircle_gradient_start_color="#ffc371"
+            #17
+            app:squircle_gradient_end_color="#36d1dc"
+            app:squircle_gradient_start_color="#5b86e5"
+            #18
+            app:squircle_gradient_end_color="#2b5876"
+            app:squircle_gradient_start_color="#4e4376"
+            #19
+            #20
+            #21
+
+    </androidx.constraintlayout.widget.ConstraintLayout> -->

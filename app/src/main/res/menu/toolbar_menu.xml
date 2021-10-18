@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/miMyOrders"
+        android:icon="@drawable/outline_inventory_2_24"
+        android:color="@color/logger"
+        android:title="My Orders" />
+
+    <item
+        android:id="@+id/miNewOrder"
+        android:checked="true"
+        android:color="@color/home"
+        android:title="New Order"
+        android:icon="@drawable/outline_add_circle_24"/>
+
+    <item
+        android:id="@+id/miProfile"
+        android:color="@color/teal_200"
+        android:icon="@drawable/outline_person_outline_24"
+        android:title="Profile" />
+</menu>
+

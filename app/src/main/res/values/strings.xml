@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Movesy</string>
+    <string name="orders_in_progress">Orders in progress</string>
+    <string name="completed_orders">Completed Orders</string>
+</resources>
