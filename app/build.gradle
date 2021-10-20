@@ -53,9 +53,7 @@ dependencies {
     implementation "app.juky:squircleview:0.4.2"
     implementation  'io.ak1:bubbletabbar:1.0.8'
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
 
     //live data and viewmodel
     def lifecycle_version = "2.3.0"
@@ -69,4 +67,14 @@ dependencies {
     //kapt 'com.google.dagger:dagger-compiler:2.20'
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
+
+    //Tests
+    //  Basic
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    //  MockWebServer
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.2'
+
+
 }
