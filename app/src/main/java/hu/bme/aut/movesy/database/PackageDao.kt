@@ -2,6 +2,8 @@ package hu.bme.aut.movesy.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import hu.bme.aut.movesy.model.Package
+
 
 @Dao
 interface PackageDao {
@@ -19,11 +21,11 @@ interface PackageDao {
     fun getPackagesOfTransporter(transporterId: String): LiveData<List<Package>>
 
     @Insert
-    fun createPackage(newPackage: Package)
+    suspend fun createPackage(newPackage: Package)
 
     @Update
-    fun updatePackage(newPackage: Package)
+    suspend fun updatePackage(newPackage: Package)
 
-    @Delete
-    fun deletePackage(deletePackage: Package)
+    @Query("DELETE FROM packages WHERE id = :packageId")
+    suspend fun deletePackage(packageId: String)
 }

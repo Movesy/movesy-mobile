@@ -16,7 +16,7 @@ interface OfferDao {
     @Update
     suspend fun updateOffer(offer: Offer)
 
-    @Delete
+    @Query("DELETE FROM offers WHERE id = :offerId")
     suspend fun deleteOffer(offerId: String)
 
 

@@ -14,11 +14,11 @@ interface ReviewDao {
     fun getReviewOfTransporter(transporterId: String): LiveData<List<Review>>
 
     @Insert
-    fun createReview(review: Review)
+    suspend fun createReview(review: Review)
 
     @Update
-    fun updateReview(review: Review)
+    suspend fun updateReview(review: Review)
 
-    @Delete
-    fun deleteReview(review: Review)
+    @Query("DELETE FROM reviews WHERE id = :reviewID")
+    suspend fun deleteReview(reviewID: String)
 }

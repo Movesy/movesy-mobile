@@ -20,13 +20,12 @@ interface UserDao {
     suspend fun updateUser(user: User)
 
     suspend fun updateOrInsert(user: User) {
-        TODO("Test if works: Livedata<User or User?>")
+        ///TODO("Test if works: Livedata<User or User?>")
         getUser(user.id).value ?: return insertUser(user)
         updateUser(user)
     }
 
-    @Delete
-    suspend fun deleteUser(user: User)
-
+    @Query("DELETE FROM users WHERE id = :userID")
+    suspend fun deleteUser(userID: String)
 
 }
