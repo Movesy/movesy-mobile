@@ -1,7 +1,9 @@
 package hu.bme.aut.movesy.model
 
+import androidx.room.Entity
 import com.squareup.moshi.Json
 
+@Entity(tableName = "reviews")
 class Review (
     @Json(name = "id") val id: String,
     var transporterID: String,

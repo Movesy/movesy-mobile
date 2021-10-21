@@ -3,7 +3,7 @@ package hu.bme.aut.movesy
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import dagger.hilt.android.AndroidEntryPoint
+
 import hu.bme.aut.movesy.data.MockWebServerResponses
 
 import hu.bme.aut.movesy.network.RestApiInterface
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 
 @RunWith(JUnit4::class)
-class RetrofitTest {
+class RetrofitPackageTest {
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var baseUrl: HttpUrl

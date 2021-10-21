@@ -129,4 +129,6 @@ class RestAPI @Inject constructor(
     fun deleteOffer(offerID: String, handler: ResponseHandler<ResponseBody>){
         restApiInterface.deleteOffer(offerID).enqueue(handler)
     }
+
+
 }
