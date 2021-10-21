@@ -7,6 +7,8 @@ import androidx.room.RoomDatabase
 import hu.bme.aut.movesy.model.Offer
 import hu.bme.aut.movesy.model.Review
 import hu.bme.aut.movesy.model.User
+import hu.bme.aut.movesy.model.Package
+
 
 @Database(
     entities = [
