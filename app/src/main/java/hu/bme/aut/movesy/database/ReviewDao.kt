@@ -17,6 +17,9 @@ interface ReviewDao {
     @Query("SELECT * FROM reviews WHERE transporterID = :transporterId")
     fun getReviewOfTransporter(transporterId: String): LiveData<List<Review>>
 
+    @Query("SELECT * FROM reviews WHERE id = :reviewID")
+    fun getReviewForExistence(reviewID: String): Review?
+
     @Insert
     suspend fun createReview(review: Review)
 
@@ -25,4 +28,9 @@ interface ReviewDao {
 
     @Query("DELETE FROM reviews WHERE id = :reviewID")
     suspend fun deleteReview(reviewID: String)
+
+    suspend fun updateOrInsert(review: Review) {
+        getReviewForExistence(review.id) ?: return createReview(review)
+        updateReview(review)
+    }
 }

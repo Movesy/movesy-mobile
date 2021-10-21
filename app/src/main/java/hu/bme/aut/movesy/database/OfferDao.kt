@@ -14,6 +14,9 @@ interface OfferDao {
     @Query("SELECT * FROM offers WHERE packageID = :packageId")
     fun getOffersOnPackage(packageId: String): LiveData<List<Offer>>
 
+    @Query("SELECT * FROM offers WHERE id = :offerId")
+    fun getOfferForExistence(offerId: String): Offer?
+
     @Insert
     suspend fun createOffer(offer: Offer)
 
@@ -23,5 +26,8 @@ interface OfferDao {
     @Query("DELETE FROM offers WHERE id = :offerId")
     suspend fun deleteOffer(offerId: String)
 
-
+    suspend fun updateOrInsert(offer: Offer) {
+        getOfferForExistence(offer.id) ?: return createOffer(offer)
+        updateOffer(offer)
+    }
 }

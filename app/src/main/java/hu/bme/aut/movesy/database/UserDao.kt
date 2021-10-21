@@ -17,6 +17,9 @@ interface UserDao {
     @Query("SELECT * FROM users")
     fun getAllUsers(): LiveData<List<User>>
 
+    @Query("SELECT * FROM users WHERE id = :userId")
+    fun getUserForExistence(userId: String): User?
+
     @Insert
     suspend fun insertUser(user: User)
 
@@ -24,8 +27,7 @@ interface UserDao {
     suspend fun updateUser(user: User)
 
     suspend fun updateOrInsert(user: User) {
-        ///TODO("Test if works: Livedata<User or User?>")
-        getUser(user.id).value ?: return insertUser(user)
+        getUserForExistence(user.id) ?: return insertUser(user)
         updateUser(user)
     }
 

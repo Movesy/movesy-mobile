@@ -32,7 +32,7 @@ class Repository @Inject constructor(
 
     fun registerUser(user: User) = performPostOperation(
     networkCall = { restapi.registerUser(user) },
-    saveCallResult = { userDao.insertUser(user) }
+    saveCallResult = { userDao.updateOrInsert(user) }
     )
 
     //--------------------------------------
@@ -42,7 +42,7 @@ class Repository @Inject constructor(
     fun getUser(userID: String) = performGetOperation(
         databaseQuery = { userDao.getUser(userID) },
         networkCall = { restapi.getUser(userID) },
-        saveCallResult = {user -> userDao.insertUser(user)}
+        saveCallResult = {user -> userDao.updateOrInsert(user)}
     )
 
     fun getAllUser()  = performGetOperation(
@@ -51,7 +51,6 @@ class Repository @Inject constructor(
         saveCallResult = {users -> users.forEach {user -> userDao.updateOrInsert(user) } }
     )
 
-    ///TODO REDUNDÁNS PARAMÉTER FIX
     fun updateUser(user: User) = performPostOperation(
         networkCall = { restapi.updateUser(user) },
         saveCallResult = { userDao.updateUser(user) }
@@ -69,25 +68,25 @@ class Repository @Inject constructor(
     fun getAllPackages() = performGetOperation(
         databaseQuery = { packageDao.getAllPackages() },
         networkCall = { restapi.getAllPackages() },
-        saveCallResult = {packages -> packages.forEach { pack -> packageDao.createPackage(pack) } }
+        saveCallResult = {packages -> packages.forEach { pack -> packageDao.updateOrInsert(pack) } }
     )
 
     fun getPackage(packageID: String) = performGetOperation(
         databaseQuery = { packageDao.getPackage(packageID) },
         networkCall = { restapi.getPackage(packageID) },
-        saveCallResult = { pack -> packageDao.createPackage(pack) }
+        saveCallResult = { pack -> packageDao.updateOrInsert(pack) }
     )
 
     fun getPackagesOfOwner(userID: String) = performGetOperation(
         databaseQuery = { packageDao.getPackagesOfUser(userID) },
         networkCall = { restapi.getPackagesOfOwner(userID) },
-        saveCallResult = {packages -> packages.forEach { pack -> packageDao.createPackage(pack) } }
+        saveCallResult = {packages -> packages.forEach { pack -> packageDao.updateOrInsert(pack) } }
     )
 
     fun getPackageOfTransporter(transporterID: String) = performGetOperation(
         databaseQuery = { packageDao.getPackagesOfTransporter(transporterID) },
         networkCall = { restapi.getPackageOfTransporter(transporterID) },
-        saveCallResult = {packages -> packages.forEach { pack -> packageDao.createPackage(pack) } }
+        saveCallResult = {packages -> packages.forEach { pack -> packageDao.updateOrInsert(pack) } }
     )
 
     fun createPackage(newPackage: Package) = performPostOperation(
@@ -112,13 +111,13 @@ class Repository @Inject constructor(
     suspend fun getReviewOfPackage(packageID: String) = performGetOperation(
         databaseQuery = { reviewDao.getReviewOfPackage(packageID) },
         networkCall = { restapi.getReviewOfPackage(packageID) },
-        saveCallResult = {review -> reviewDao.createReview(review) }
+        saveCallResult = {review -> reviewDao.updateOrInsert(review) }
     )
 
     fun getReviewOfTransporter(transporterID: String) = performGetOperation(
         databaseQuery = { reviewDao.getReviewOfTransporter(transporterID) },
         networkCall = { restapi.getReviewOfTransporter(transporterID) },
-        saveCallResult = { reviews -> reviews.forEach {review -> reviewDao.createReview(review) } }
+        saveCallResult = { reviews -> reviews.forEach {review -> reviewDao.updateOrInsert(review) } }
     )
 
     fun createReview(review: Review) = performPostOperation(
@@ -143,7 +142,7 @@ class Repository @Inject constructor(
     fun getOffersOnPackage(packageID: String) = performGetOperation(
         databaseQuery = { offerDao.getOffersOnPackage(packageID) },
         networkCall = { restapi.getOffersOnPackage(packageID) },
-        saveCallResult = { offers -> offers.forEach { offer -> offerDao.createOffer(offer) } }
+        saveCallResult = { offers -> offers.forEach { offer -> offerDao.updateOrInsert(offer) } }
     )
 
     fun createOffer(offer: Offer) = performPostOperation(

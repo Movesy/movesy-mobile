@@ -15,12 +15,12 @@ interface RestApiInterface {
     //--------------------------------------
 
     @POST("user/login")
-    fun loginUser(
+    suspend fun loginUser(
         @Body user: User,
     ): Response<ResponseBody>
 
     @POST("user/register")
-    fun registerUser(
+    suspend fun registerUser(
         @Body user: User,
     ): Response<ResponseBody>
 
@@ -29,21 +29,21 @@ interface RestApiInterface {
     //--------------------------------------
 
     @GET("user/")
-    fun getUser(
+    suspend fun getUser(
         @Query(value = "userId") userId: String,
     ): Response<User>
 
     @GET("user/list")
-    fun getAllUsers(): Response<List<User>>
+    suspend fun getAllUsers(): Response<List<User>>
 
     @PUT("user/edit/")
-    fun updateUser(
+    suspend fun updateUser(
         @Query(value = "userId") userId: String,
         @Body user: User,
     ): Response<ResponseBody>
 
     @DELETE("user/delete/")
-    fun deleteUser(
+    suspend fun deleteUser(
         @Query(value = "userId") userId: String,
     ): Response<ResponseBody>
 
@@ -52,36 +52,36 @@ interface RestApiInterface {
     //--------------------------------------
 
     @GET("package/list")
-    fun getAllPackages(): Response<List<Package>>
+    suspend fun getAllPackages(): Response<List<Package>>
 
     @GET("package/")
-    fun getPackage(
+    suspend fun getPackage(
         @Query(value = "packageId") packageId: String,
     ): Response<Package>
 
     @GET("package/user/userId")
-    fun getPackagesOfUser(
+    suspend fun getPackagesOfUser(
         @Query(value = "userId") packageId: String,
     ): Response<List<Package>>
 
     @GET("package/transporter/transporterId")
-    fun getPackagesOfTransporter(
+    suspend fun getPackagesOfTransporter(
         @Query(value= "transporterId") transformerId: String,
     ): Response<List<Package>>
 
     @POST("package/create/")
-    fun createPackage(
+    suspend fun createPackage(
         @Body newPackage: Package
     ): Response<ResponseBody>
 
     @PUT("package/edit/")
-    fun updatePackage(
+    suspend fun updatePackage(
         @Query(value="packageId") packageId: String,
         @Body packageToEdit: Package
     ): Response<ResponseBody>
 
     @DELETE("package/delete/packageId")
-    fun deletePackage(
+    suspend fun deletePackage(
         @Query(value = "packageId") packageId: String,
     ): Response<ResponseBody>
 
@@ -90,28 +90,28 @@ interface RestApiInterface {
     //--------------------------------------
 
     @GET("review/")
-    fun getReviewOfPackage(
+    suspend fun getReviewOfPackage(
         @Query(value = "packageID") packageId: String,
     ): Response<Review>
 
     @GET("review/transporter/")
-    fun getReviewsOfTransporter(
+    suspend fun getReviewsOfTransporter(
         @Query(value = "transporterID") transformerId: String
     ): Response<List<Review>>
 
     @POST("review/create")
-    fun crateReview(
+    suspend fun crateReview(
         @Body review: Review,
     ): Response<ResponseBody>
 
     @PUT("review/edit/")
-    fun updateReview(
+    suspend fun updateReview(
         @Query(value = "reviewID") reviewID: String,
         @Body review: Review
     ): Response<ResponseBody>
 
     @DELETE("review/delete/")
-    fun deleteReview(
+    suspend fun deleteReview(
         @Query(value = "reviewID") reviewID: String
     ): Response<ResponseBody>
 
@@ -121,30 +121,30 @@ interface RestApiInterface {
     //--------------------------------------
 
     @GET("offer/")
-    fun getOffersOnPackage(
+    suspend fun getOffersOnPackage(
         @Query(value="packageId") packageId: String,
     ): Response<List<Offer>>
 
     @POST("offer/create/")
-    fun createOffer(
+    suspend fun createOffer(
         @Query(value = "packageId") packageId: String,
         @Body offer: Offer
     ): Response<ResponseBody>
 
     @POST("offer/accept/")
-    fun acceptOffer(
+    suspend fun acceptOffer(
         @Query(value="packageId") packageId: String,
         @Body offer: Offer
     ): Response<ResponseBody>
 
     @PUT("offer/edit/")
-    fun updateOffer(
+    suspend fun updateOffer(
         @Query(value = "offerId") offerID:String,
         @Body offer: Offer
     ): Response<ResponseBody>
 
     @DELETE("offer/delete/")
-    fun deleteOffer(
+    suspend fun deleteOffer(
         @Query(value = "offerId") offerID: String
     ): Response<ResponseBody>
 
