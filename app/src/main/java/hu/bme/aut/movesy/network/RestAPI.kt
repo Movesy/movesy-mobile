@@ -1,146 +1,113 @@
 package hu.bme.aut.movesy.network
 
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import hu.bme.aut.movesy.dagger.BaseApplication
+import android.util.Log
 import hu.bme.aut.movesy.model.User
 import hu.bme.aut.movesy.model.Offer
 import hu.bme.aut.movesy.model.Review
 import hu.bme.aut.movesy.model.Package
+import hu.bme.aut.movesy.viewmodel.Resource
 import okhttp3.ResponseBody
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.Response
 import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class RestAPI (private val moshi: Moshi){
-
+@Singleton
+class RestAPI @Inject constructor(
     private val restApiInterface: RestApiInterface
+    ){
 
     companion object{
         const val BASE_URL = "https://movesy.herokuapp.com/"
-    }
-
-    init{
-        val retrofit = Retrofit
-            .Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-
-        restApiInterface = retrofit.create(RestApiInterface::class.java)
     }
 
     //--------------------------------------
     //      AUTHENTICATION
     //--------------------------------------
 
-    fun loginUser(user: User, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.loginUser(user).enqueue(handler)
-    }
+    suspend fun loginUser(user: User) = getResult { restApiInterface.loginUser(user) }
 
-    fun registerUser(user: User, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.registerUser(user).enqueue(handler)
-    }
+    suspend fun registerUser(user: User) = getResult { restApiInterface.registerUser(user) }
 
     //--------------------------------------
     //      USER
     //--------------------------------------
 
-    fun getUser(userID: String, handler: ResponseHandler<User>){
-        restApiInterface.getUser(userID).enqueue(handler)
-    }
+    suspend fun getUser(userID: String) = getResult { restApiInterface.getUser(userID) }
 
-    fun getAllUser(handler: ResponseHandler<List<User>>){
-        restApiInterface.getAllUsers().enqueue(handler)
-    }
+    suspend fun getAllUser() = getResult { restApiInterface.getAllUsers() }
 
-    fun editUser(user: User, handler:ResponseHandler<ResponseBody>){
-        ///TODO REDUNDÁNS PARAMÉTER FIX
-        restApiInterface.updateUser(user.id, user).enqueue(handler)
-    }
+    ///TODO REDUNDÁNS PARAMÉTER FIX
+    suspend fun updateUser(user: User) = getResult { restApiInterface.updateUser(user.id, user) }
 
-    fun deleteUser(userID: String, handler:ResponseHandler<ResponseBody>){
-        restApiInterface.deleteUser(userID).enqueue(handler)
-    }
+    suspend fun deleteUser(userID: String) = getResult { restApiInterface.deleteUser(userID) }
 
     //--------------------------------------
     //      PACKAGE
     //--------------------------------------
 
-    fun getAllPackages(handler: ResponseHandler<List<Package>>){
-        restApiInterface.getAllPackages().enqueue(handler)
-    }
+    suspend fun getAllPackages() = getResult { restApiInterface.getAllPackages() }
 
-    fun getPackage(packageID: String, handler: ResponseHandler<Package>){
-        restApiInterface.getPackage(packageID).enqueue(handler)
-    }
+    suspend fun getPackage(packageID: String) = getResult { restApiInterface.getPackage(packageID) }
 
-    fun getPackagesOfOwner(userID: String, handler: ResponseHandler<List<Package>>){
-        restApiInterface.getPackagesOfUser(userID).enqueue(handler)
-    }
+    suspend fun getPackagesOfOwner(userID: String) = getResult { restApiInterface.getPackagesOfUser(userID) }
 
-    fun getPackageOfTransporter(transporterID: String, handler: ResponseHandler<List<Package>>){
-        restApiInterface.getPackagesOfTransporter(transporterID).enqueue(handler)
-    }
+    suspend fun getPackageOfTransporter(transporterID: String) = getResult { restApiInterface.getPackagesOfTransporter(transporterID) }
 
-    fun createPackage(newPackage: Package, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.createPackage(newPackage).enqueue(handler)
-    }
+    suspend fun createPackage(newPackage: Package) = getResult { restApiInterface.createPackage(newPackage) }
 
-    fun editPackage(packageToEdit: Package, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.editPackage(packageToEdit.id, packageToEdit).enqueue(handler)
-    }
+    suspend fun updatePackage(packageToEdit: Package) = getResult { restApiInterface.updatePackage(packageToEdit.id, packageToEdit) }
 
-    fun deletePackage(packageID: String, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.deletePackage(packageID).enqueue(handler)
-    }
+    suspend fun deletePackage(packageID: String) = getResult { restApiInterface.deletePackage(packageID) }
 
     //-------------------------------------
     //      REVIEW
     //--------------------------------------
 
-    fun getReviewOfPackage(packageID: String, handler: ResponseHandler<Review>){
-        restApiInterface.getReviewOfPackage(packageID).enqueue(handler)
-    }
+    suspend fun getReviewOfPackage(packageID: String) = getResult { restApiInterface.getReviewOfPackage(packageID) }
 
-    fun getReviewOfTransporter(transporterID: String, handler: ResponseHandler<List<Review>>){
-        restApiInterface.getReviewsOfTransporter(transporterID).enqueue(handler)
-    }
+    suspend fun getReviewOfTransporter(transporterID: String) = getResult { restApiInterface.getReviewsOfTransporter(transporterID) }
 
-    fun createReview(review: Review, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.crateReview(review).enqueue(handler)
-    }
+    suspend fun createReview(review: Review) = getResult { restApiInterface.crateReview(review) }
 
-    fun editReview(review: Review, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.updateReview(review.id, review).enqueue(handler)
-    }
+    suspend fun updateReview(review: Review) = getResult { restApiInterface.updateReview(review.id, review) }
 
-    fun deleteReview(reviewID : String, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.deleteReview(reviewID).enqueue(handler)
-    }
+    suspend fun deleteReview(reviewID : String) = getResult { restApiInterface.deleteReview(reviewID) }
 
     //--------------------------------------
     //      OFFER
     //--------------------------------------
 
-    fun getOffersOnPackage(packageID: String, handler: ResponseHandler<List<Offer>>){
-        restApiInterface.getOffersOnPackage(packageID).enqueue(handler)
+    suspend fun getOffersOnPackage(packageID: String) = getResult { restApiInterface.getOffersOnPackage(packageID) }
+
+    suspend fun createOffer(offer: Offer) = getResult { restApiInterface.createOffer(offer.packageID, offer) }
+
+    suspend fun acceptOffer(offer: Offer) = getResult { restApiInterface.acceptOffer(offer.packageID, offer) }
+
+    suspend fun updateOffer(offer: Offer) = getResult { restApiInterface.updateOffer(offer.id, offer) }
+
+    suspend fun deleteOffer(offerID: String) = getResult { restApiInterface.deleteOffer(offerID) }
+
+    //----------------------------
+    //      HELPER FUNCTIONS
+    //----------------------------
+
+    private suspend fun <T> getResult(call: suspend () -> Response<T>): Resource<T> {
+        try {
+            val response = call()
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) return Resource.success(body)
+            }
+            return error(" ${response.code()} ${response.message()}")
+        } catch (e: Exception) {
+            return error(e.message ?: e.toString())
+        }
     }
 
-    fun createOffer(offer: Offer, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.createOffer(offer.packageID, offer).enqueue(handler)
+    private fun <T> error(message: String): Resource<T> {
+        Log.d("error", message)
+        return Resource.error("Network call has failed for a following reason: $message")
     }
 
-    fun acceptOffer(offer: Offer, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.acceptOffer(offer.packageID, offer).enqueue(handler)
-    }
 
-    fun editOffer(offer: Offer, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.editOffer(offer.id, offer).enqueue(handler)
-    }
-
-    fun deleteOffer(offerID: String, handler: ResponseHandler<ResponseBody>){
-        restApiInterface.deleteOffer(offerID).enqueue(handler)
-    }
 }

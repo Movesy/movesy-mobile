@@ -1,8 +1,12 @@
 package hu.bme.aut.movesy.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
+@Entity(tableName = "packages")
 data class Package (
+    @PrimaryKey
     @Json(name = "id") val id: String,
     var userID: String,
     var transporterID: String?,
