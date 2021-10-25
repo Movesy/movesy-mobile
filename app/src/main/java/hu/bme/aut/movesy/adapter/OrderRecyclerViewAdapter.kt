@@ -1,41 +1,53 @@
 package hu.bme.aut.movesy.adapter
 
+import android.content.Context
+import android.graphics.Color
+import android.provider.CalendarContract
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.qualifiers.ApplicationContext
+import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.PackageRowBinding
 import hu.bme.aut.movesy.model.Package
+import hu.bme.aut.movesy.viewmodel.Status
+import kotlinx.coroutines.currentCoroutineContext
 
-//class OrderRecyclerViewAdapter: ListAdapter<Package, OrderRecyclerViewAdapter.PackageViewHolder>(itemCallback){
+class OrderRecyclerViewAdapter: RecyclerView.Adapter<OrderRecyclerViewAdapter.PackageViewHolder>(){
 
-   //companion object{
-   //    object itemCallback : DiffUtil.ItemCallback<Package>(){
-   //        override fun areItemsTheSame(oldItem: Package, newItem: Package): Boolean {
-   //            return oldItem.id == newItem.id
-   //        }
+    private val items = mutableListOf<Package>()
+    private lateinit var parentContext: Context
 
-   //        override fun areContentsTheSame(oldItem: Package, newItem: Package): Boolean {
-   //            return oldItem == newItem
-   //        }
-   //    }
-   //}
-
-   //inner class PackageViewHolder(val binding: PackageRowBinding) : RecyclerView.ViewHolder(binding.root){
-   //    lateinit var currentPackage: Package
+    fun setItems(items: List<Package>){
+        this.items.clear()
+        this.items.addAll(items)
+        notifyDataSetChanged()
+    }
 
 
+    override fun onBindViewHolder(
+        holder: PackageViewHolder,
+        position: Int,
+    ) {
+        holder.currentPackage = items[position]
+    }
 
-   //    init {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder{
+        val binding: PackageRowBinding = PackageRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        parentContext = parent.context
+        return PackageViewHolder(binding)
+    }
 
-   //    }
-   //}
+    override fun getItemCount(): Int = items.size
 
-   //override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PackageViewHolder {
+    class PackageViewHolder(val binding: PackageRowBinding) : RecyclerView.ViewHolder(binding.root){
+       lateinit var currentPackage: Package
 
-   //}
+       init {
 
-   //override fun onBindViewHolder(holder: PackageViewHolder, position: Int) {
-
-   //}
-//}
+       }
+   }
+}
