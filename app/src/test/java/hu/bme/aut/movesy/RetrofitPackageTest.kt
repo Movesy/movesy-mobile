@@ -20,6 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.net.HttpURLConnection
 import hu.bme.aut.movesy.model.Package
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import javax.inject.Inject
 
@@ -48,25 +49,32 @@ class RetrofitPackageTest {
 
      @Test
      fun `get a package`(){
-         mockWebServer.enqueue(MockResponse().setBody(MockWebServerResponses.packageResponse).setResponseCode(HttpURLConnection.HTTP_OK))
-         val response = api.getPackage("61697379b0e07f5ef70cbb77").execute()
-         assert(response.isSuccessful)
-         val p = response.body()
-         assert(p != null)
+         runBlocking {
+             mockWebServer.enqueue(MockResponse().setBody(MockWebServerResponses.packageResponse).setResponseCode(HttpURLConnection.HTTP_OK))
+             val response = api.getPackage("61697379b0e07f5ef70cbb77")
+             assert(response.isSuccessful)
+             val p = response.body()
+             assert(p != null)
+         }
      }
 
     @Test
     fun `checking the package id`(){
-        mockWebServer.enqueue(MockResponse().setBody(MockWebServerResponses.packageResponse).setResponseCode(HttpURLConnection.HTTP_OK))
-        val response = api.getPackage("61697379b0e07f5ef70cbb77").execute()
-        assert(response.body()!!.id == "61697379b0e07f5ef70cbb77")
+        runBlocking {
+            mockWebServer.enqueue(MockResponse().setBody(MockWebServerResponses.packageResponse).setResponseCode(HttpURLConnection.HTTP_OK))
+            val response = api.getPackage("61697379b0e07f5ef70cbb77")
+            assert(response.body()!!.id == "61697379b0e07f5ef70cbb77")
+        }
     }
 
     @Test
     fun `get an error`(){
-        mockWebServer.enqueue(MockResponse().setBody(MockWebServerResponses.packageResponse).setResponseCode(HttpURLConnection.HTTP_NOT_FOUND))
-        val response = api.getPackage("61697379b0e07f5ef70cbb77").execute()
-        assert(response.isSuccessful == false)
+        runBlocking {
+            mockWebServer.enqueue(MockResponse().setBody(MockWebServerResponses.packageResponse).setResponseCode(HttpURLConnection.HTTP_NOT_FOUND))
+            val response = api.getPackage("61697379b0e07f5ef70cbb77")
+            assert(!response.isSuccessful)
+        }
+
     }
 
 
