@@ -18,6 +18,7 @@ ELkezdtünk ismerkedni a ```dependency injectionnel``` dagger2 használatával.
 A héten a projekt arhitektúráját megváltoztattuk, hogy megegyezzen a Google által ajánlott ```MVVM``` arhitektúrával.
 Így a beérkező adat egy repository-n keresztül cashelődik egy perzistens ```Room``` adatbázisba, mivel a Roomnak van `Live data` támogatása, ezért amint megérkezik a friss adat az Api-ból a nézetek is frissülnek.
 A daggert lecseréltük `Hilt`-re.
+Rájöttünk, hogy a callback-ek helyett sokkal jobban tesztelhető kódot kapunk ha suspend-et használunk.
 
 Teszteket is készítettünk:
 - Unit teszteket a Retrofit kliens teszteléséhez, `MockWebServert` használva.
