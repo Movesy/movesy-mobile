@@ -8,14 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.ListViewContainerBinding
 import hu.bme.aut.movesy.viewmodel.Status
 
 @AndroidEntryPoint
 class UserPackageFragment: Fragment() {
 
-    private val viewModel: UserPackageViewModel by viewModels()
     private lateinit var binding: ListViewContainerBinding
 
     override fun onCreateView(
@@ -29,25 +31,18 @@ class UserPackageFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObservers()
-        Log.d("status", "asdf")
+
+        binding.bubbleTabBar.addBubbleListener{
+            when(it){
+                R.id.miMyOrders -> navigate(R.id.on_order_selected_action)
+                R.id.miNewOrder -> navigate(R.id.on_new_order_selected_action)
+                R.id.miProfile ->  navigate(R.id.on_profile_selected_action)
+            }
+        }
     }
 
-    private fun setupObservers(){
-        Log.d("status", "FF")
-        viewModel.packages.observe(viewLifecycleOwner, {
-            when(it.status){
-                Status.SUCCESS -> {
-                    Log.d("status", "succes")
-                    Log.d("status", it.data.toString())
-                }
-                Status.ERROR -> {
-                    Log.d("status", "error")
-                }
-                Status.LOADING -> {
-                    Log.d("status", "loading")
-                }
-            }
-        })
+    private fun navigate(viewid: Int){
+        Navigation.findNavController(requireActivity(),R.id.nav_orders_fragment_container)
+            .navigate(viewid)
     }
 }

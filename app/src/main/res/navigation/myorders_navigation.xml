@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/nav_current_orders"
+    android:id="@+id/myorders_navigation">
+
+    <fragment
+        android:id="@+id/nav_current_orders"
+        android:name="hu.bme.aut.movesy.ui.userpackages.UserOrdersFragment"
+        tools:layout="@layout/order_list_fragment">
+        <action
+            android:id="@+id/on_package_selected_action"
+            app:destination="@id/nav_offer">
+        </action>
+        <action
+            android:id="@+id/on_package_for_review_action"
+            app:destination="@id/nav_review">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_offer"
+        android:name="hu.bme.aut.movesy.ui.userpackages.UserOrdersFragment"
+        tools:layout="@layout/offers_list_fragment">
+        <action
+            android:id="@+id/on_return_to_packages_action"
+            app:destination="@id/nav_current_orders">
+        </action>
+        <action
+            android:id="@+id/on_transporter_selected_action"
+            app:destination="@id/nav_transporter_reviews">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_review"
+        android:name="hu.bme.aut.movesy.ui.userpackages.CreateReviewFragment"
+        tools:layout="@layout/rating_order">
+        <action
+            android:id="@+id/on_review_done_action"
+            app:destination="@id/nav_current_orders">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_new_order"
+        android:name="hu.bme.aut.movesy.ui.userpackages.NewOrderFragment"
+        tools:layout="@layout/new_order">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="hu.bme.aut.movesy.ui.userpackages.ProfileFragment"
+        tools:layout="@layout/profile_transporter_data">
+    </fragment>
+
+    <action
+        android:id="@+id/on_profile_selected_action"
+        app:destination="@+id/nav_profile">
+    </action>
+
+    <action
+        android:id="@+id/on_order_selected_action"
+        app:destination="@+id/nav_current_orders">
+    </action>
+
+    <action
+        android:id="@+id/on_new_order_selected_action"
+        app:destination="@+id/nav_new_order">
+    </action>
+
+    <fragment
+        android:id="@+id/nav_transporter_reviews"
+        android:name="hu.bme.aut.movesy.ui.userpackages.TransporterCommentsFragment"
+        tools:layout="@layout/transporter_review">
+    </fragment>
+
+</navigation>

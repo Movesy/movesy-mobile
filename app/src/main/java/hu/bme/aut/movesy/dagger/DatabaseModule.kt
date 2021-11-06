@@ -6,7 +6,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import hu.bme.aut.movesy.database.AppDatabase
+import hu.bme.aut.movesy.database.*
+import hu.bme.aut.movesy.network.RestAPI
+import hu.bme.aut.movesy.repository.Repository
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,4 +35,13 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideUserDao(db: AppDatabase) = db.userDao()
+
+    @Singleton
+    @Provides
+    fun provideRepository(restAPI: RestAPI,
+                          userDao: UserDao,
+                          offerDao: OfferDao,
+                          reviewDao: ReviewDao,
+                          packageDao: PackageDao
+    ) = Repository(restAPI, userDao, offerDao, reviewDao, packageDao)
 }

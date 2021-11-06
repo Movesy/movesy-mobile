@@ -4,11 +4,11 @@
         android:id="@+id/miMyOrders"
         android:icon="@drawable/outline_inventory_2_24"
         android:color="@color/logger"
+        android:checked="true"
         android:title="My Orders" />
 
     <item
         android:id="@+id/miNewOrder"
-        android:checked="true"
         android:color="@color/home"
         android:title="New Order"
         android:icon="@drawable/outline_add_circle_24"/>

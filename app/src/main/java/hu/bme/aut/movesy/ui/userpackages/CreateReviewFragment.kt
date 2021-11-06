@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import hu.bme.aut.movesy.databinding.OffersListFragmentBinding
 import hu.bme.aut.movesy.databinding.RatingOrderBinding
 
-class CreateRewiewFragment : Fragment(){
+class CreateReviewFragment : Fragment(){
 
     private lateinit var binding: RatingOrderBinding
 

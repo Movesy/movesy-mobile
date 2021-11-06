@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserPackageViewModel @Inject constructor(
-    private val repository: Repository
+     private val repository: Repository
 ):ViewModel() {
     val packages = repository.getAllPackages()
 }
