@@ -55,6 +55,8 @@ dependencies {
     //UI dependencies
     implementation "app.juky:squircleview:0.4.2"
     implementation  'io.ak1:bubbletabbar:1.0.8'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
 
     //live data and viewmodel

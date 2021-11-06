@@ -9,21 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
-import hu.bme.aut.movesy.databinding.LoginBinding
+import hu.bme.aut.movesy.databinding.ListViewContainerBinding
 import hu.bme.aut.movesy.viewmodel.Status
 
 @AndroidEntryPoint
 class UserPackageFragment: Fragment() {
 
     private val viewModel: UserPackageViewModel by viewModels()
-    private lateinit var binding: LoginBinding
+    private lateinit var binding: ListViewContainerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = LoginBinding.inflate(inflater,container,false)
+        binding = ListViewContainerBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -31,9 +31,6 @@ class UserPackageFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         Log.d("status", "asdf")
-        binding.btnLogin.setOnClickListener {
-
-        }
     }
 
     private fun setupObservers(){
