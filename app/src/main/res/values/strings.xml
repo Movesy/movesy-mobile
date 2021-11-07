@@ -3,4 +3,12 @@
     <string name="orders_in_progress">Orders in progress</string>
     <string name="completed_orders">Completed Orders</string>
     <string name="valami_csomag">Valami Csomag</string>
+    <string name="package_name">Name: %1$s</string>
+    <string name="package_deadline">Deadline: %1$s</string>
+    <string name="package_from">From: %1$s</string>
+    <string name="package_to">To: %1$s</string>
+    <string name="package_price">Price: %1$d</string>
+    <string name="package_size">Size: %1$s</string>
+    <string name="package_status">Status: %1$s</string>
+    <string name="package_transporter">Transporter: %1$s</string>
 </resources>

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,12 +42,17 @@ class UserOrdersFragment : Fragment(){
                 Status.SUCCESS -> {
                     var packages = viewModel.packages
                     adapter.setItems(packages.value?.data!!)
+                    binding.orderListPb.visibility = View.INVISIBLE
+                    binding.orderList.visibility = View.VISIBLE
                     Log.d("status", "succes ${packages.toString()}")
                 }
                 Status.ERROR -> {
-                    Log.d("status", "error")
+                    Toast.makeText(context,"Service Unavailable", Toast.LENGTH_SHORT).show()
+                    Log.d("status","error: ${it.message}")
                 }
                 Status.LOADING -> {
+                    binding.orderListPb.visibility = View.VISIBLE
+                    binding.orderList.visibility = View.INVISIBLE
                     Log.d("status", "loading")
                 }
             }
