@@ -13,5 +13,5 @@ data class User (
     var email: String,
     var telephone: String,
     var size: String?,
-    var role: String?
+    var role: String?,
 )

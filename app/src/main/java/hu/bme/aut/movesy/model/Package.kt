@@ -18,5 +18,5 @@ data class Package (
     var price: Int?,
     var weight: Double?,
     var size: String?,
-    var status: String?
+    var status: String?,
 )

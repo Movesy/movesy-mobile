@@ -165,4 +165,8 @@ class Repository @Inject constructor(
         saveCallResult = { offerDao.deleteOffer(offerID) }
     )
 
+    fun getNameFromId(id:String) =
+        userDao.getUsernameFromId(id)
+
+
 }

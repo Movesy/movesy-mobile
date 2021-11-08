@@ -13,5 +13,5 @@ class Review (
     var time: String,
     var rating: Double,
     var description: String,
-    var customerUsername: String
+    var customerUsername: String,
         )

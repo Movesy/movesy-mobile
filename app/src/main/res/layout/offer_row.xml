@@ -8,7 +8,7 @@
     android:background="@drawable/rounded_corner">
 
     <TextView
-        android:id="@+id/tvReviewUsername"
+        android:id="@+id/tvOfferUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -32,7 +32,7 @@
         android:transformPivotX="0dp"
         android:transformPivotY="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvReviewUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/tvOfferUsername" />
 
     <TextView
         android:id="@+id/tvReviewPrice"
@@ -42,7 +42,7 @@
         android:layout_marginTop="36dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvReviewUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvOfferUsername"
         tools:text="Price: 29.999ft" />
 
     <ImageButton
