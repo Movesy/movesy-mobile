@@ -12,6 +12,9 @@
         <action
             android:id="@+id/on_package_selected_action"
             app:destination="@id/nav_offer">
+            <argument
+                android:name="PACKAGE_ID"
+                app:argType="string" />
         </action>
         <action
             android:id="@+id/on_package_for_review_action"
@@ -21,7 +24,7 @@
 
     <fragment
         android:id="@+id/nav_offer"
-        android:name="hu.bme.aut.movesy.ui.userpackages.UserOrdersFragment"
+        android:name="hu.bme.aut.movesy.ui.userpackages.UserOfferFragment"
         tools:layout="@layout/offers_list_fragment">
         <action
             android:id="@+id/on_return_to_packages_action"

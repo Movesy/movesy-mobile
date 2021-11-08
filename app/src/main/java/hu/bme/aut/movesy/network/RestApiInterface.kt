@@ -122,7 +122,7 @@ interface RestApiInterface {
 
     @GET("offer/")
     suspend fun getOffersOnPackage(
-        @Query(value="packageId") packageId: String,
+        @Query(value="id") packageId: String,
     ): Response<List<Offer>>
 
     @POST("offer/create/")

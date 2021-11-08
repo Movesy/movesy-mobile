@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.PackageRowExtendedBinding
@@ -14,6 +15,7 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<OrderRecyclerViewAdapter.Pa
 
     private val items = mutableListOf<Package>()
     private lateinit var parentContext: Context
+    lateinit var clickListener: onOfferClickListener
 
     fun setItems(items: List<Package>){
         this.items.clear()
@@ -47,7 +49,7 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<OrderRecyclerViewAdapter.Pa
 
     override fun getItemCount(): Int = items.size
 
-    class PackageViewHolder(val binding: PackageRowExtendedBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class PackageViewHolder(val binding: PackageRowExtendedBinding) : RecyclerView.ViewHolder(binding.root){
        lateinit var currentPackage: Package
        private var expanded = false
 
@@ -56,6 +58,9 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<OrderRecyclerViewAdapter.Pa
                 if (expanded) hideElements() else showElements()
                 expanded = !expanded
             }
+           binding.moneyImageButton.setOnClickListener {
+               clickListener.onOfferClicked(currentPackage.id)
+           }
            hideElements()
        }
 
@@ -79,4 +84,8 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<OrderRecyclerViewAdapter.Pa
             binding.tvExtendedSize.visibility = View.VISIBLE
         }
    }
+
+    interface onOfferClickListener {
+        fun onOfferClicked(packageID: String)
+    }
 }

@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
+import hu.bme.aut.movesy.R
+import hu.bme.aut.movesy.adapter.OfferRecyclerViewAdapter
 import hu.bme.aut.movesy.adapter.OrderRecyclerViewAdapter
 import hu.bme.aut.movesy.databinding.OrderListFragmentBinding
 import hu.bme.aut.movesy.viewmodel.Status
 
 @AndroidEntryPoint
-class UserOrdersFragment : Fragment(){
+class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickListener {
 
     private val viewModel: UserPackageViewModel by viewModels()
     private lateinit var binding: OrderListFragmentBinding
@@ -26,6 +29,7 @@ class UserOrdersFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = OrderListFragmentBinding.inflate(inflater, container, false)
+
         setUpRecyclerView()
         return binding.root
     }
@@ -62,5 +66,13 @@ class UserOrdersFragment : Fragment(){
     private fun setUpRecyclerView(){
         adapter = OrderRecyclerViewAdapter()
         binding.orderList.adapter = adapter
+        adapter.clickListener = this
+    }
+
+    override fun onOfferClicked(packageID: String) {
+        val bundle = Bundle()
+        bundle.putString("PACKAGE_ID", packageID)
+        Navigation.findNavController(requireActivity(), R.id.nav_orders_fragment_container)
+            .navigate(R.id.on_package_selected_action, bundle)
     }
 }

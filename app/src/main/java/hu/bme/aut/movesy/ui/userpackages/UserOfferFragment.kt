@@ -21,7 +21,7 @@ class UserOfferFragment : Fragment(){
     private lateinit var viewModel: UserOfferViewModel
     @Inject
     lateinit var repo: Repository
-    private lateinit var binding:OffersListFragmentBinding
+    private lateinit var binding: OffersListFragmentBinding
     private lateinit var adapter: OfferRecyclerViewAdapter
 
     override fun onCreateView(
@@ -30,9 +30,11 @@ class UserOfferFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = OffersListFragmentBinding.inflate(inflater, container, false)
-        TODO("send down the package ID")
-        viewModel = UserOfferViewModel(repo, savedInstanceState!!["PACKAGE_ID"]!!.toString())
+        savedInstanceState?.let { Log.d("error", savedInstanceState.toString())}
+        viewModel = UserOfferViewModel(repo, requireArguments()["PACKAGE_ID"].toString())
         setUpRecyclerView()
+        viewModel.refresh()
+
         return binding.root
     }
 
@@ -47,9 +49,13 @@ class UserOfferFragment : Fragment(){
         viewModel.offers.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
+                    Log.d("status", viewModel.offerInfos.toString())
+                    Log.d("status", viewModel.offers.value?.data.toString())
+                    viewModel.offerInfos?.let{offers ->
+                            adapter.setItems(offers)
+                    }
 
-                    adapter.setItems(viewModel.offerInfos!!)
-
+                    Log.d("status", "success")
                 }
                 Status.ERROR -> {
                     Log.d("status", "error")
