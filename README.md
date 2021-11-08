@@ -11,7 +11,7 @@ A hetet a ```Retrofit``` kliens megírásával kezdtük. Ehhez az adatok kinyer�
 Ez után elkészítettük a retrofit interface-t amibe leírtuk a kérések metódusait és a paramétereiket, majd elkészítettük a kódból hívható implementációkat is amihez egy ```ResponseHandler``` mintát vettünk alapul.
 Volt egy API interface összezavarodás a backend és közöttünk, ami percek alatt kiderült, hogy a routokban történt változások miatt volt, de a gyors és hatékony kommunikációnak köszönhetően villámgyorsan megoldódott.
 Ezután elkészítettük a ```layout``` fileokat.
-ELkezdtünk ismerkedni a ```dependency injectionnel``` dagger2 használatával.
+Elkezdtünk ismerkedni a ```dependency injectionnel``` dagger2 használatával.
 
 ## 6. hét
 
@@ -23,3 +23,9 @@ Rájöttünk, hogy a callback-ek helyett sokkal jobban tesztelhető kódot kapun
 Teszteket is készítettünk:
 - Unit teszteket a Retrofit kliens teszteléséhez, `MockWebServert` használva.
 - Integration tesztet a Room adatbázis hívásaira, amiben a Hiltet használjuk a függőségek feloldására.
+
+## 7-8. hét
+
+Ebben a két hétben elkészítettük a különböző oldalak közötti navigációt a `Navigation Component` segítségével, ebből kettőt is használunk a külső főmenühöz és annak a lapjaihoz egyet,  a belső MyOrders menüpont és benne navigálható nézetekhez még egyet.
+Elkészítettük emellett a `RecycleViewAdaptereket` így a listák már működnek és az elemek lenyithatók.
+A nézetekhez `Fragmenteket` és `ViewModeleket` elkészítettünk és már a logikát is elkezdtük hozzáadni a viewmodelekhez.
