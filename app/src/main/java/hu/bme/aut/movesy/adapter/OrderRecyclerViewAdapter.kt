@@ -1,25 +1,14 @@
 package hu.bme.aut.movesy.adapter
 
 import android.content.Context
-import android.graphics.Color
-import android.opengl.Visibility
-import android.provider.CalendarContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.FtsOptions
-import dagger.hilt.android.qualifiers.ApplicationContext
 import hu.bme.aut.movesy.R
-import hu.bme.aut.movesy.databinding.PackageRowBinding
 import hu.bme.aut.movesy.databinding.PackageRowExtendedBinding
 import hu.bme.aut.movesy.model.Package
-import hu.bme.aut.movesy.viewmodel.Status
-import kotlinx.coroutines.currentCoroutineContext
 
 class OrderRecyclerViewAdapter: RecyclerView.Adapter<OrderRecyclerViewAdapter.PackageViewHolder>(){
 

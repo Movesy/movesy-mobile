@@ -56,17 +56,17 @@
     </fragment>
 
     <action
-        android:id="@+id/on_profile_selected_action"
+        android:id="@+id/on_profile_selected_global_action"
         app:destination="@+id/nav_profile">
     </action>
 
     <action
-        android:id="@+id/on_order_selected_action"
+        android:id="@+id/on_order_selected_global_action"
         app:destination="@+id/nav_current_orders">
     </action>
 
     <action
-        android:id="@+id/on_new_order_selected_action"
+        android:id="@+id/on_new_order_selected_global_action"
         app:destination="@+id/nav_new_order">
     </action>
 

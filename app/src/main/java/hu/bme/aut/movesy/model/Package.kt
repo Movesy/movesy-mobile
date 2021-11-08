@@ -8,8 +8,8 @@ import com.squareup.moshi.Json
 data class Package (
     @PrimaryKey
     @Json(name = "id") val id: String,
-    val name: String?,
     var userID: String,
+    val name: String?,
     var transporterID: String?,
     var from: String?,
     var to: String?,
