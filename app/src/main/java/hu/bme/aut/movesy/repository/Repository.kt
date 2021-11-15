@@ -1,5 +1,7 @@
 package hu.bme.aut.movesy.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import hu.bme.aut.movesy.database.OfferDao
 import hu.bme.aut.movesy.database.PackageDao
 import hu.bme.aut.movesy.database.ReviewDao
@@ -9,8 +11,11 @@ import hu.bme.aut.movesy.model.Package
 import hu.bme.aut.movesy.model.Review
 import hu.bme.aut.movesy.model.User
 import hu.bme.aut.movesy.network.RestAPI
+import hu.bme.aut.movesy.viewmodel.Resource
+import hu.bme.aut.movesy.viewmodel.Status
 import hu.bme.aut.movesy.viewmodel.performGetOperation
 import hu.bme.aut.movesy.viewmodel.performPostOperation
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -25,10 +30,11 @@ class Repository @Inject constructor(
     //      AUTHENTICATION
     //--------------------------------------
 
-    fun loginUser(user: User) = performPostOperation(
-        networkCall = { restapi.loginUser(user)  },
-        saveCallResult = { userDao.updateOrInsert(user) }
-    )
+    fun loginUser(user: User):LiveData<Resource<String>> = liveData(Dispatchers.IO) {
+        val responseStatus = restapi.loginUser(user)
+        emit(responseStatus)
+    }
+
 
     fun registerUser(user: User) = performPostOperation(
     networkCall = { restapi.registerUser(user) },

@@ -24,7 +24,18 @@ class RestAPI @Inject constructor(
     //      AUTHENTICATION
     //--------------------------------------
 
-    suspend fun loginUser(user: User) = getResult { restApiInterface.loginUser(user) }
+    suspend fun loginUser(user: User): Resource<String> {
+        try {
+            val response = restApiInterface.loginUser(user)
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) return Resource.success(body.token)
+            }
+            return error(" ${response.code()} ${response.message()}")
+        } catch (e: Exception) {
+            return error(e.message ?: e.toString())
+        }
+    }
 
     suspend fun registerUser(user: User) = getResult { restApiInterface.registerUser(user) }
 

@@ -1,9 +1,6 @@
 package hu.bme.aut.movesy.network
 
-import hu.bme.aut.movesy.model.Offer
-import hu.bme.aut.movesy.model.Review
-import hu.bme.aut.movesy.model.User
-import hu.bme.aut.movesy.model.Package
+import hu.bme.aut.movesy.model.*
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -14,12 +11,12 @@ interface RestApiInterface {
     //      AUTHENTICATION
     //--------------------------------------
 
-    @POST("user/login")
+    @POST("authenticate")
     suspend fun loginUser(
         @Body user: User,
-    ): Response<ResponseBody>
+    ): Response<Token>
 
-    @POST("user/register")
+    @POST("register")
     suspend fun registerUser(
         @Body user: User,
     ): Response<ResponseBody>
