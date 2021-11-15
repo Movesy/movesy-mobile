@@ -51,14 +51,14 @@ class NewOrderFragment : Fragment(){
                     if(it.first == null || it.second == null || it.first!!.latitude == 0.0 || it.second!!.latitude == 0.0)
                         return@observe
                     val newPackage = Package(
-                        "",
+                        "askdlakas",
                         "616965d764e7d8734b1a518d",
                         name = binding.etPackageName.text.toString(),
                         deadline = "${binding.dpDeadline.year}-${binding.dpDeadline.month}-${binding.dpDeadline.dayOfMonth}",
                         from = it.first,
                         to = it.second,
                         date = "${calendar.get(Calendar.YEAR)}-${calendar.get(Calendar.MONTH)}-${calendar.get(Calendar.DATE)}",
-                        status = "4",
+                        status = "1",
                         weight = binding.includedOrderPanel.etWeight2.text.toString().toDouble(),
                         size = "HUGE",
                         transporterID = null,

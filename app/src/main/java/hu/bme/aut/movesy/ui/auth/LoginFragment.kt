@@ -1,6 +1,5 @@
 package hu.bme.aut.movesy.ui.auth
 
-import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,18 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.internal.aggregatedroot.codegen._hu_bme_aut_movesy_dagger_BaseApplication
 import hu.bme.aut.movesy.R
-import hu.bme.aut.movesy.dagger.BaseApplication
 import hu.bme.aut.movesy.databinding.FragmentLoginBinding
 import hu.bme.aut.movesy.model.User
 import hu.bme.aut.movesy.network.TokenInterceptor
-import hu.bme.aut.movesy.repository.Repository
-import hu.bme.aut.movesy.ui.userpackages.NewOrderViewModel
 import hu.bme.aut.movesy.viewmodel.Status
 import javax.inject.Inject
 

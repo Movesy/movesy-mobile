@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.dagger
+package hu.bme.aut.movesy.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

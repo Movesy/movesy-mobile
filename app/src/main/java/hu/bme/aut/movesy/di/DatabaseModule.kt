@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.dagger
+package hu.bme.aut.movesy.di
 
 import android.content.Context
 import dagger.Module
@@ -9,7 +9,6 @@ import dagger.hilt.components.SingletonComponent
 import hu.bme.aut.movesy.database.*
 import hu.bme.aut.movesy.network.RestAPI
 import hu.bme.aut.movesy.repository.Repository
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module

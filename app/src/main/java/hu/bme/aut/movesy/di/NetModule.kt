@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.dagger
+package hu.bme.aut.movesy.di
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -14,12 +14,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import hu.bme.aut.movesy.network.RestApiInterface
 import hu.bme.aut.movesy.network.TokenInterceptor
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Qualifier
 
 
 @Module
