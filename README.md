@@ -29,3 +29,11 @@ Teszteket is készítettünk:
 Ebben a két hétben elkészítettük a különböző oldalak közötti navigációt a `Navigation Component` segítségével, ebből kettőt is használunk a külső főmenühöz és annak a lapjaihoz egyet,  a belső MyOrders menüpont és benne navigálható nézetekhez még egyet.
 Elkészítettük emellett a `RecycleViewAdaptereket` így a listák már működnek és az elemek lenyithatók.
 A nézetekhez `Fragmenteket` és `ViewModeleket` elkészítettünk és már a logikát is elkezdtük hozzáadni a viewmodelekhez.
+
+## 9. hét
+
+Ezen a héten az authenticationt integráltuk be az applikációba. 
+Egy `Interceptor` mintát hasznáva oldottuk meg végül a token headerbe illesztését, így minden üzenetre felkerül az azonosítás minden nagyobb kódmódosítás nélkül.
+Emellett a `MeditatorLiveDatát` is felfedeztük, ami nagyon hasznos a komplexebb osztályok figyelésére.
+A locationok és a címek feloldását `Geocoding` használatával elkészítettük. 
+
