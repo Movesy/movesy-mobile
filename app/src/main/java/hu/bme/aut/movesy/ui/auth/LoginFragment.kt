@@ -14,6 +14,7 @@ import hu.bme.aut.movesy.databinding.FragmentLoginBinding
 import hu.bme.aut.movesy.model.User
 import hu.bme.aut.movesy.network.TokenInterceptor
 import hu.bme.aut.movesy.viewmodel.Status
+import hu.bme.aut.movesy.viewmodel.UserUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,6 +23,9 @@ class LoginFragment : Fragment(){
 
     @Inject
     lateinit var tokenInterceptor: TokenInterceptor
+
+    @Inject
+    lateinit var userUtils: UserUtils
 
     private val viewModel: LoginViewModel by viewModels()
 
@@ -53,11 +57,14 @@ class LoginFragment : Fragment(){
             Log.d("debug", user.toString())
 
             binding.loginPb.visibility = View.VISIBLE
+
             viewModel.validateLoginInformation(user).observe(viewLifecycleOwner, {
                 when(it.status){
                     Status.SUCCESS -> {
                         Log.d("debug","succesful login, token: ${it.data.toString()}")
-                        tokenInterceptor.token = it.data!!
+                        userUtils.token = it.data!!
+                        Log.d("debug", userUtils.token.toString())
+                        tokenInterceptor.token = userUtils.getToken()!!
                         navController.navigate(R.id.on_login_action)
                     }
                     Status.LOADING -> {

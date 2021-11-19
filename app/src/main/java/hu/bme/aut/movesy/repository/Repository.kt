@@ -6,10 +6,7 @@ import hu.bme.aut.movesy.database.OfferDao
 import hu.bme.aut.movesy.database.PackageDao
 import hu.bme.aut.movesy.database.ReviewDao
 import hu.bme.aut.movesy.database.UserDao
-import hu.bme.aut.movesy.model.Offer
-import hu.bme.aut.movesy.model.Package
-import hu.bme.aut.movesy.model.Review
-import hu.bme.aut.movesy.model.User
+import hu.bme.aut.movesy.model.*
 import hu.bme.aut.movesy.network.RestAPI
 import hu.bme.aut.movesy.viewmodel.Resource
 import hu.bme.aut.movesy.viewmodel.Status
@@ -30,7 +27,7 @@ class Repository @Inject constructor(
     //      AUTHENTICATION
     //--------------------------------------
 
-    fun loginUser(user: User):LiveData<Resource<String>> = liveData(Dispatchers.IO) {
+    fun loginUser(user: User):LiveData<Resource<Token>> = liveData(Dispatchers.IO) {
         val responseStatus = restapi.loginUser(user)
         emit(responseStatus)
     }
