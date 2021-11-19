@@ -19,4 +19,5 @@ data class Package (
     var weight: Double?,
     var size: String?,
     var status: String?,
+    var creationDate: String?,
 )

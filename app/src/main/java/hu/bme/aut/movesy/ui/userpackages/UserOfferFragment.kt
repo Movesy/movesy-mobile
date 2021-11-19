@@ -16,9 +16,10 @@ import hu.bme.aut.movesy.viewmodel.Status
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class UserOfferFragment : Fragment(){
+class UserOfferFragment : Fragment() {
 
     private lateinit var viewModel: UserOfferViewModel
+
     @Inject
     lateinit var repo: Repository
     private lateinit var binding: OffersListFragmentBinding
@@ -30,7 +31,7 @@ class UserOfferFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = OffersListFragmentBinding.inflate(inflater, container, false)
-        savedInstanceState?.let { Log.d("error", savedInstanceState.toString())}
+        savedInstanceState?.let { Log.d("error", savedInstanceState.toString()) }
         viewModel = UserOfferViewModel(repo, requireArguments()["PACKAGE_ID"].toString())
         setUpRecyclerView()
         viewModel.refresh()
@@ -45,14 +46,14 @@ class UserOfferFragment : Fragment(){
     }
 
 
-    private fun setupObservers(){
+    private fun setupObservers() {
         viewModel.offers.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     Log.d("status", viewModel.offerInfos.toString())
                     Log.d("status", viewModel.offers.value?.data.toString())
-                    viewModel.offerInfos?.let{offers ->
-                            adapter.setItems(offers)
+                    viewModel.offerInfos?.let { offers ->
+                        adapter.setItems(offers)
                     }
 
                     Log.d("status", "success")
@@ -67,7 +68,7 @@ class UserOfferFragment : Fragment(){
         }
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         adapter = OfferRecyclerViewAdapter()
         binding.offerList.adapter = adapter
     }

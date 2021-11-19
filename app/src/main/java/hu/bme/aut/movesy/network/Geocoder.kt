@@ -14,24 +14,8 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class Geocoder(private val context: Context, private val location: String) {
-    //fun geocode() {
-    //    CoroutineScope(Dispatchers.IO).launch {
-    //        try {
-    //            val geocoder = Geocoder(context, Locale.getDefault())
-    //            val address: Address  = geocoder.getFromLocationName(
-    //                location,
-    //                1
-    //            ).firstOrNull() ?: throw RuntimeException("No address found")
-    //            withContext(Dispatchers.Main){
-    //                onResult(Pair(address.latitude, address.longitude))
-    //            }
-    //        } catch (e: Exception) {
-    //            Log.d("debug", "error: ${e.toString()}")
-    //        }
-    //    }
-    //
-    fun geocode() = liveData<Resource<Location>>(Dispatchers.IO) {
-        //CoroutineScope(Dispatchers.IO).launch {
+
+    fun geocode() = liveData(Dispatchers.IO) {
             try {
                 emit(Resource.loading(Location(0.0,0.0)))
                 val geocoder = Geocoder(context, Locale.getDefault())
@@ -45,9 +29,8 @@ class Geocoder(private val context: Context, private val location: String) {
                     emit(Resource.error("No address found"))
                 }
             } catch (e: Exception) {
-                Log.d("debug", "error: ${e.toString()}")
+                Log.d("debug", "error: $e")
                 emit(Resource.error("No address found"))
             }
-        //}
     }
 }
