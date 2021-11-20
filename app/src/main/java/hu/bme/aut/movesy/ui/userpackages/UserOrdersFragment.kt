@@ -16,6 +16,8 @@ import hu.bme.aut.movesy.adapter.OrderRecyclerViewAdapter
 import hu.bme.aut.movesy.databinding.OrderListFragmentBinding
 import hu.bme.aut.movesy.model.Package
 import hu.bme.aut.movesy.viewmodel.Status
+import hu.bme.aut.movesy.viewmodel.UserUtils
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickListener {
@@ -25,6 +27,9 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
     private lateinit var adapter: OrderRecyclerViewAdapter
     private var orders = emptyList<Package>()
     private var currentState = ACTIVE_ORDERS
+
+    @Inject
+    lateinit var userUtils: UserUtils
 
     companion object{
         const val ACTIVE_ORDERS = 0
@@ -71,8 +76,10 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
                     setRecyclerViewData()
                     binding.orderListPb.visibility = View.INVISIBLE
                     binding.orderList.visibility = View.VISIBLE
-                    binding.btNewOrder.visibility = View.GONE
-                    binding.tvNoItems.visibility = View.GONE
+                    if(orders.isNotEmpty()) {
+                        binding.btNewOrder.visibility = View.GONE
+                        binding.tvNoItems.visibility = View.GONE
+                    }
                     Log.d("status", "succes ${orders.toString()}")
                 }
                 Status.ERROR -> {

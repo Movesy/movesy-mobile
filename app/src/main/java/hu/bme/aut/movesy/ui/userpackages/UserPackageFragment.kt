@@ -62,7 +62,7 @@ class UserPackageFragment: Fragment() {
                     binding.tvReviewCustomerName.text = "MY ORDERS"
                 }
                 R.id.miTransporterBrowse -> {
-                    navigate(R.id.on_new_order_selected_global_action)
+                    navigate(R.id.on_browse_order_selected_global_action)
                     binding.tvReviewCustomerName.text = "BROWSE"
                 }
                 R.id.miTransporterProfile -> {

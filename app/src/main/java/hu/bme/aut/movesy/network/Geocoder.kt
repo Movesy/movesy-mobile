@@ -15,7 +15,7 @@ import java.util.*
 
 class Geocoder(private val context: Context, private val location: String) {
 
-    fun geocode() = liveData(Dispatchers.IO) {
+    fun geocode() = liveData<Resource<Location>>(Dispatchers.IO) {
             try {
                 emit(Resource.loading(Location(0.0,0.0)))
                 val geocoder = Geocoder(context, Locale.getDefault())

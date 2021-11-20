@@ -86,7 +86,9 @@ class NewOrderFragment : Fragment() {
             },
             transporterID = "6169b1146dc2b75cfd954ae2",
             price = 0,
-            creationDate = getcurrentDateAndTime()
+            creationDate = getcurrentDateAndTime(),
+            username = null,
+            transporterName = null,
         )
 
         Log.d("debug","New package created. source: NewOrderFragment \n ${p.toString()}")

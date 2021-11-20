@@ -19,4 +19,6 @@ data class Package (
     var size: String?,
     var status: String?,
     var creationDate: String?,
+    var username: String?,
+    var transporterName: String?
 )

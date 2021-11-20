@@ -46,6 +46,15 @@
         </action>
     </fragment>
 
+    <dialog
+        android:id="@+id/nav_offer_dialog"
+        android:name="hu.bme.aut.movesy.ui.userpackages.AddOfferDialogFragment"
+        tools:layout="@layout/offer_dialog">
+        <action
+            android:id="@+id/on_dialog_done"
+            app:destination="@+id/nav_available_orders"/>
+    </dialog>
+
     <fragment
         android:id="@+id/nav_new_order"
         android:name="hu.bme.aut.movesy.ui.userpackages.NewOrderFragment"
@@ -72,6 +81,21 @@
         android:id="@+id/on_new_order_selected_global_action"
         app:destination="@+id/nav_new_order">
     </action>
+
+    <action
+        android:id="@+id/on_browse_order_selected_global_action"
+        app:destination="@+id/nav_available_orders">
+    </action>
+
+    <fragment
+        android:id="@+id/nav_available_orders"
+        android:name="hu.bme.aut.movesy.ui.userpackages.AvailableOffersFragment"
+        tools:layout="@layout/available_orders_fragment">
+        <action
+            android:id="@+id/on_dialog_opened"
+            app:destination="@id/nav_offer_dialog"/>
+    </fragment>
+
 
     <fragment
         android:id="@+id/nav_transporter_reviews"
