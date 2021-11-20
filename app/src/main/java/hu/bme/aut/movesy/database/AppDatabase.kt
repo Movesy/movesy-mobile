@@ -14,7 +14,7 @@ import hu.bme.aut.movesy.model.Package
         Package::class,
         Review::class,
         User::class,
-    ], version = 5
+    ], version = 6
 )
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {

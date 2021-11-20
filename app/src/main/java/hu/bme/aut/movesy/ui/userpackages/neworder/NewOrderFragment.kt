@@ -39,8 +39,6 @@ class NewOrderFragment : Fragment() {
     ): View? {
         binding = NewOrderBinding.inflate(inflater, container, false)
 
-        Log.w("calendar", getcurrentDateAndTime())
-
         binding.btnSubmitOrder.setOnClickListener {
 
             if(checkValidity().not()) return@setOnClickListener
