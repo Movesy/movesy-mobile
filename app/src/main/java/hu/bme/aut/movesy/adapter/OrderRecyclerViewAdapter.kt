@@ -59,7 +59,7 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<OrderRecyclerViewAdapter.Pa
                 expanded = !expanded
             }
            binding.moneyImageButton.setOnClickListener {
-               clickListener.onOfferClicked(currentPackage.id)
+               clickListener.onOfferClicked(currentPackage)
            }
            hideElements()
        }
@@ -86,6 +86,6 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<OrderRecyclerViewAdapter.Pa
    }
 
     interface onOfferClickListener {
-        fun onOfferClicked(packageID: String)
+        fun onOfferClicked(packageID: Package)
     }
 }

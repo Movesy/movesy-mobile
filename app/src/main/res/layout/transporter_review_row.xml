@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvReviewCustomerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -20,9 +20,10 @@
         tools:text="Customer: mintaberci987" />
 
     <RatingBar
-        android:id="@+id/ratingBar2"
+        android:id="@+id/reviewBarTransporter"
         android:layout_width="235dp"
         android:layout_height="57dp"
+        android:isIndicator="true"
         android:numStars="5"
         android:rating="4"
         android:scaleX="0.5"
@@ -33,15 +34,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvReviewCustomerComment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="4dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tvReviewCustomerName"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim nibh lacus, porta fermentum lectus efficitur quis. Phasellus eu maximus urna. Pellentesque luctus velit sed nulla pharetra, a venenatis urna maximus. Maecenas sagittis magna ut orci auctor, et euismod sem blandit. Nam interdum orci sit amet eros laoreet, in consectetur nibh mollis. Maecenas porttitor sem at neque ultricies, a cursus eros tempor. Nullam sed ornare nunc. Praesent interdum non tortor eget dapibus. Nulla eget efficitur tellus. Nullam volutpat metus felis, et mollis leo fermentum id. Phasellus a ante eu sapien aliquam feugiat. Integer sollicitudin quis eros non semper. Cras dapibus massa non purus interdum laoreet. Ut pretium erat in dapibus maximus. Duis porta lorem eu justo porttitor sodales. Vivamus et quam ut lectus feugiat tempus." />
+
+    <TextView
+        android:id="@+id/tvTransporterReviewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/tvReviewCustomerComment"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
