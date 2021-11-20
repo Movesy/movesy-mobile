@@ -14,7 +14,6 @@ data class Package (
     var from: Location?,
     var to: Location?,
     var deadline: String?,
-    var date: String?,
     var price: Int?,
     var weight: Double?,
     var size: String?,

@@ -72,11 +72,6 @@ class NewOrderFragment : Fragment() {
             deadline = "${binding.dpDeadline.year}-${binding.dpDeadline.month}-${binding.dpDeadline.dayOfMonth}",
             from = geocode.data!!.first,
             to = geocode.data.second,
-            date = "${calendar.get(Calendar.YEAR)}-${calendar.get(Calendar.MONTH)}-${
-                calendar.get(
-                    Calendar.DATE
-                )
-            }",
             status = "1",
             weight = binding.includedOrderPanel.etWeight.text.toString()
                 .toDouble(),
@@ -125,6 +120,8 @@ class NewOrderFragment : Fragment() {
         if(binding.etPackageName.text.isBlank()){
             binding.etPackageName.error = "You must fill out this field!"
             valid = false
+        }else if((5 < binding.etPackageName.text.toString().length || binding.etPackageName.text.toString().length < 30).not()){
+            binding.etPackageName.error = "Package name must be between 5 and 30 characters"
         }
 
         if(binding.etFrom.text.isBlank()){

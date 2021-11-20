@@ -31,7 +31,7 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<OrderRecyclerViewAdapter.Pa
         holder.currentPackage = items[position]
         val currentPackage = holder.currentPackage
         holder.binding.tvPackageName.text = parentContext.getString(R.string.package_name, currentPackage.name)
-        holder.binding.tvExtendedDate.text = currentPackage.date
+        holder.binding.tvExtendedDate.text = currentPackage.creationDate
         holder.binding.tvExtendedDeadline.text = parentContext.getString(R.string.package_deadline, currentPackage.deadline)
         holder.binding.tvExtendedFrom.text = parentContext.getString(R.string.package_from, currentPackage.from)
         holder.binding.tvExtendedPrice.text = parentContext.getString(R.string.package_price, currentPackage.price)
