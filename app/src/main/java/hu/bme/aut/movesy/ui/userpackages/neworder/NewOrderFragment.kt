@@ -66,7 +66,7 @@ class NewOrderFragment : Fragment() {
     fun createNewPackage(geocode: Resource<Pair<Location?, Location?>>): Package {
         val calendar = Calendar.getInstance()
         val p =  Package(
-            "",
+            "asdfasdfasdf",
             userUtils.getUser()!!.id,
             name = binding.etPackageName.text.toString(),
             deadline = "${binding.dpDeadline.year}-${binding.dpDeadline.month}-${binding.dpDeadline.dayOfMonth}",
@@ -83,15 +83,12 @@ class NewOrderFragment : Fragment() {
                 binding.includedOrderPanel.rdbtnSmall.id -> "HUGE"
                 else -> "HUGE"
             },
-            transporterID = null,
-            price = null,
+            transporterID = "6169b1146dc2b75cfd954ae2",
+            price = 0,
             creationDate = getcurrentDateAndTime()
         )
 
-        Log.d(
-            "New package created. source: NewOrderFragment \n",
-            p.toString()
-        )
+        Log.d("debug","New package created. source: NewOrderFragment \n ${p.toString()}")
 
         return p
     }
@@ -139,37 +136,36 @@ class NewOrderFragment : Fragment() {
     }
 
     fun createOrder(newPackage : Package){
-        viewModel.addNewOrder(newPackage)
-            .observe(viewLifecycleOwner, { response ->
-                when (response.status) {
-                    Status.LOADING -> {
-                        binding.pbCreatePackage.visibility = View.VISIBLE
-                        Log.d(
-                            "network",
-                            "Sent package to server, waiting for response..."
-                        )
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(
-                            context,
-                            "Failed to create new package",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        Log.e(
-                            "network",
-                            "Failed to create package: ${response.message}"
-                        )
-                    }
-                    Status.SUCCESS -> {
-                        Navigation.findNavController(
-                            requireActivity(),
-                            R.id.nav_orders_fragment_container
-                        )
-                            .navigate(R.id.on_order_selected_global_action)
-                        Log.d("network", "Successfully created new package")
-                    }
+        viewModel.addNewOrder(newPackage).observe(viewLifecycleOwner, { response ->
+            when (response.status) {
+                Status.LOADING -> {
+                    binding.pbCreatePackage.visibility = View.VISIBLE
+                    Log.d(
+                        "network",
+                        "Sent package to server, waiting for response..."
+                    )
                 }
-            })
+                Status.ERROR -> {
+                    Toast.makeText(
+                        context,
+                        "Failed to create new package",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.e(
+                        "network",
+                        "Failed to create package: ${response.message}"
+                    )
+                }
+                Status.SUCCESS -> {
+                    Navigation.findNavController(
+                        requireActivity(),
+                        R.id.nav_orders_fragment_container
+                    )
+                        .navigate(R.id.on_order_selected_global_action)
+                    Log.d("network", "Successfully created new package")
+                }
+            }
+        })
     }
 }
 

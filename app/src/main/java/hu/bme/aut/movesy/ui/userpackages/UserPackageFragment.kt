@@ -26,12 +26,21 @@ class UserPackageFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.tvReviewCustomerName.text = "MY ORDERS"
         binding.bubbleTabBar.addBubbleListener{
             when(it){
-                R.id.miMyOrders -> navigate(R.id.on_order_selected_global_action)
-                R.id.miNewOrder -> navigate(R.id.on_new_order_selected_global_action)
-                R.id.miProfile ->  navigate(R.id.on_profile_selected_global_action)
+                R.id.miMyOrders -> {
+                    navigate(R.id.on_order_selected_global_action)
+                    binding.tvReviewCustomerName.text = "MY ORDERS"
+                }
+                R.id.miNewOrder -> {
+                    navigate(R.id.on_new_order_selected_global_action)
+                    binding.tvReviewCustomerName.text = "NEW ORDER"
+                }
+                R.id.miProfile -> {
+                    navigate(R.id.on_profile_selected_global_action)
+                    binding.tvReviewCustomerName.text = "PROFILE"
+                }
             }
         }
     }

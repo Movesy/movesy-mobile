@@ -18,7 +18,7 @@ import javax.inject.Inject
 class NewOrderViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
-    fun addNewOrder(pack: Package): LiveData<Resource<ResponseBody>> {
+    fun addNewOrder(pack: Package): LiveData<Resource<Package>> {
         return repository.createPackage(pack)
     }
 

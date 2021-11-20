@@ -94,7 +94,7 @@ class Repository @Inject constructor(
 
     fun createPackage(newPackage: Package) = performPostOperation(
         networkCall = { restapi.createPackage(newPackage) },
-        saveCallResult = { packageDao.createPackage(newPackage) }
+        saveCallResult = {packageA -> packageDao.createPackage(packageA) }
     )
 
     fun updatePackage(packageToEdit: Package) = performPostOperation(

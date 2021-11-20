@@ -56,20 +56,20 @@ interface RestApiInterface {
         @Query(value = "packageId") packageId: String,
     ): Response<Package>
 
-    @GET("package/user/userId")
+    @GET("package/user/")
     suspend fun getPackagesOfUser(
-        @Query(value = "userId") packageId: String,
+        @Query(value = "id") packageId: String,
     ): Response<List<Package>>
 
-    @GET("package/transporter/transporterId")
+    @GET("package/transporter/")
     suspend fun getPackagesOfTransporter(
-        @Query(value= "transporterId") transformerId: String,
+        @Query(value= "id") transformerId: String,
     ): Response<List<Package>>
 
     @POST("package/create/")
     suspend fun createPackage(
         @Body newPackage: Package
-    ): Response<ResponseBody>
+    ): Response<Package>
 
     @PUT("package/edit/")
     suspend fun updatePackage(
