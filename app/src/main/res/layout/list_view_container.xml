@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvReviewCustomerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -26,7 +26,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bubbleTabBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tvReviewCustomerName"
         app:navGraph="@navigation/myorders_navigation" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -42,7 +42,7 @@
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tvReviewCustomerName" />
 
     <io.ak1.BubbleTabBar
         android:id="@+id/bubbleTabBar"

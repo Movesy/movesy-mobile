@@ -93,7 +93,7 @@ interface RestApiInterface {
 
     @GET("review/transporter/")
     suspend fun getReviewsOfTransporter(
-        @Query(value = "transporterID") transformerId: String
+        @Query(value = "id") transformerId: String
     ): Response<List<Review>>
 
     @POST("review/create")
@@ -128,10 +128,9 @@ interface RestApiInterface {
         @Body offer: Offer
     ): Response<ResponseBody>
 
-    @POST("offer/accept/")
+    @DELETE("offer/accept/")
     suspend fun acceptOffer(
         @Query(value="packageId") packageId: String,
-        @Body offer: Offer
     ): Response<ResponseBody>
 
     @PUT("offer/edit/")

@@ -93,7 +93,7 @@ class RestAPI @Inject constructor(
 
     suspend fun createOffer(offer: Offer) = getResult { restApiInterface.createOffer(offer.packageID, offer) }
 
-    suspend fun acceptOffer(offer: Offer) = getResult { restApiInterface.acceptOffer(offer.packageID, offer) }
+    suspend fun acceptOffer(offerID: String) = getResult { restApiInterface.acceptOffer(offerID) }
 
     suspend fun updateOffer(offer: Offer) = getResult { restApiInterface.updateOffer(offer.id, offer) }
 

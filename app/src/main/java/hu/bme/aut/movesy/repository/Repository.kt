@@ -154,7 +154,7 @@ class Repository @Inject constructor(
     )
 
     fun acceptOffer(offer: Offer) = performPostOperation(
-        networkCall = { restapi.acceptOffer(offer) },
+        networkCall = { restapi.acceptOffer(offer.id) },
         saveCallResult = { offerDao.updateOffer(offer) }
     )
 

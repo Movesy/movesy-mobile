@@ -14,6 +14,7 @@ import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.adapter.OfferRecyclerViewAdapter
 import hu.bme.aut.movesy.adapter.OrderRecyclerViewAdapter
 import hu.bme.aut.movesy.databinding.OrderListFragmentBinding
+import hu.bme.aut.movesy.model.Package
 import hu.bme.aut.movesy.viewmodel.Status
 
 @AndroidEntryPoint
@@ -69,9 +70,10 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
         adapter.clickListener = this
     }
 
-    override fun onOfferClicked(packageID: String) {
+    override fun onOfferClicked(pack: Package) {
         val bundle = Bundle()
-        bundle.putString("PACKAGE_ID", packageID)
+        bundle.putString("PACKAGE_ID", pack.id)
+        bundle.putString("PACKAGE_NAME", pack.name)
         Navigation.findNavController(requireActivity(), R.id.nav_orders_fragment_container)
             .navigate(R.id.on_package_selected_action, bundle)
     }
