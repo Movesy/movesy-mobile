@@ -48,7 +48,6 @@ class RestAPI @Inject constructor(
 
     suspend fun getAllUser() = getResult { restApiInterface.getAllUsers() }
 
-    ///TODO REDUNDÁNS PARAMÉTER FIX
     suspend fun updateUser(user: User) = getResult { restApiInterface.updateUser(user.id, user) }
 
     suspend fun deleteUser(userID: String) = getResult { restApiInterface.deleteUser(userID) }
