@@ -19,6 +19,7 @@ import hu.bme.aut.movesy.ui.userpackages.neworder.NewOrderViewModel
 import hu.bme.aut.movesy.viewmodel.Resource
 import hu.bme.aut.movesy.viewmodel.Status
 import hu.bme.aut.movesy.viewmodel.UserUtils
+import hu.bme.aut.movesy.viewmodel.getcurrentDateAndTime
 import java.lang.NumberFormatException
 import java.util.*
 import javax.inject.Inject
@@ -93,11 +94,6 @@ class NewOrderFragment : Fragment() {
         return p
     }
 
-    fun getcurrentDateAndTime(): String {
-        val c = Calendar.getInstance().time
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-        return simpleDateFormat.format(c)
-    }
 
     fun checkValidity() : Boolean{
         var valid = true

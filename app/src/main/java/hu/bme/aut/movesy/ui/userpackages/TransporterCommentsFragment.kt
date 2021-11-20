@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.adapter.ReviewRecyclerViewAdapter
-import hu.bme.aut.movesy.databinding.ProfileTransporterDataBinding
 import hu.bme.aut.movesy.databinding.TransporterReviewBinding
 import hu.bme.aut.movesy.viewmodel.Status
 

@@ -1,19 +1,24 @@
 package hu.bme.aut.movesy.ui.userpackages
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import androidx.appcompat.view.menu.MenuItemImpl
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.ListViewContainerBinding
+import hu.bme.aut.movesy.viewmodel.UserUtils
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserPackageFragment: Fragment() {
 
     private lateinit var binding: ListViewContainerBinding
+    @Inject
+    lateinit var userUtils:UserUtils
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +31,12 @@ class UserPackageFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(userUtils.getUser()!!.role == "TRANSPORTER"){
+            binding.bubbleTabBar.visibility = View.GONE
+            binding.bubbleTabBarTransporter.visibility = View.VISIBLE
+        }
+
         binding.tvReviewCustomerName.text = "MY ORDERS"
         binding.bubbleTabBar.addBubbleListener{
             when(it){
@@ -43,6 +54,29 @@ class UserPackageFragment: Fragment() {
                 }
             }
         }
+
+        binding.bubbleTabBarTransporter.addBubbleListener{
+            when(it){
+                R.id.miTransporterMyOrders -> {
+                    navigate(R.id.on_order_selected_global_action)
+                    binding.tvReviewCustomerName.text = "MY ORDERS"
+                }
+                R.id.miTransporterBrowse -> {
+                    navigate(R.id.on_new_order_selected_global_action)
+                    binding.tvReviewCustomerName.text = "BROWSE"
+                }
+                R.id.miTransporterProfile -> {
+                    navigate(R.id.on_profile_selected_global_action)
+                    binding.tvReviewCustomerName.text = "PROFILE"
+                }
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        Log.d("MENU",menu.toString() )
+
     }
 
     private fun navigate(viewid: Int){

@@ -102,7 +102,7 @@ class Repository @Inject constructor(
         saveCallResult = { packageDao.updatePackage(packageToEdit) }
     )
 
-    suspend fun deletePackage(packageID: String) = performPostOperation(
+    fun deletePackage(packageID: String) = performPostOperation(
         networkCall = { restapi.deletePackage(packageID) },
         saveCallResult = { packageDao.deletePackage(packageID) }
     )
@@ -111,7 +111,7 @@ class Repository @Inject constructor(
     //      REVIEW
     //--------------------------------------
 
-    suspend fun getReviewOfPackage(packageID: String) = performGetOperation(
+    fun getReviewOfPackage(packageID: String) = performGetOperation(
         databaseQuery = { reviewDao.getReviewOfPackage(packageID) },
         networkCall = { restapi.getReviewOfPackage(packageID) },
         saveCallResult = {review -> reviewDao.updateOrInsert(review) }
@@ -167,9 +167,6 @@ class Repository @Inject constructor(
         networkCall = { restapi.deleteOffer(offerID) },
         saveCallResult = { offerDao.deleteOffer(offerID) }
     )
-
-    suspend fun getNameFromId(id:String) =
-        userDao.getUsernameFromId(id)
 
 
 }
