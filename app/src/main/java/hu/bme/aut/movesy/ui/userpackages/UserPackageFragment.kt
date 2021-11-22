@@ -2,7 +2,6 @@ package hu.bme.aut.movesy.ui.userpackages
 
 import android.os.Bundle
 import android.util.Log
-
 import android.view.*
 import androidx.appcompat.view.menu.MenuItemImpl
 import androidx.core.view.get
@@ -17,12 +16,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserPackageFragment: Fragment() {
-
-
     private lateinit var binding: ListViewContainerBinding
     @Inject
     lateinit var userUtils:UserUtils
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,13 +27,11 @@ class UserPackageFragment: Fragment() {
     ): View? {
 
         binding = ListViewContainerBinding.inflate(inflater,container,false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         if(userUtils.getUser()!!.role == "TRANSPORTER"){
             binding.bubbleTabBar.visibility = View.GONE
@@ -89,6 +83,5 @@ class UserPackageFragment: Fragment() {
     private fun navigate(viewid: Int){
         Navigation.findNavController(requireActivity(),R.id.nav_orders_fragment_container)
             .navigate(viewid)
-
     }
 }

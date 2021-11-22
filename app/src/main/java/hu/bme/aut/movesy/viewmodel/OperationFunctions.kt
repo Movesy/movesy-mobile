@@ -1,15 +1,11 @@
 package hu.bme.aut.movesy.viewmodel
 
-
 import android.icu.text.SimpleDateFormat
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import kotlinx.coroutines.Dispatchers
-
 import java.util.*
-
 
 fun <T, A> performGetOperation(databaseQuery: () -> LiveData<T>,
                                networkCall: suspend () -> Resource<A>,
@@ -39,7 +35,6 @@ fun <A> performPostOperation(
             responseStatus.data?.let { saveCallResult(it) }
         }
         emit(responseStatus)
-
     }
 
 fun getcurrentDateAndTime(): String {
@@ -47,4 +42,3 @@ fun getcurrentDateAndTime(): String {
     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     return simpleDateFormat.format(c)
 }
-

@@ -3,12 +3,10 @@ package hu.bme.aut.movesy.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-
 import hu.bme.aut.movesy.database.OfferDao
 import hu.bme.aut.movesy.database.PackageDao
 import hu.bme.aut.movesy.database.ReviewDao
 import hu.bme.aut.movesy.database.UserDao
-
 import hu.bme.aut.movesy.model.*
 import hu.bme.aut.movesy.network.RestAPI
 import hu.bme.aut.movesy.viewmodel.Resource
@@ -16,7 +14,6 @@ import hu.bme.aut.movesy.viewmodel.Status
 import hu.bme.aut.movesy.viewmodel.performGetOperation
 import hu.bme.aut.movesy.viewmodel.performPostOperation
 import kotlinx.coroutines.Dispatchers
-
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -31,12 +28,10 @@ class Repository @Inject constructor(
     //      AUTHENTICATION
     //--------------------------------------
 
-
     fun loginUser(user: User):LiveData<Resource<Token>> = liveData(Dispatchers.IO) {
         val responseStatus = restapi.loginUser(user)
         emit(responseStatus)
     }
-
 
 
     fun registerUser(user: User) = performPostOperation(
@@ -100,19 +95,15 @@ class Repository @Inject constructor(
 
     fun createPackage(newPackage: Package) = performPostOperation(
         networkCall = { restapi.createPackage(newPackage) },
-
         saveCallResult = {packageA -> packageDao.createPackage(packageA) }
-
     )
 
     fun updatePackage(packageToEdit: Package) = performPostOperation(
         networkCall = { restapi.updatePackage(packageToEdit) },
         saveCallResult = { packageDao.updatePackage(packageToEdit) }
     )
-
-
+    
     fun deletePackage(packageID: String) = performPostOperation(
-
         networkCall = { restapi.deletePackage(packageID) },
         saveCallResult = { packageDao.deletePackage(packageID) }
     )
@@ -122,7 +113,6 @@ class Repository @Inject constructor(
     //--------------------------------------
 
     fun getReviewOfPackage(packageID: String) = performGetOperation(
-
         databaseQuery = { reviewDao.getReviewOfPackage(packageID) },
         networkCall = { restapi.getReviewOfPackage(packageID) },
         saveCallResult = {review -> reviewDao.updateOrInsert(review) }
@@ -165,9 +155,7 @@ class Repository @Inject constructor(
     )
 
     fun acceptOffer(offer: Offer) = performPostOperation(
-
         networkCall = { restapi.acceptOffer(offer.id) },
-
         saveCallResult = { offerDao.updateOffer(offer) }
     )
 

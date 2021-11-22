@@ -7,9 +7,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import hu.bme.aut.movesy.data.MockWebServerResponses
 
 import hu.bme.aut.movesy.network.RestApiInterface
-
-
-
 import okhttp3.HttpUrl
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -21,10 +18,8 @@ import org.junit.runners.JUnit4
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.net.HttpURLConnection
-
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
-
 
 
 @RunWith(JUnit4::class)
