@@ -1,7 +1,9 @@
 package hu.bme.aut.movesy.database
 
 import android.content.Context
+
 import androidx.room.*
+
 import hu.bme.aut.movesy.model.Offer
 import hu.bme.aut.movesy.model.Review
 import hu.bme.aut.movesy.model.User
@@ -14,6 +16,7 @@ import hu.bme.aut.movesy.model.Package
         Package::class,
         Review::class,
         User::class,
+
     ], version = 8
 )
 @TypeConverters(Converter::class)

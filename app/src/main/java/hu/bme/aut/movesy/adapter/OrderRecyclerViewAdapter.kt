@@ -1,6 +1,7 @@
 package hu.bme.aut.movesy.adapter
 
 import android.content.Context
+
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,9 @@ import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.PackagePastRowExtendedBinding
 import hu.bme.aut.movesy.databinding.PackageRowExtendedBinding
 import hu.bme.aut.movesy.model.Package
+import hu.bme.aut.movesy.viewmodel.Status
+import kotlinx.coroutines.currentCoroutineContext
+
 
 class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
@@ -18,9 +22,12 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     private lateinit var parentContext: Context
     lateinit var clickListener: onOfferClickListener
 
+
+
     fun setItems(items: List<Package>){
         this.items.clear()
         this.items.addAll(items)
+
         Log.d("status", items.toString())
         notifyDataSetChanged()
     }
@@ -167,4 +174,5 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         fun onOfferClicked(packageID: Package)
         fun onReviewClicked(packageID: Package)
     }
+
 }

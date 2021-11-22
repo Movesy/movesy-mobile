@@ -11,12 +11,14 @@ interface RestApiInterface {
     //      AUTHENTICATION
     //--------------------------------------
 
+
     @POST("authenticate")
     suspend fun loginUser(
         @Body user: User,
     ): Response<Token>
 
     @POST("register")
+
     suspend fun registerUser(
         @Body user: User,
     ): Response<ResponseBody>
@@ -56,6 +58,7 @@ interface RestApiInterface {
         @Query(value = "packageId") packageId: String,
     ): Response<Package>
 
+
     @GET("package/user/")
     suspend fun getPackagesOfUser(
         @Query(value = "id") packageId: String,
@@ -64,12 +67,15 @@ interface RestApiInterface {
     @GET("package/transporter/")
     suspend fun getPackagesOfTransporter(
         @Query(value= "id") transformerId: String,
+
     ): Response<List<Package>>
 
     @POST("package/create/")
     suspend fun createPackage(
         @Body newPackage: Package
+
     ): Response<Package>
+
 
     @PUT("package/edit/")
     suspend fun updatePackage(
@@ -93,7 +99,9 @@ interface RestApiInterface {
 
     @GET("review/transporter/")
     suspend fun getReviewsOfTransporter(
+
         @Query(value = "id") transformerId: String
+
     ): Response<List<Review>>
 
     @POST("review/create")
@@ -119,7 +127,9 @@ interface RestApiInterface {
 
     @GET("offer/")
     suspend fun getOffersOnPackage(
+
         @Query(value="id") packageId: String,
+
     ): Response<List<Offer>>
 
     @POST("offer/create/")
@@ -128,9 +138,11 @@ interface RestApiInterface {
         @Body offer: Offer
     ): Response<ResponseBody>
 
+
     @DELETE("offer/accept/")
     suspend fun acceptOffer(
         @Query(value="packageId") packageId: String,
+
     ): Response<ResponseBody>
 
     @PUT("offer/edit/")
