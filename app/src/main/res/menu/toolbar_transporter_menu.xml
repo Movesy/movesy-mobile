@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/miTransporterMyOrders"
+        android:icon="@drawable/outline_inventory_2_24"
+        android:color="@color/logger"
+        android:checked="true"
+        android:title="@string/my_orders" />
+
+    <item
+        android:id="@+id/miTransporterBrowse"
+        android:color="@color/home"
+        android:title="@string/browse"
+        android:icon="@drawable/outline_add_circle_24"/>
+
+    <item
+        android:id="@+id/miTransporterProfile"
+        android:color="@color/teal_200"
+        android:icon="@drawable/outline_person_outline_24"
+        android:title="@string/profile" />
+</menu>

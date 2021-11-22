@@ -12,7 +12,9 @@ import hu.bme.aut.movesy.model.Package
 interface ReviewDao {
 
     @Query("SELECT * FROM reviews WHERE packageID = :packageId")
-    fun getReviewOfPackage(packageId: String): LiveData<List<Review>>
+
+    fun getReviewOfPackage(packageId: String): LiveData<Review>
+
 
     @Query("SELECT * FROM reviews WHERE transporterID = :transporterId")
     fun getReviewOfTransporter(transporterId: String): LiveData<List<Review>>

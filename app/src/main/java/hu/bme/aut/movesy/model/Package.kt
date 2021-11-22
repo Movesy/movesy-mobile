@@ -9,12 +9,16 @@ data class Package (
     @PrimaryKey
     @Json(name = "id") val id: String,
     var userID: String,
+    val name: String?,
     var transporterID: String?,
-    var from: String?,
-    var to: String?,
+    var from: Location?,
+    var to: Location?,
     var deadline: String?,
     var price: Int?,
     var weight: Double?,
     var size: String?,
-    var status: String?
+    var status: String?,
+    var creationDate: String?,
+    var username: String?,
+    var transporterName: String?
 )

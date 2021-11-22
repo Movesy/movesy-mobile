@@ -20,6 +20,11 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE id = :userId")
     fun getUserForExistence(userId: String): User?
 
+
+    //Does this need to be suspend?
+    @Query("SELECT  username FROM users WHERE id = :userId")
+    suspend fun getUsernameFromId(userId: String): String?
+
     @Insert
     suspend fun insertUser(user: User)
 

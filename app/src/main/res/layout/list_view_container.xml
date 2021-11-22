@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/list_view_container"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvReviewCustomerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -14,6 +15,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_orders_fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+
+        app:layout_constraintBottom_toTopOf="@+id/bubbleTabBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvReviewCustomerName"
+        app:navGraph="@navigation/myorders_navigation" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
@@ -28,7 +42,7 @@
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tvReviewCustomerName" />
 
     <io.ak1.BubbleTabBar
         android:id="@+id/bubbleTabBar"
@@ -43,6 +57,31 @@
         app:bubbletab_icon_padding="5sp"
         app:bubbletab_icon_size="20dp"
         app:bubbletab_menuResource="@menu/toolbar_menu"
+        app:bubbletab_tab_corner_radius="25dp"
+        app:bubbletab_title_size="16sp"
+        app:bubbletab_vertical_padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <!-- app:bubbletab_custom_font="@font/opensans" -->
+
+
+    </io.ak1.BubbleTabBar>
+
+    <io.ak1.BubbleTabBar
+        android:id="@+id/bubbleTabBarTransporter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:elevation="16dp"
+        android:padding="7dp"
+        android:visibility="gone"
+
+        app:bubbletab_disabled_icon_color="@color/black"
+        app:bubbletab_horizontal_padding="20dp"
+        app:bubbletab_icon_padding="5sp"
+        app:bubbletab_icon_size="20dp"
+        app:bubbletab_menuResource="@menu/toolbar_transporter_menu"
         app:bubbletab_tab_corner_radius="25dp"
         app:bubbletab_title_size="16sp"
         app:bubbletab_vertical_padding="10dp"

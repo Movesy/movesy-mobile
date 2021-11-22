@@ -1,10 +1,9 @@
 package hu.bme.aut.movesy.network
 
 import android.util.Log
-import hu.bme.aut.movesy.model.User
-import hu.bme.aut.movesy.model.Offer
-import hu.bme.aut.movesy.model.Review
-import hu.bme.aut.movesy.model.Package
+
+import hu.bme.aut.movesy.model.*
+
 import hu.bme.aut.movesy.viewmodel.Resource
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -24,7 +23,23 @@ class RestAPI @Inject constructor(
     //      AUTHENTICATION
     //--------------------------------------
 
-    suspend fun loginUser(user: User) = getResult { restApiInterface.loginUser(user) }
+    suspend fun loginUser(user: User): Resource<Token> {
+        try {
+            Log.d("debug", "asdf")
+            val response = restApiInterface.loginUser(user)
+            Log.d("debug", "asdf")
+            Log.d("debug", "asdf ${response.toString()}")
+            if (response.isSuccessful) {
+                Log.d("debug", response.body().toString())
+                val body = response.body()
+                if (body != null) return Resource.success(body)
+            }
+            return error(" ${response.code()} ${response.message()}")
+        } catch (e: Exception) {
+            return error(e.message ?: e.toString())
+        }
+    }
+
 
     suspend fun registerUser(user: User) = getResult { restApiInterface.registerUser(user) }
 
@@ -36,7 +51,7 @@ class RestAPI @Inject constructor(
 
     suspend fun getAllUser() = getResult { restApiInterface.getAllUsers() }
 
-    ///TODO REDUNDÁNS PARAMÉTER FIX
+
     suspend fun updateUser(user: User) = getResult { restApiInterface.updateUser(user.id, user) }
 
     suspend fun deleteUser(userID: String) = getResult { restApiInterface.deleteUser(userID) }
@@ -81,11 +96,13 @@ class RestAPI @Inject constructor(
 
     suspend fun createOffer(offer: Offer) = getResult { restApiInterface.createOffer(offer.packageID, offer) }
 
-    suspend fun acceptOffer(offer: Offer) = getResult { restApiInterface.acceptOffer(offer.packageID, offer) }
+
+    suspend fun acceptOffer(offerID: String) = getResult { restApiInterface.acceptOffer(offerID) }
 
     suspend fun updateOffer(offer: Offer) = getResult { restApiInterface.updateOffer(offer.id, offer) }
 
     suspend fun deleteOffer(offerID: String) = getResult { restApiInterface.deleteOffer(offerID) }
+
 
     //----------------------------
     //      HELPER FUNCTIONS

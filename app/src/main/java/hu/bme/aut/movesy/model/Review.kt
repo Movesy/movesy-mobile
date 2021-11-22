@@ -5,7 +5,9 @@ import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
 @Entity(tableName = "reviews")
-class Review (
+
+data class Review (
+
     @PrimaryKey
     @Json(name = "id") val id: String,
     var transporterID: String,
@@ -13,5 +15,5 @@ class Review (
     var time: String,
     var rating: Double,
     var description: String,
-    var customerUsername: String
+    var customerUsername: String,
         )

@@ -1,9 +1,6 @@
 package hu.bme.aut.movesy.network
 
-import hu.bme.aut.movesy.model.Offer
-import hu.bme.aut.movesy.model.Review
-import hu.bme.aut.movesy.model.User
-import hu.bme.aut.movesy.model.Package
+import hu.bme.aut.movesy.model.*
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -14,12 +11,14 @@ interface RestApiInterface {
     //      AUTHENTICATION
     //--------------------------------------
 
-    @POST("user/login")
+
+    @POST("authenticate")
     suspend fun loginUser(
         @Body user: User,
-    ): Response<ResponseBody>
+    ): Response<Token>
 
-    @POST("user/register")
+    @POST("register")
+
     suspend fun registerUser(
         @Body user: User,
     ): Response<ResponseBody>
@@ -59,20 +58,24 @@ interface RestApiInterface {
         @Query(value = "packageId") packageId: String,
     ): Response<Package>
 
-    @GET("package/user/userId")
+
+    @GET("package/user/")
     suspend fun getPackagesOfUser(
-        @Query(value = "userId") packageId: String,
+        @Query(value = "id") packageId: String,
     ): Response<List<Package>>
 
-    @GET("package/transporter/transporterId")
+    @GET("package/transporter/")
     suspend fun getPackagesOfTransporter(
-        @Query(value= "transporterId") transformerId: String,
+        @Query(value= "id") transformerId: String,
+
     ): Response<List<Package>>
 
     @POST("package/create/")
     suspend fun createPackage(
         @Body newPackage: Package
-    ): Response<ResponseBody>
+
+    ): Response<Package>
+
 
     @PUT("package/edit/")
     suspend fun updatePackage(
@@ -96,7 +99,9 @@ interface RestApiInterface {
 
     @GET("review/transporter/")
     suspend fun getReviewsOfTransporter(
-        @Query(value = "transporterID") transformerId: String
+
+        @Query(value = "id") transformerId: String
+
     ): Response<List<Review>>
 
     @POST("review/create")
@@ -122,7 +127,9 @@ interface RestApiInterface {
 
     @GET("offer/")
     suspend fun getOffersOnPackage(
-        @Query(value="packageId") packageId: String,
+
+        @Query(value="id") packageId: String,
+
     ): Response<List<Offer>>
 
     @POST("offer/create/")
@@ -131,10 +138,11 @@ interface RestApiInterface {
         @Body offer: Offer
     ): Response<ResponseBody>
 
-    @POST("offer/accept/")
+
+    @DELETE("offer/accept/")
     suspend fun acceptOffer(
         @Query(value="packageId") packageId: String,
-        @Body offer: Offer
+
     ): Response<ResponseBody>
 
     @PUT("offer/edit/")
