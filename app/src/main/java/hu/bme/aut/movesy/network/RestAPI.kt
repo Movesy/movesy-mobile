@@ -1,15 +1,12 @@
 package hu.bme.aut.movesy.network
 
 import android.util.Log
-
 import hu.bme.aut.movesy.model.*
-
 import hu.bme.aut.movesy.viewmodel.Resource
 import okhttp3.ResponseBody
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
-
 @Singleton
 class RestAPI @Inject constructor(
     private val restApiInterface: RestApiInterface
@@ -40,7 +37,6 @@ class RestAPI @Inject constructor(
         }
     }
 
-
     suspend fun registerUser(user: User) = getResult { restApiInterface.registerUser(user) }
 
     //--------------------------------------
@@ -50,7 +46,6 @@ class RestAPI @Inject constructor(
     suspend fun getUser(userID: String) = getResult { restApiInterface.getUser(userID) }
 
     suspend fun getAllUser() = getResult { restApiInterface.getAllUsers() }
-
 
     suspend fun updateUser(user: User) = getResult { restApiInterface.updateUser(user.id, user) }
 
@@ -102,7 +97,6 @@ class RestAPI @Inject constructor(
     suspend fun updateOffer(offer: Offer) = getResult { restApiInterface.updateOffer(offer.id, offer) }
 
     suspend fun deleteOffer(offerID: String) = getResult { restApiInterface.deleteOffer(offerID) }
-
 
     //----------------------------
     //      HELPER FUNCTIONS

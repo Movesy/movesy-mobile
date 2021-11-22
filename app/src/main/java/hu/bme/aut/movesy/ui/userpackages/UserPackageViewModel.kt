@@ -1,6 +1,5 @@
 package hu.bme.aut.movesy.ui.userpackages
 
-
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -10,12 +9,10 @@ import hu.bme.aut.movesy.model.Package
 import hu.bme.aut.movesy.repository.Repository
 import hu.bme.aut.movesy.viewmodel.Resource
 import hu.bme.aut.movesy.viewmodel.UserUtils
-
 import javax.inject.Inject
 
 @HiltViewModel
 class UserPackageViewModel @Inject constructor(
-
      private val repository: Repository,
      private val userUtils: UserUtils
 ):ViewModel() {
@@ -30,5 +27,4 @@ class UserPackageViewModel @Inject constructor(
         return repository.getPackagesOfOwner( userUtils.getUser()!!.id)
 
     }
-
 }
