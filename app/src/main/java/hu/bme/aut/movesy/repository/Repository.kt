@@ -1,5 +1,6 @@
 package hu.bme.aut.movesy.repository
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import hu.bme.aut.movesy.database.OfferDao
@@ -101,7 +102,7 @@ class Repository @Inject constructor(
         networkCall = { restapi.updatePackage(packageToEdit) },
         saveCallResult = { packageDao.updatePackage(packageToEdit) }
     )
-
+    
     fun deletePackage(packageID: String) = performPostOperation(
         networkCall = { restapi.deletePackage(packageID) },
         saveCallResult = { packageDao.deletePackage(packageID) }

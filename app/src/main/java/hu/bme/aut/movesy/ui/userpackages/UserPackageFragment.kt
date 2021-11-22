@@ -13,9 +13,9 @@ import hu.bme.aut.movesy.databinding.ListViewContainerBinding
 import hu.bme.aut.movesy.viewmodel.UserUtils
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class UserPackageFragment: Fragment() {
-
     private lateinit var binding: ListViewContainerBinding
     @Inject
     lateinit var userUtils:UserUtils
@@ -25,6 +25,7 @@ class UserPackageFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = ListViewContainerBinding.inflate(inflater,container,false)
         return binding.root
     }

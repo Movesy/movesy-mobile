@@ -7,7 +7,6 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
-
 @Singleton
 class RestAPI @Inject constructor(
     private val restApiInterface: RestApiInterface
@@ -91,6 +90,7 @@ class RestAPI @Inject constructor(
     suspend fun getOffersOnPackage(packageID: String) = getResult { restApiInterface.getOffersOnPackage(packageID) }
 
     suspend fun createOffer(offer: Offer) = getResult { restApiInterface.createOffer(offer.packageID, offer) }
+
 
     suspend fun acceptOffer(offerID: String) = getResult { restApiInterface.acceptOffer(offerID) }
 

@@ -11,12 +11,14 @@ interface RestApiInterface {
     //      AUTHENTICATION
     //--------------------------------------
 
+
     @POST("authenticate")
     suspend fun loginUser(
         @Body user: User,
     ): Response<Token>
 
     @POST("register")
+
     suspend fun registerUser(
         @Body user: User,
     ): Response<ResponseBody>
@@ -64,6 +66,7 @@ interface RestApiInterface {
     @GET("package/transporter/")
     suspend fun getPackagesOfTransporter(
         @Query(value= "id") transformerId: String,
+
     ): Response<List<Package>>
 
     @POST("package/create/")
@@ -127,6 +130,7 @@ interface RestApiInterface {
         @Query(value = "packageId") packageId: String,
         @Body offer: Offer
     ): Response<ResponseBody>
+
 
     @DELETE("offer/accept/")
     suspend fun acceptOffer(

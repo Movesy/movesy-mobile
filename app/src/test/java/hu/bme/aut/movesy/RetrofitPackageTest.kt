@@ -5,9 +5,8 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 import hu.bme.aut.movesy.data.MockWebServerResponses
+
 import hu.bme.aut.movesy.network.RestApiInterface
-
-
 import okhttp3.HttpUrl
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
