@@ -37,3 +37,11 @@ Egy `Interceptor` mintát hasznáva oldottuk meg végül a token headerbe illesz
 Emellett a `MeditatorLiveDatát` is felfedeztük, ami nagyon hasznos a komplexebb osztályok figyelésére.
 A locationok és a címek feloldását `Geocoding` használatával elkészítettük. 
 
+## 10. hét
+
+Ezen a héten a nézetekhez elkészítettük a hozzájuk tartozó logikát:
+- Regisztrációt
+- Változnak a nézetek attól függően, hogy miként jelentkezik be a felhasználó (User, Transporter)
+- Az offerek elfogadása/elutasítása
+- A profil adatok módosítása
+- Review készítés és módosítás
