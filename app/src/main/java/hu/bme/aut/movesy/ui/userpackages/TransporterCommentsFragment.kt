@@ -39,7 +39,7 @@ class TransporterCommentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("debug", transporterID)
+        //Log.d("debug", transporterID)
         viewModel.getCommentsOnTransporter(transporterID).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
