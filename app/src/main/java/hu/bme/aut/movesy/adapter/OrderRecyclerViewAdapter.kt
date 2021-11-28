@@ -6,14 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.PackagePastRowExtendedBinding
 import hu.bme.aut.movesy.databinding.PackageRowExtendedBinding
 import hu.bme.aut.movesy.model.Package
-import hu.bme.aut.movesy.viewmodel.Status
-import kotlinx.coroutines.currentCoroutineContext
+import hu.bme.aut.movesy.utils.PackageStatus
+import hu.bme.aut.movesy.utils.convertToSimpleDateFormat
 
 
 class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -38,19 +37,20 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             val currentPackage = holder.currentPackage
             holder.binding.tvPackageName.text =
                 parentContext.getString(R.string.package_name, currentPackage.name)
-            holder.binding.tvExtendedDate.text = currentPackage.creationDate
+            holder.binding.tvExtendedDate.text = currentPackage.creationDate?.let { convertToSimpleDateFormat(it)}
             holder.binding.tvExtendedDeadline.text =
-                parentContext.getString(R.string.package_deadline, currentPackage.deadline)
+                parentContext.getString(R.string.package_deadline,
+                    currentPackage.deadline?.let { convertToSimpleDateFormat(it) })
             holder.binding.tvExtendedFrom.text =
-                parentContext.getString(R.string.package_from, currentPackage.from)
+                parentContext.getString(R.string.package_from, currentPackage.from?.address)
             holder.binding.tvExtendedPrice.text =
                 parentContext.getString(R.string.package_price, currentPackage.price)
             holder.binding.tvExtendedSize.text =
                 parentContext.getString(R.string.package_size, currentPackage.size)
             holder.binding.tvExtendedStatus.text =
-                parentContext.getString(R.string.package_status, currentPackage.status)
+                parentContext.getString(R.string.package_status, currentPackage.status?.displayName())
             holder.binding.tvExtendedTo.text =
-                parentContext.getString(R.string.package_to, currentPackage.to)
+                parentContext.getString(R.string.package_to, currentPackage.to?.address)
             holder.binding.tvExtendedTransporter.text =
                 parentContext.getString(R.string.package_transporter, currentPackage.transporterID)
         }
@@ -59,17 +59,18 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             val currentPackage = holder.currentPackage
             holder.binding.tvPackageName.text =
                 parentContext.getString(R.string.package_name, currentPackage.name)
-            holder.binding.tvExtendedDate.text = currentPackage.creationDate
+            holder.binding.tvExtendedDate.text = currentPackage.creationDate?.let { convertToSimpleDateFormat(it)}
             holder.binding.tvExtendedDeadline.text =
-                parentContext.getString(R.string.package_deadline, currentPackage.deadline)
+                parentContext.getString(R.string.package_deadline,
+                    currentPackage.deadline?.let { convertToSimpleDateFormat(it) })
             holder.binding.tvExtendedFrom.text =
-                parentContext.getString(R.string.package_from, currentPackage.from)
+                parentContext.getString(R.string.package_from, currentPackage.from?.address)
             holder.binding.tvExtendedPrice.text =
                 parentContext.getString(R.string.package_price, currentPackage.price)
             holder.binding.tvExtendedSize.text =
                 parentContext.getString(R.string.package_size, currentPackage.size)
             holder.binding.tvExtendedTo.text =
-                parentContext.getString(R.string.package_to, currentPackage.to)
+                parentContext.getString(R.string.package_to, currentPackage.to?.address)
             holder.binding.tvExtendedTransporter.text =
                 parentContext.getString(R.string.package_transporter, currentPackage.transporterID)
         }
@@ -77,7 +78,7 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun getItemViewType(position: Int): Int {
         val item = items[position]
-        if(item.status == "Delivered")
+        if(item.status == PackageStatus.DELIVERED)
             return 2
         return 1
     }
@@ -124,12 +125,14 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         private fun showElements() {
             binding.tvExtendedDate.visibility = View.VISIBLE
-            binding.tvExtendedTransporter.visibility = View.VISIBLE
             binding.tvExtendedTo.visibility = View.VISIBLE
             binding.tvExtendedFrom.visibility = View.VISIBLE
-            binding.tvExtendedPrice.visibility = View.VISIBLE
             binding.tvExtendedDeadline.visibility = View.VISIBLE
             binding.tvExtendedSize.visibility = View.VISIBLE
+            if(currentPackage.status != PackageStatus.WAITING_FOR_REVIEW){
+                binding.tvExtendedPrice.visibility = View.VISIBLE
+                binding.tvExtendedTransporter.visibility = View.VISIBLE
+            }
         }
    }
 

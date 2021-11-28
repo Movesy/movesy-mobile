@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.viewmodel
+package hu.bme.aut.movesy.utils
 
 import android.icu.text.SimpleDateFormat
 import androidx.lifecycle.LiveData
@@ -42,3 +42,13 @@ fun getcurrentDateAndTime(): String {
     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     return simpleDateFormat.format(c)
 }
+
+fun convertToSimpleDateFormat(date: String): String {
+    val splittedString = date.split("-")
+    val c = Calendar.getInstance()
+    c.set(splittedString[0].toInt(), splittedString[1].toInt(), splittedString[2].substring(0,2).toInt())
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+    return simpleDateFormat.format(c.time)
+}
+
+

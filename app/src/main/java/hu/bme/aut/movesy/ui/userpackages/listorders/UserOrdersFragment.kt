@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.listorders
 
 import android.os.Bundle
 import android.util.Log
@@ -11,12 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.R
-import hu.bme.aut.movesy.adapter.OfferRecyclerViewAdapter
 import hu.bme.aut.movesy.adapter.OrderRecyclerViewAdapter
 import hu.bme.aut.movesy.databinding.OrderListFragmentBinding
 import hu.bme.aut.movesy.model.Package
-import hu.bme.aut.movesy.viewmodel.Status
-import hu.bme.aut.movesy.viewmodel.UserUtils
+import hu.bme.aut.movesy.utils.PackageStatus
+import hu.bme.aut.movesy.utils.Status
+import hu.bme.aut.movesy.utils.UserUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -125,7 +125,7 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
 
     private fun setRecyclerViewData(){
         if(currentState == ACTIVE_ORDERS){
-            var activeOrders = orders.filter { it.status != "DELIVERED"}
+            var activeOrders = orders.filter { it.status != PackageStatus.DELIVERED}
             adapter.setItems(activeOrders)
             if(activeOrders.isEmpty()){
                 binding.btNewOrder.visibility = View.VISIBLE
@@ -133,7 +133,7 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
                 binding.tvNoItems.text = "You have no current orders"
             }
         } else if(currentState == PAST_ORDERS){
-            var pastOrders = orders.filter { it.status == "DELIVERED"}
+            var pastOrders = orders.filter { it.status == PackageStatus.DELIVERED}
             adapter.setItems(pastOrders)
             if(pastOrders.isEmpty()){
                 binding.tvNoItems.visibility = View.VISIBLE

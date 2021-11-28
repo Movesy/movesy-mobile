@@ -1,10 +1,10 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.profile
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.movesy.model.User
 import hu.bme.aut.movesy.repository.Repository
-import hu.bme.aut.movesy.viewmodel.UserUtils
+import hu.bme.aut.movesy.utils.UserUtils
 import javax.inject.Inject
 
 @HiltViewModel

@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.availableoffers
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,9 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.adapter.AvailableRecyclerViewAdapter
 import hu.bme.aut.movesy.databinding.AvailableOrdersFragmentBinding
-import hu.bme.aut.movesy.databinding.RatingOrderBinding
 import hu.bme.aut.movesy.model.Package
-import hu.bme.aut.movesy.viewmodel.Status
+import hu.bme.aut.movesy.utils.Status
 
 @AndroidEntryPoint
 class AvailableOffersFragment: Fragment(), AvailableRecyclerViewAdapter.AvailableOrdersClickListener {

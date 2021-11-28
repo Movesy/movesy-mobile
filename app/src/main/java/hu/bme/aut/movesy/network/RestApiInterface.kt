@@ -69,9 +69,9 @@ interface RestApiInterface {
 
     ): Response<List<Package>>
 
-    @POST("package/create/")
+    @POST("package/create")
     suspend fun createPackage(
-        @Body newPackage: Package
+        @Body newPackage: PackageTransferObject
     ): Response<Package>
 
     @PUT("package/edit/")
@@ -125,7 +125,7 @@ interface RestApiInterface {
         @Query(value="id") packageId: String,
     ): Response<List<Offer>>
 
-    @POST("offer/create/")
+    @POST("offer/create")
     suspend fun createOffer(
         @Query(value = "packageId") packageId: String,
         @Body offer: Offer

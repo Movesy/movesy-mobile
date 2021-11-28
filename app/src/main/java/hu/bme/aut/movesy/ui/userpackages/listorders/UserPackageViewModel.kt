@@ -1,14 +1,13 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.listorders
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.movesy.model.Package
 import hu.bme.aut.movesy.repository.Repository
-import hu.bme.aut.movesy.viewmodel.Resource
-import hu.bme.aut.movesy.viewmodel.UserUtils
+import hu.bme.aut.movesy.utils.Resource
+import hu.bme.aut.movesy.utils.UserUtils
 import javax.inject.Inject
 
 @HiltViewModel

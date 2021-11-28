@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_current_orders"
-        android:name="hu.bme.aut.movesy.ui.userpackages.UserOrdersFragment"
+        android:name="hu.bme.aut.movesy.ui.userpackages.listorders.UserOrdersFragment"
         tools:layout="@layout/order_list_fragment">
         <action
             android:id="@+id/on_package_selected_action"
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/nav_offer"
-        android:name="hu.bme.aut.movesy.ui.userpackages.UserOfferFragment"
+        android:name="hu.bme.aut.movesy.ui.userpackages.offers.UserOfferFragment"
         tools:layout="@layout/offers_list_fragment">
         <action
             android:id="@+id/on_return_to_packages_action"
@@ -57,13 +57,13 @@
 
     <fragment
         android:id="@+id/nav_new_order"
-        android:name="hu.bme.aut.movesy.ui.userpackages.NewOrderFragment"
+        android:name="hu.bme.aut.movesy.ui.userpackages.neworder.NewOrderFragment"
         tools:layout="@layout/new_order">
     </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="hu.bme.aut.movesy.ui.userpackages.ProfileFragment"
+        android:name="hu.bme.aut.movesy.ui.userpackages.profile.ProfileFragment"
         tools:layout="@layout/profile_transporter_data">
     </fragment>
 
@@ -89,7 +89,7 @@
 
     <fragment
         android:id="@+id/nav_available_orders"
-        android:name="hu.bme.aut.movesy.ui.userpackages.AvailableOffersFragment"
+        android:name="hu.bme.aut.movesy.ui.userpackages.availableoffers.AvailableOffersFragment"
         tools:layout="@layout/available_orders_fragment">
         <action
             android:id="@+id/on_dialog_opened"
@@ -99,7 +99,7 @@
 
     <fragment
         android:id="@+id/nav_transporter_reviews"
-        android:name="hu.bme.aut.movesy.ui.userpackages.TransporterCommentsFragment"
+        android:name="hu.bme.aut.movesy.ui.userpackages.transportercomments.TransporterCommentsFragment"
         tools:layout="@layout/transporter_review">
     </fragment>
 

@@ -13,8 +13,8 @@ import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.FragmentLoginBinding
 import hu.bme.aut.movesy.model.User
 import hu.bme.aut.movesy.network.TokenInterceptor
-import hu.bme.aut.movesy.viewmodel.Status
-import hu.bme.aut.movesy.viewmodel.UserUtils
+import hu.bme.aut.movesy.utils.Status
+import hu.bme.aut.movesy.utils.UserUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint

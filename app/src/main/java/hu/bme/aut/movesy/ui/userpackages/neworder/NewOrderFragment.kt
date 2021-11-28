@@ -1,6 +1,5 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.neworder
 
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,12 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.NewOrderBinding
 import hu.bme.aut.movesy.model.Location
-import hu.bme.aut.movesy.model.Package
-import hu.bme.aut.movesy.ui.userpackages.neworder.NewOrderViewModel
-import hu.bme.aut.movesy.viewmodel.Resource
-import hu.bme.aut.movesy.viewmodel.Status
-import hu.bme.aut.movesy.viewmodel.UserUtils
-import hu.bme.aut.movesy.viewmodel.getcurrentDateAndTime
+import hu.bme.aut.movesy.model.PackageTransferObject
+import hu.bme.aut.movesy.utils.*
 import java.lang.NumberFormatException
 import java.util.*
 import javax.inject.Inject
@@ -64,16 +59,16 @@ class NewOrderFragment : Fragment() {
         return binding.root
     }
 
-    fun createNewPackage(geocode: Resource<Pair<Location?, Location?>>): Package {
+    fun createNewPackage(geocode: Resource<Pair<Location?, Location?>>): PackageTransferObject {
         val calendar = Calendar.getInstance()
-        val p =  Package(
-            "asdfasdfasdf",
+        val p =  PackageTransferObject(
+            null,
             userUtils.getUser()!!.id,
             name = binding.etPackageName.text.toString(),
             deadline = "${binding.dpDeadline.year}-${binding.dpDeadline.month}-${binding.dpDeadline.dayOfMonth}",
             from = geocode.data!!.first,
             to = geocode.data.second,
-            status = "1",
+            status = PackageStatus.WAITING_FOR_REVIEW,
             weight = binding.includedOrderPanel.etWeight.text.toString()
                 .toDouble(),
             size =
@@ -84,8 +79,8 @@ class NewOrderFragment : Fragment() {
                 binding.includedOrderPanel.rdbtnSmall.id -> "HUGE"
                 else -> "HUGE"
             },
-            transporterID = "6169b1146dc2b75cfd954ae2",
-            price = 0,
+            transporterID = null,
+            price = null,
             creationDate = getcurrentDateAndTime(),
             username = null,
             transporterName = null,
@@ -133,7 +128,7 @@ class NewOrderFragment : Fragment() {
         return valid
     }
 
-    fun createOrder(newPackage : Package){
+    fun createOrder(newPackage : PackageTransferObject){
         viewModel.addNewOrder(newPackage).observe(viewLifecycleOwner, { response ->
             when (response.status) {
                 Status.LOADING -> {

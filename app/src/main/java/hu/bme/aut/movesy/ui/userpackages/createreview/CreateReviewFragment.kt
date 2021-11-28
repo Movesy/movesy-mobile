@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import hu.bme.aut.movesy.databinding.OffersListFragmentBinding
 import hu.bme.aut.movesy.databinding.RatingOrderBinding
 import hu.bme.aut.movesy.model.Review
-import hu.bme.aut.movesy.viewmodel.Status
-import hu.bme.aut.movesy.viewmodel.UserUtils
-import hu.bme.aut.movesy.viewmodel.getcurrentDateAndTime
+import hu.bme.aut.movesy.utils.Status
+import hu.bme.aut.movesy.utils.UserUtils
+import hu.bme.aut.movesy.utils.getcurrentDateAndTime
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
+
 @AndroidEntryPoint
 class CreateReviewFragment : Fragment() {
 

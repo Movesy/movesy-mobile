@@ -2,8 +2,7 @@ package hu.bme.aut.movesy.network
 
 import android.util.Log
 import hu.bme.aut.movesy.model.*
-import hu.bme.aut.movesy.viewmodel.Resource
-import okhttp3.ResponseBody
+import hu.bme.aut.movesy.utils.Resource
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -63,7 +62,7 @@ class RestAPI @Inject constructor(
 
     suspend fun getPackageOfTransporter(transporterID: String) = getResult { restApiInterface.getPackagesOfTransporter(transporterID) }
 
-    suspend fun createPackage(newPackage: Package) = getResult { restApiInterface.createPackage(newPackage) }
+    suspend fun createPackage(newPackage: PackageTransferObject) = getResult { restApiInterface.createPackage(newPackage) }
 
     suspend fun updatePackage(packageToEdit: Package) = getResult { restApiInterface.updatePackage(packageToEdit.id, packageToEdit) }
 

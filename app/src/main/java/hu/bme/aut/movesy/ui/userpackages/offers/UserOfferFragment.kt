@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.offers
 
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +16,7 @@ import hu.bme.aut.movesy.databinding.OffersListFragmentBinding
 import hu.bme.aut.movesy.model.Offer
 import hu.bme.aut.movesy.model.OfferInfo
 import hu.bme.aut.movesy.repository.Repository
-import hu.bme.aut.movesy.viewmodel.Status
+import hu.bme.aut.movesy.utils.Status
 import javax.inject.Inject
 
 @AndroidEntryPoint

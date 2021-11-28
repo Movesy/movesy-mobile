@@ -9,10 +9,9 @@ import hu.bme.aut.movesy.database.ReviewDao
 import hu.bme.aut.movesy.database.UserDao
 import hu.bme.aut.movesy.model.*
 import hu.bme.aut.movesy.network.RestAPI
-import hu.bme.aut.movesy.viewmodel.Resource
-import hu.bme.aut.movesy.viewmodel.Status
-import hu.bme.aut.movesy.viewmodel.performGetOperation
-import hu.bme.aut.movesy.viewmodel.performPostOperation
+import hu.bme.aut.movesy.utils.Resource
+import hu.bme.aut.movesy.utils.performGetOperation
+import hu.bme.aut.movesy.utils.performPostOperation
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
@@ -93,7 +92,7 @@ class Repository @Inject constructor(
         saveCallResult = {packages -> packages.forEach { pack -> packageDao.updateOrInsert(pack) } }
     )
 
-    fun createPackage(newPackage: Package) = performPostOperation(
+    fun createPackage(newPackage: PackageTransferObject) = performPostOperation(
         networkCall = { restapi.createPackage(newPackage) },
         saveCallResult = {packageA -> packageDao.createPackage(packageA) }
     )
