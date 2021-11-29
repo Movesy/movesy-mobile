@@ -18,7 +18,6 @@ interface RestApiInterface {
     ): Response<Token>
 
     @POST("register")
-
     suspend fun registerUser(
         @Body user: User,
     ): Response<ResponseBody>
