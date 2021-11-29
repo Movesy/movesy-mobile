@@ -45,3 +45,12 @@ Ezen a héten a nézetekhez elkészítettük a hozzájuk tartozó logikát:
 - Az offerek elfogadása/elutasítása
 - A profil adatok módosítása
 - Review készítés és módosítás
+
+## 11. hét
+
+Ezen a héten folytattuk az alkalmazás logika írását:
+- Oldalra húzással usernél edit/delete transporternél cancel
+- Új ikonok a státusz jelzésére + státuszváltás az ikonok megnyomásával
+- Az eltérítés megvalósítása: lehet árajánlatot tenni a már elfogadott csomagokra is
+- Snack bar a törlés megerősítésére és undo lehetőség
+- Dialog fragmentek az elfogadás/cancel megerősítésére
