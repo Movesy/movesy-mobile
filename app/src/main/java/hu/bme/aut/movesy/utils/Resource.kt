@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.viewmodel
+package hu.bme.aut.movesy.utils
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 

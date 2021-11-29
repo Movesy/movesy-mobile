@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.viewmodel
+package hu.bme.aut.movesy.utils
 
 enum class Status {
     SUCCESS,

@@ -5,10 +5,8 @@ import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import hu.bme.aut.movesy.utils.PackageStatus
 
-@Entity(tableName = "packages")
-data class Package (
-    @PrimaryKey
-    @Json(name = "id") val id: String,
+data class PackageTransferObject (
+    @Json(name = "id") val id: String?,
     var userID: String,
     val name: String?,
     var transporterID: String?,

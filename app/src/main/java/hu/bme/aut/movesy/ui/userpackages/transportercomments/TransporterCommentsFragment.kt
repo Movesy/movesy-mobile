@@ -1,7 +1,6 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.transportercomments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.adapter.ReviewRecyclerViewAdapter
 import hu.bme.aut.movesy.databinding.TransporterReviewBinding
-import hu.bme.aut.movesy.viewmodel.Status
+import hu.bme.aut.movesy.utils.Status
 
 @AndroidEntryPoint
 class TransporterCommentsFragment : Fragment() {

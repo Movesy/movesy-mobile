@@ -9,10 +9,10 @@ import hu.bme.aut.movesy.database.ReviewDao
 import hu.bme.aut.movesy.database.UserDao
 import hu.bme.aut.movesy.model.*
 import hu.bme.aut.movesy.network.RestAPI
-import hu.bme.aut.movesy.viewmodel.Resource
-import hu.bme.aut.movesy.viewmodel.Status
-import hu.bme.aut.movesy.viewmodel.performGetOperation
-import hu.bme.aut.movesy.viewmodel.performPostOperation
+import hu.bme.aut.movesy.utils.Resource
+import hu.bme.aut.movesy.utils.performGetOperation
+import hu.bme.aut.movesy.utils.performPostOperation
+import hu.bme.aut.movesy.utils.performPostOperationWithUnsafeBody
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
@@ -72,7 +72,7 @@ class Repository @Inject constructor(
     fun getAllPackages() = performGetOperation(
         databaseQuery = { packageDao.getAllPackages() },
         networkCall = { restapi.getAllPackages() },
-        saveCallResult = {packages -> packages.forEach { pack -> packageDao.updateOrInsert(pack) } }
+        saveCallResult = {packages -> packageDao.updatePackageTable(packages) }
     )
 
     fun getPackage(packageID: String) = performGetOperation(
@@ -84,18 +84,18 @@ class Repository @Inject constructor(
     fun getPackagesOfOwner(userID: String) = performGetOperation(
         databaseQuery = { packageDao.getPackagesOfUser(userID) },
         networkCall = { restapi.getPackagesOfOwner(userID) },
-        saveCallResult = {packages -> packages.forEach { pack -> packageDao.updateOrInsert(pack) } }
+        saveCallResult = { packages -> packageDao.updatePackageTableOfUser(packages, userID) }
     )
 
     fun getPackageOfTransporter(transporterID: String) = performGetOperation(
         databaseQuery = { packageDao.getPackagesOfTransporter(transporterID) },
         networkCall = { restapi.getPackageOfTransporter(transporterID) },
-        saveCallResult = {packages -> packages.forEach { pack -> packageDao.updateOrInsert(pack) } }
+        saveCallResult = {packages -> packageDao.updatePackageTableOfTransporter(packages, transporterID) }
     )
 
-    fun createPackage(newPackage: Package) = performPostOperation(
+    fun createPackage(newPackage: PackageTransferObject) = performPostOperation(
         networkCall = { restapi.createPackage(newPackage) },
-        saveCallResult = {packageA -> packageDao.createPackage(packageA) }
+        saveCallResult = { packageA -> packageDao.createPackage(packageA) }
     )
 
     fun updatePackage(packageToEdit: Package) = performPostOperation(
@@ -103,7 +103,7 @@ class Repository @Inject constructor(
         saveCallResult = { packageDao.updatePackage(packageToEdit) }
     )
     
-    fun deletePackage(packageID: String) = performPostOperation(
+    fun deletePackage(packageID: String) = performPostOperationWithUnsafeBody(
         networkCall = { restapi.deletePackage(packageID) },
         saveCallResult = { packageDao.deletePackage(packageID) }
     )
@@ -134,7 +134,7 @@ class Repository @Inject constructor(
         saveCallResult = { reviewDao.updateReview(review) }
     )
 
-    fun deleteReview(reviewID : String) = performPostOperation(
+    fun deleteReview(reviewID : String) = performPostOperationWithUnsafeBody(
         networkCall = { restapi.deleteReview(reviewID) },
         saveCallResult = { reviewDao.deleteReview(reviewID) }
     )
@@ -149,12 +149,12 @@ class Repository @Inject constructor(
         saveCallResult = { offers -> offers.forEach { offer -> offerDao.updateOrInsert(offer) } }
     )
 
-    fun createOffer(offer: Offer) = performPostOperation(
+    fun createOffer(offer: OfferTransferObject) = performPostOperation(
         networkCall = { restapi.createOffer(offer) },
-        saveCallResult = { offerDao.createOffer(offer) }
+        saveCallResult = {resultOffer ->  offerDao.createOffer(resultOffer) }
     )
 
-    fun acceptOffer(offer: Offer) = performPostOperation(
+    fun acceptOffer(offer: Offer) = performPostOperationWithUnsafeBody(
         networkCall = { restapi.acceptOffer(offer.id) },
         saveCallResult = { offerDao.updateOffer(offer) }
     )
@@ -164,7 +164,7 @@ class Repository @Inject constructor(
         saveCallResult = { offerDao.updateOffer(offer) }
     )
 
-    fun deleteOffer(offerID: String) = performPostOperation(
+    fun deleteOffer(offerID: String) = performPostOperationWithUnsafeBody(
         networkCall = { restapi.deleteOffer(offerID) },
         saveCallResult = { offerDao.deleteOffer(offerID) }
     )

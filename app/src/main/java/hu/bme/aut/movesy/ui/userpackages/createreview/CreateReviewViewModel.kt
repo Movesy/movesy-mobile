@@ -1,12 +1,10 @@
 package hu.bme.aut.movesy.ui.userpackages.createreview
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.movesy.model.Review
 import hu.bme.aut.movesy.repository.Repository
-import hu.bme.aut.movesy.viewmodel.UserUtils
-import kotlinx.coroutines.launch
+import hu.bme.aut.movesy.utils.UserUtils
 import javax.inject.Inject
 
 @HiltViewModel

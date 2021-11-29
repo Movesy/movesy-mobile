@@ -1,18 +1,16 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.availableoffers
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.movesy.model.Offer
-import hu.bme.aut.movesy.model.OfferInfo
 import hu.bme.aut.movesy.model.Package
 import hu.bme.aut.movesy.model.User
 import hu.bme.aut.movesy.repository.Repository
-import hu.bme.aut.movesy.repository.Repository_Factory
-import hu.bme.aut.movesy.viewmodel.Resource
-import hu.bme.aut.movesy.viewmodel.Status
+import hu.bme.aut.movesy.utils.PackageStatus
+import hu.bme.aut.movesy.utils.Resource
+import hu.bme.aut.movesy.utils.Status
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,8 +43,8 @@ class AvailableOffersViewModel @Inject constructor(
         }
 
     fun mapUsersToPackages(users: List<User>, packages: List<Package>) : List<Package>{
-        return packages.filter {pack -> pack.status == "WAITING FOR QUOTE"} .map { pack ->
-            val transporter = users.find { user -> user.id == pack.transporterID }?.username ?: return emptyList()
+        return packages.filter {pack -> pack.status == PackageStatus.WAITING_FOR_REVIEW || pack.status == PackageStatus.SENT} .map { pack ->
+            val transporter = users.find { user -> user.id == pack.transporterID }?.username ?: ""
             val user = users.find { user -> user.id == pack.userID }?.username ?: return emptyList()
             Package(
                 id = pack.id,

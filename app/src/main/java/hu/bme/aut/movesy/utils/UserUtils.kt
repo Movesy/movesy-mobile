@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.viewmodel
+package hu.bme.aut.movesy.utils
 
 import hu.bme.aut.movesy.model.Token
 import javax.inject.Inject

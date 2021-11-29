@@ -3,14 +3,13 @@ package hu.bme.aut.movesy.ui.userpackages
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.appcompat.view.menu.MenuItemImpl
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.ListViewContainerBinding
-import hu.bme.aut.movesy.viewmodel.UserUtils
+import hu.bme.aut.movesy.utils.UserUtils
 import javax.inject.Inject
 
 
@@ -46,7 +45,9 @@ class UserPackageFragment: Fragment() {
                     binding.tvReviewCustomerName.text = "MY ORDERS"
                 }
                 R.id.miNewOrder -> {
-                    navigate(R.id.on_new_order_selected_global_action)
+                    val bundle = Bundle()
+                    bundle.putString("Mode", "CREATE")
+                    findNavController().navigate(R.id.on_new_order_selected_global_action, bundle)
                     binding.tvReviewCustomerName.text = "NEW ORDER"
                 }
                 R.id.miProfile -> {

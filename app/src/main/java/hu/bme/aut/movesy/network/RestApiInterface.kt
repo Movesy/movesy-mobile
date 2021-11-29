@@ -69,21 +69,20 @@ interface RestApiInterface {
 
     ): Response<List<Package>>
 
-    @POST("package/create/")
+    @POST("package/create")
     suspend fun createPackage(
-        @Body newPackage: Package
+        @Body newPackage: PackageTransferObject
     ): Response<Package>
 
     @PUT("package/edit/")
     suspend fun updatePackage(
-        @Query(value="packageId") packageId: String,
         @Body packageToEdit: Package
     ): Response<ResponseBody>
 
-    @DELETE("package/delete/packageId")
+    @DELETE("package/delete/")
     suspend fun deletePackage(
-        @Query(value = "packageId") packageId: String,
-    ): Response<ResponseBody>
+        @Query(value = "id") packageId: String,
+    ): Response<ResponseBody?>
 
     //-------------------------------------
     //      REVIEW
@@ -125,17 +124,16 @@ interface RestApiInterface {
         @Query(value="id") packageId: String,
     ): Response<List<Offer>>
 
-    @POST("offer/create/")
+    @POST("offer/create")
     suspend fun createOffer(
-        @Query(value = "packageId") packageId: String,
-        @Body offer: Offer
-    ): Response<ResponseBody>
+        @Body offer: OfferTransferObject
+    ): Response<Offer>
 
 
     @DELETE("offer/accept/")
     suspend fun acceptOffer(
-        @Query(value="packageId") packageId: String,
-    ): Response<ResponseBody>
+        @Query(value="id") offerID: String,
+    ): Response<ResponseBody?>
 
     @PUT("offer/edit/")
     suspend fun updateOffer(
@@ -143,9 +141,9 @@ interface RestApiInterface {
         @Body offer: Offer
     ): Response<ResponseBody>
 
-    @DELETE("offer/delete/")
+    @DELETE("offer/reject/")
     suspend fun deleteOffer(
-        @Query(value = "offerId") offerID: String
-    ): Response<ResponseBody>
+        @Query(value = "id") offerID: String
+    ): Response<ResponseBody?>
 
 }

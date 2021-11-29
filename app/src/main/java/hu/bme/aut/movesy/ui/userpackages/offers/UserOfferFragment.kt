@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.offers
 
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +16,7 @@ import hu.bme.aut.movesy.databinding.OffersListFragmentBinding
 import hu.bme.aut.movesy.model.Offer
 import hu.bme.aut.movesy.model.OfferInfo
 import hu.bme.aut.movesy.repository.Repository
-import hu.bme.aut.movesy.viewmodel.Status
+import hu.bme.aut.movesy.utils.Status
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,12 +51,15 @@ class UserOfferFragment : Fragment(), OfferRecyclerViewAdapter.OfferActionsClick
 
 
     private fun setupObservers(packageId: String){
+        binding.pbUserOffers.visibility = View.VISIBLE
         viewModel.getOffers(packageId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     Log.d("status", "offers loaded ${it.data!!.toString()}")
                     adapter.setItems(it.data!!)
-                    binding.pbUserOffers.visibility = View.GONE
+                    if(adapter.itemCount != 0){
+                        binding.pbUserOffers.visibility = View.GONE
+                    }
                 }
                 Status.ERROR -> {
                     binding.pbUserOffers.visibility = View.GONE
@@ -88,6 +91,7 @@ class UserOfferFragment : Fragment(), OfferRecyclerViewAdapter.OfferActionsClick
     }
 
     override fun onOfferAccepted(offer: OfferInfo) {
+        binding.pbUserOffers.visibility = View.VISIBLE
         val validOffer = Offer(id = offer.id, transporterID = offer.transporterID, price = offer.price, packageID = offer.packageID)
         viewModel.acceptOffer(validOffer).observe(viewLifecycleOwner, {
             when (it.status) {
@@ -109,11 +113,16 @@ class UserOfferFragment : Fragment(), OfferRecyclerViewAdapter.OfferActionsClick
     }
 
     override fun onOfferRejected(offer: OfferInfo) {
+        binding.pbUserOffers.visibility = View.VISIBLE
         viewModel.deleteOffer(offer.id).observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.SUCCESS -> {
                     Log.d("status", "offers accepted")
                     binding.pbUserOffers.visibility = View.GONE
+                    adapter.deleteItem(offer)
+                    if(adapter.itemCount == 0){
+                        binding.tvNoOffers.visibility = View.VISIBLE
+                    }
                 }
                 Status.ERROR -> {
                     binding.pbUserOffers.visibility = View.GONE

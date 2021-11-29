@@ -1,6 +1,7 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.availableoffers
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.adapter.AvailableRecyclerViewAdapter
 import hu.bme.aut.movesy.databinding.AvailableOrdersFragmentBinding
-import hu.bme.aut.movesy.databinding.RatingOrderBinding
 import hu.bme.aut.movesy.model.Package
-import hu.bme.aut.movesy.viewmodel.Status
+import hu.bme.aut.movesy.ui.userpackages.addoffer.AddOfferDialogFragment
+import hu.bme.aut.movesy.utils.Status
 
 @AndroidEntryPoint
 class AvailableOffersFragment: Fragment(), AvailableRecyclerViewAdapter.AvailableOrdersClickListener {
@@ -37,7 +38,10 @@ class AvailableOffersFragment: Fragment(), AvailableRecyclerViewAdapter.Availabl
             when(it.status){
                 Status.SUCCESS -> {
                     binding.pbAvailableItems.visibility = View.INVISIBLE
-                    adapter.setItems(it.data!!)
+                    if(it.data!!.isEmpty()){
+                        binding.tvNoAvailableItems.visibility = View.VISIBLE
+                    }
+                    adapter.setItems(it.data)
                 }
                 Status.ERROR -> {
                     binding.pbAvailableItems.visibility = View.INVISIBLE
@@ -58,7 +62,9 @@ class AvailableOffersFragment: Fragment(), AvailableRecyclerViewAdapter.Availabl
 
     override fun onImageButtonClicked(pack: Package) {
         val bundle = Bundle()
+        Log.d("offer", "Package selected: $pack")
         bundle.putString("PACKAGE_ID", pack.id)
+        bundle.putString("PACKAGE_PRICE", pack.price.toString())
         Navigation.findNavController(requireActivity(), R.id.nav_orders_fragment_container)
             .navigate(R.id.on_dialog_opened, bundle)
     }

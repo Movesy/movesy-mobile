@@ -1,19 +1,16 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.offers
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hu.bme.aut.movesy.model.Location
 import hu.bme.aut.movesy.model.Offer
 import hu.bme.aut.movesy.model.OfferInfo
 import hu.bme.aut.movesy.model.User
-import hu.bme.aut.movesy.network.Geocoder
 import hu.bme.aut.movesy.repository.Repository
-import hu.bme.aut.movesy.viewmodel.Resource
-import hu.bme.aut.movesy.viewmodel.Status
+import hu.bme.aut.movesy.utils.Resource
+import hu.bme.aut.movesy.utils.Status
 import okhttp3.ResponseBody
 import javax.inject.Inject
 
@@ -60,12 +57,12 @@ class UserOfferViewModel @Inject constructor(
         }
     }
 
-    fun deleteOffer(offerID: String): LiveData<Resource<ResponseBody>> {
+    fun deleteOffer(offerID: String): LiveData<Resource<ResponseBody?>> {
         Log.d("debug", "deleting offer: ${offerID}")
         return repository.deleteOffer(offerID)
     }
 
-    fun acceptOffer(offer: Offer): LiveData<Resource<ResponseBody>> {
+    fun acceptOffer(offer: Offer): LiveData<Resource<ResponseBody?>> {
         Log.d("debug", "accepting offer: ${offer.id}")
         return repository.acceptOffer(offer)
     }

@@ -1,4 +1,4 @@
-package hu.bme.aut.movesy.ui.userpackages
+package hu.bme.aut.movesy.ui.userpackages.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 import hu.bme.aut.movesy.databinding.ProfileTransporterDataBinding
 import hu.bme.aut.movesy.databinding.ProfileUserDataBinding
-import hu.bme.aut.movesy.viewmodel.Status
-import hu.bme.aut.movesy.viewmodel.UserUtils
+import hu.bme.aut.movesy.utils.Status
+import hu.bme.aut.movesy.utils.UserUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
