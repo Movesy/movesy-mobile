@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.NewOrderBinding
 import hu.bme.aut.movesy.model.Location
+import hu.bme.aut.movesy.model.Package
 import hu.bme.aut.movesy.model.PackageTransferObject
 import hu.bme.aut.movesy.utils.*
 import java.lang.NumberFormatException
@@ -26,6 +27,13 @@ class NewOrderFragment : Fragment() {
     private val viewModel: NewOrderViewModel by viewModels()
     @Inject
     lateinit var userUtils: UserUtils
+    private var mode = MODE_CREATE
+
+    companion object{
+        const val MODE_CREATE = 0
+        const val MODE_EDIT = 1
+        var packageToEdit: Package? = null
+    }
 
 
     override fun onCreateView(
@@ -34,7 +42,11 @@ class NewOrderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = NewOrderBinding.inflate(inflater, container, false)
-
+        val mode = requireArguments()["MODE"]
+        this.mode = if(mode == "CREATE") MODE_CREATE else MODE_EDIT
+        if(this.mode == MODE_EDIT){
+            changeViewToEditMode()
+        }
         binding.btnSubmitOrder.setOnClickListener {
 
             if(checkValidity().not()) return@setOnClickListener
@@ -46,7 +58,10 @@ class NewOrderFragment : Fragment() {
                 .observe(viewLifecycleOwner, {
                     when (it.status) {
                         Status.SUCCESS -> {
-                            createOrder(createNewPackage(it))
+                            if(this.mode == MODE_CREATE)
+                                createOrder(createNewPackage(it))
+                            else
+                                editOrder(collectEditedPackageData(it))
                         }
                         Status.ERROR -> {
                             binding.etFrom.error = it.message
@@ -59,9 +74,8 @@ class NewOrderFragment : Fragment() {
         return binding.root
     }
 
-    fun createNewPackage(geocode: Resource<Pair<Location?, Location?>>): PackageTransferObject {
-        val calendar = Calendar.getInstance()
-        val p =  PackageTransferObject(
+    private fun createNewPackage(geocode: Resource<Pair<Location?, Location?>>): PackageTransferObject {
+        return  PackageTransferObject(
             null,
             userUtils.getUser()!!.id,
             name = binding.etPackageName.text.toString(),
@@ -85,14 +99,10 @@ class NewOrderFragment : Fragment() {
             username = null,
             transporterName = null,
         )
-
-        Log.d("debug","New package created. source: NewOrderFragment \n ${p.toString()}")
-
-        return p
     }
 
 
-    fun checkValidity() : Boolean{
+    private fun checkValidity() : Boolean{
         var valid = true
 
         if(binding.includedOrderPanel.etWeight.text.isBlank()){
@@ -128,34 +138,80 @@ class NewOrderFragment : Fragment() {
         return valid
     }
 
-    fun createOrder(newPackage : PackageTransferObject){
+    private fun createOrder(newPackage : PackageTransferObject){
         viewModel.addNewOrder(newPackage).observe(viewLifecycleOwner, { response ->
             when (response.status) {
                 Status.LOADING -> {
-                    binding.pbCreatePackage.visibility = View.VISIBLE
-                    Log.d(
-                        "network",
-                        "Sent package to server, waiting for response..."
-                    )
-                }
+                    binding.pbCreatePackage.visibility = View.VISIBLE }
                 Status.ERROR -> {
-                    Toast.makeText(
-                        context,
-                        "Failed to create new package",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    Log.e(
-                        "network",
-                        "Failed to create package: ${response.message}"
-                    )
+                    Toast.makeText(context, "Failed to create new package", Toast.LENGTH_LONG).show()
+                    Log.e("network", "Failed to create package: ${response.message}")
                 }
                 Status.SUCCESS -> {
-                    Navigation.findNavController(
-                        requireActivity(),
-                        R.id.nav_orders_fragment_container
-                    )
+                    Navigation.findNavController(requireActivity(), R.id.nav_orders_fragment_container)
                         .navigate(R.id.on_order_selected_global_action)
-                    Log.d("network", "Successfully created new package")
+                }
+            }
+        })
+    }
+
+    private fun changeViewToEditMode(){
+        binding.btnSubmitOrder.text = "Confirm edit"
+        var currentPackage = packageToEdit ?: throw Exception("No package provided statically")
+        binding.etFrom.setText(currentPackage.from?.address)
+        binding.etTo.setText(currentPackage.to?.address)
+        binding.etPackageName.setText(currentPackage.name)
+        binding.includedOrderPanel.etWeight.setText(currentPackage.weight.toString())
+        when(currentPackage.size){
+            "SMALL" -> binding.includedOrderPanel.rdbtnSmall.isSelected = true
+            "MEDIUM" -> binding.includedOrderPanel.rdbtnMedium.isSelected = true
+            "BIG" -> binding.includedOrderPanel.rdbtnBig.isSelected = true
+            "HUGE" -> binding.includedOrderPanel.rdbtnHuge.isSelected = true
+        }
+        if(currentPackage.deadline != null){
+            var splittedString = convertToSimpleDateFormat(currentPackage.deadline!!).split("-")
+            binding.dpDeadline.updateDate(splittedString[0].toInt(), splittedString[1].toInt(), splittedString[2].toInt())
+        }
+    }
+
+    fun collectEditedPackageData(geocode: Resource<Pair<Location?, Location?>>): Package {
+        return  Package(
+            packageToEdit!!.id,
+            userUtils.getUser()!!.id,
+            name = binding.etPackageName.text.toString(),
+            deadline = "${binding.dpDeadline.year}-${binding.dpDeadline.month}-${binding.dpDeadline.dayOfMonth}",
+            from = geocode.data!!.first,
+            to = geocode.data.second,
+            status = packageToEdit?.status,
+            weight = binding.includedOrderPanel.etWeight.text.toString()
+                .toDouble(),
+            size =
+            when (binding.includedOrderPanel.radioGroup.checkedRadioButtonId) {
+                binding.includedOrderPanel.rdbtnSmall.id -> "SMALL"
+                binding.includedOrderPanel.rdbtnSmall.id -> "MEDIUM"
+                binding.includedOrderPanel.rdbtnSmall.id -> "BIG"
+                binding.includedOrderPanel.rdbtnSmall.id -> "HUGE"
+                else -> "HUGE"
+            },
+            transporterID = packageToEdit?.transporterID,
+            price = packageToEdit?.price,
+            creationDate = getcurrentDateAndTime(),
+            username = packageToEdit?.username,
+            transporterName = packageToEdit?.transporterName,
+        )
+    }
+
+    private fun editOrder(newPackage : Package){
+        viewModel.editPackage(newPackage).observe(viewLifecycleOwner, { response ->
+            when (response.status) {
+                Status.LOADING -> { binding.pbCreatePackage.visibility = View.VISIBLE }
+                Status.ERROR -> {
+                    Toast.makeText(context, "Failed to edit package", Toast.LENGTH_LONG).show()
+                    Log.e("network", "Failed to edit package: ${response.message}")
+                }
+                Status.SUCCESS -> {
+                    Navigation.findNavController(requireActivity(), R.id.nav_orders_fragment_container)
+                        .navigate(R.id.on_order_selected_global_action)
                 }
             }
         })

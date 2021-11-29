@@ -1,5 +1,6 @@
 package hu.bme.aut.movesy.ui.userpackages.availableoffers
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -42,8 +43,8 @@ class AvailableOffersViewModel @Inject constructor(
         }
 
     fun mapUsersToPackages(users: List<User>, packages: List<Package>) : List<Package>{
-        return packages.filter {pack -> pack.status == PackageStatus.WAITING_FOR_REVIEW} .map { pack ->
-            val transporter = users.find { user -> user.id == pack.transporterID }?.username ?: return emptyList()
+        return packages.filter {pack -> pack.status == PackageStatus.WAITING_FOR_REVIEW || pack.status == PackageStatus.SENT} .map { pack ->
+            val transporter = users.find { user -> user.id == pack.transporterID }?.username ?: ""
             val user = users.find { user -> user.id == pack.userID }?.username ?: return emptyList()
             Package(
                 id = pack.id,

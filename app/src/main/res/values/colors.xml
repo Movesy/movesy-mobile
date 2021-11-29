@@ -10,4 +10,8 @@
     <color name="warning">#ffcc00</color>
     <color name="received">#339900</color>
     <color name="orange">#FF9529</color>
+    <color name="waiting_for_quote">#301934</color>
+    <color name="status_in_transit">#17517E</color>
+    <color name="status_deliver_button">#7E5017</color>
+
 </resources>

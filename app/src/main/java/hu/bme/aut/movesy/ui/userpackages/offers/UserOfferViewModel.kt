@@ -57,12 +57,12 @@ class UserOfferViewModel @Inject constructor(
         }
     }
 
-    fun deleteOffer(offerID: String): LiveData<Resource<ResponseBody>> {
+    fun deleteOffer(offerID: String): LiveData<Resource<ResponseBody?>> {
         Log.d("debug", "deleting offer: ${offerID}")
         return repository.deleteOffer(offerID)
     }
 
-    fun acceptOffer(offer: Offer): LiveData<Resource<ResponseBody>> {
+    fun acceptOffer(offer: Offer): LiveData<Resource<ResponseBody?>> {
         Log.d("debug", "accepting offer: ${offer.id}")
         return repository.acceptOffer(offer)
     }

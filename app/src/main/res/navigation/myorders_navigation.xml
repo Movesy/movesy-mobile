@@ -48,7 +48,7 @@
 
     <dialog
         android:id="@+id/nav_offer_dialog"
-        android:name="hu.bme.aut.movesy.ui.userpackages.AddOfferDialogFragment"
+        android:name="hu.bme.aut.movesy.ui.userpackages.addoffer.AddOfferDialogFragment"
         tools:layout="@layout/offer_dialog">
         <action
             android:id="@+id/on_dialog_done"

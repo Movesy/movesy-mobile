@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.ListViewContainerBinding
@@ -44,7 +45,9 @@ class UserPackageFragment: Fragment() {
                     binding.tvReviewCustomerName.text = "MY ORDERS"
                 }
                 R.id.miNewOrder -> {
-                    navigate(R.id.on_new_order_selected_global_action)
+                    val bundle = Bundle()
+                    bundle.putString("Mode", "CREATE")
+                    findNavController().navigate(R.id.on_new_order_selected_global_action, bundle)
                     binding.tvReviewCustomerName.text = "NEW ORDER"
                 }
                 R.id.miProfile -> {

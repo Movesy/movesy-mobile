@@ -1,30 +1,39 @@
 package hu.bme.aut.movesy.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.movesy.R
 import hu.bme.aut.movesy.databinding.PackagePastRowExtendedBinding
 import hu.bme.aut.movesy.databinding.PackageRowExtendedBinding
 import hu.bme.aut.movesy.model.Package
+import hu.bme.aut.movesy.model.User
 import hu.bme.aut.movesy.utils.PackageStatus
+import hu.bme.aut.movesy.utils.Status
+import hu.bme.aut.movesy.utils.UserUtils
 import hu.bme.aut.movesy.utils.convertToSimpleDateFormat
+import javax.inject.Inject
 
 
-class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class OrderRecyclerViewAdapter (val user: User): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private val items = mutableListOf<Package>()
     private lateinit var parentContext: Context
     lateinit var clickListener: onOfferClickListener
 
     fun setItems(items: List<Package>){
-        this.items.clear()
-        this.items.addAll(items)
-        Log.d("status", items.toString())
+        var differentItems = this.items
+        differentItems.removeAll(items)
+        this.items.removeAll(differentItems)
+        var mutableItems = items.toMutableList()
+        mutableItems.removeAll(this.items)
+        this.items.addAll(mutableItems)
         notifyDataSetChanged()
     }
 
@@ -52,7 +61,8 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             holder.binding.tvExtendedTo.text =
                 parentContext.getString(R.string.package_to, currentPackage.to?.address)
             holder.binding.tvExtendedTransporter.text =
-                parentContext.getString(R.string.package_transporter, currentPackage.transporterID)
+                parentContext.getString(R.string.package_transporter, currentPackage.transporterName)
+            holder.bindOnClickListener()
         }
         else if (holder is PackagePastViewHolder){
             holder.currentPackage = items[position]
@@ -72,7 +82,7 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             holder.binding.tvExtendedTo.text =
                 parentContext.getString(R.string.package_to, currentPackage.to?.address)
             holder.binding.tvExtendedTransporter.text =
-                parentContext.getString(R.string.package_transporter, currentPackage.transporterID)
+                parentContext.getString(R.string.package_transporter, currentPackage.transporterName)
         }
     }
 
@@ -107,9 +117,6 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 if (expanded) hideElements() else showElements()
                 expanded = !expanded
             }
-           binding.moneyImageButton.setOnClickListener {
-               clickListener.onOfferClicked(currentPackage)
-           }
            hideElements()
        }
 
@@ -134,6 +141,44 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 binding.tvExtendedTransporter.visibility = View.VISIBLE
             }
         }
+
+        fun bindOnClickListener(){
+            when(currentPackage.status){
+                PackageStatus.WAITING_FOR_REVIEW  ->{
+                    binding.tvExtendedStatus.setTextColor( ContextCompat.getColor(parentContext,R.color.waiting_for_quote ))
+                    binding.moneyImageButton.setOnClickListener {
+                        clickListener.onOfferClicked(currentPackage)
+                    }
+                    binding.moneyImageButton.setImageResource(R.drawable.ic_baseline_attach_money_24)
+                }
+                PackageStatus.SENT  ->{
+                    binding.tvExtendedStatus.setTextColor( ContextCompat.getColor(parentContext,R.color.received ))
+                    if(user.role == "TRANSPORTER"){
+                        binding.moneyImageButton.setOnClickListener {
+                            clickListener.onTransferClicked(currentPackage)
+                        }
+                        binding.moneyImageButton.setImageResource(R.drawable.ic_baseline_delivery_dining_24)
+                    } else {
+                        binding.moneyImageButton.setImageResource(R.drawable.ic_baseline_attach_money_24)
+                        binding.moneyImageButton.setOnClickListener {
+                            clickListener.onOfferClicked(currentPackage)
+                        }
+                    }
+                }
+                PackageStatus.IN_TRANSIT  ->{
+                    binding.tvExtendedStatus.setTextColor(ContextCompat.getColor(parentContext, R.color.status_in_transit))
+                    if(user.role == "TRANSPORTER"){
+                        binding.moneyImageButton.setOnClickListener {
+                            clickListener.onDeliveredClicked(currentPackage)
+                        }
+                        binding.moneyImageButton.setImageResource(R.drawable.ic_baseline_compare_arrows_24)
+                    } else {
+                        binding.moneyImageButton.visibility = View.GONE
+                    }
+                }
+            }
+        }
+
    }
 
     inner class PackagePastViewHolder(val binding: PackagePastRowExtendedBinding) : RecyclerView.ViewHolder(binding.root){
@@ -172,6 +217,29 @@ class OrderRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     interface onOfferClickListener {
         fun onOfferClicked(packageID: Package)
+        fun onTransferClicked(packageID: Package)
+        fun onDeliveredClicked(packageID: Package)
         fun onReviewClicked(packageID: Package)
+    }
+
+    fun updatePackage( pack: Package){
+        val originalPackage = items.find { p -> p.id == pack.id }
+        val index = items.indexOf(originalPackage)
+        items.removeAt(index)
+        items.add(index, pack)
+        notifyItemChanged(index)
+    }
+
+    fun getItemByPosition(index: Int) = items[index]
+
+    fun deletePackage(pack: Package){
+        val index = items.indexOf(pack)
+        items.remove(pack)
+        notifyItemRemoved(index)
+    }
+
+    fun addPackageToPosition(pack: Package, index: Int){
+        items.add(index, pack)
+        notifyItemInserted(index)
     }
 }

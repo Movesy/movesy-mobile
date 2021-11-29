@@ -64,9 +64,9 @@ class RestAPI @Inject constructor(
 
     suspend fun createPackage(newPackage: PackageTransferObject) = getResult { restApiInterface.createPackage(newPackage) }
 
-    suspend fun updatePackage(packageToEdit: Package) = getResult { restApiInterface.updatePackage(packageToEdit.id, packageToEdit) }
+    suspend fun updatePackage(packageToEdit: Package) = getResult { restApiInterface.updatePackage( packageToEdit) }
 
-    suspend fun deletePackage(packageID: String) = getResult { restApiInterface.deletePackage(packageID) }
+    suspend fun deletePackage(packageID: String) = getResultWithoutBody { restApiInterface.deletePackage(packageID) }
 
     //-------------------------------------
     //      REVIEW
@@ -88,14 +88,13 @@ class RestAPI @Inject constructor(
 
     suspend fun getOffersOnPackage(packageID: String) = getResult { restApiInterface.getOffersOnPackage(packageID) }
 
-    suspend fun createOffer(offer: Offer) = getResult { restApiInterface.createOffer(offer.packageID, offer) }
+    suspend fun createOffer(offer: OfferTransferObject) = getResult { restApiInterface.createOffer(offer) }
 
-
-    suspend fun acceptOffer(offerID: String) = getResult { restApiInterface.acceptOffer(offerID) }
+    suspend fun acceptOffer(offerID: String) = getResultWithoutBody { restApiInterface.acceptOffer(offerID) }
 
     suspend fun updateOffer(offer: Offer) = getResult { restApiInterface.updateOffer(offer.id, offer) }
 
-    suspend fun deleteOffer(offerID: String) = getResult { restApiInterface.deleteOffer(offerID) }
+    suspend fun deleteOffer(offerID: String) = getResultWithoutBody { restApiInterface.deleteOffer(offerID) }
 
     //----------------------------
     //      HELPER FUNCTIONS
@@ -104,7 +103,8 @@ class RestAPI @Inject constructor(
     private suspend fun <T> getResult(call: suspend () -> Response<T>): Resource<T> {
         try {
             val response = call()
-            if (response.isSuccessful) {
+            if (response.isSuccessful || response.code() == 204) {
+                Log.d("getREsult", response.toString())
                 val body = response.body()
                 if (body != null) return Resource.success(body)
             }
@@ -113,6 +113,21 @@ class RestAPI @Inject constructor(
             return error(e.message ?: e.toString())
         }
     }
+
+    private suspend fun <T> getResultWithoutBody(call: suspend () -> Response<T?>): Resource<T?> {
+        try {
+            val response = call()
+            if (response.isSuccessful || response.code() == 204) {
+                Log.d("getREsult", response.toString())
+                val body = response.body()
+                return Resource.success(body)
+            }
+            return error(" ${response.code()} ${response.message()}")
+        } catch (e: Exception) {
+            return error(e.message ?: e.toString())
+        }
+    }
+
 
     private fun <T> error(message: String): Resource<T> {
         Log.d("error", message)

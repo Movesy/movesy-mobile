@@ -22,6 +22,8 @@ class NewOrderViewModel @Inject constructor(
         return repository.createPackage(pack)
     }
 
+    fun editPackage(pack:Package) = repository.updatePackage(pack)
+
     fun geocodeFromAndTo(context: Context, from: String, to: String) =
         object : MediatorLiveData<Resource<Pair<Location?, Location?>>>() {
             var _from: Location? = null

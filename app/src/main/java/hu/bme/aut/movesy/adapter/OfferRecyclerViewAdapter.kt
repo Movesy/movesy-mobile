@@ -24,6 +24,12 @@ class OfferRecyclerViewAdapter : RecyclerView.Adapter<OfferRecyclerViewAdapter.O
         notifyDataSetChanged()
     }
 
+    fun deleteItem(item: OfferInfo){
+        val index = items.indexOf(item)
+        items.remove(item)
+        notifyItemRemoved(index)
+    }
+
 
     override fun onBindViewHolder(
         holder: OfferViewHolder,
