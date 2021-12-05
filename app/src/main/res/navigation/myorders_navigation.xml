@@ -65,6 +65,10 @@
         android:id="@+id/nav_profile"
         android:name="hu.bme.aut.movesy.ui.userpackages.profile.ProfileFragment"
         tools:layout="@layout/profile_transporter_data">
+        <action
+            android:id="@+id/on_my_reviews_clicked"
+            app:destination="@id/nav_transporter_reviews">
+        </action>
     </fragment>
 
     <action

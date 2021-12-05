@@ -27,6 +27,10 @@
             android:id="@+id/on_register_action"
             app:destination="@id/nav_user_package">
         </action>
+        <action
+            android:id="@+id/on_register_successful_action"
+            app:destination="@id/nav_login">
+        </action>
     </fragment>
 
     <fragment

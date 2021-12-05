@@ -46,7 +46,7 @@ class UserPackageFragment: Fragment() {
                 }
                 R.id.miNewOrder -> {
                     val bundle = Bundle()
-                    bundle.putString("Mode", "CREATE")
+                    bundle.putString("MODE", "CREATE")
                     Navigation.findNavController(requireActivity(),R.id.nav_orders_fragment_container)
                         .navigate(R.id.on_new_order_selected_global_action, bundle)
                     binding.tvReviewCustomerName.text = "NEW ORDER"

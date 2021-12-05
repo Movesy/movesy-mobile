@@ -52,7 +52,8 @@ class LoginFragment : Fragment(){
             val user = User("",
                 binding.etEmail.text.toString(),
                 binding.etPassword.text.toString(),
-                "","","",""
+                "","","","",
+            null
                 )
             Log.d("debug", user.toString())
 
@@ -63,6 +64,7 @@ class LoginFragment : Fragment(){
                     Status.SUCCESS -> {
                         Log.d("debug","succesful login, token: ${it.data.toString()}")
                         userUtils.token = it.data!!
+                        userUtils.token!!.user.password = user.password
                         Log.d("debug", userUtils.token.toString())
                         tokenInterceptor.token = userUtils.getToken()!!
                         navController.navigate(R.id.on_login_action)

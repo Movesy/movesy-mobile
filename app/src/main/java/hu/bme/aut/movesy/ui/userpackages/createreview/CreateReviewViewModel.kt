@@ -3,6 +3,7 @@ package hu.bme.aut.movesy.ui.userpackages.createreview
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.movesy.model.Review
+import hu.bme.aut.movesy.model.ReviewTransferObject
 import hu.bme.aut.movesy.repository.Repository
 import hu.bme.aut.movesy.utils.UserUtils
 import javax.inject.Inject
@@ -15,10 +16,8 @@ class CreateReviewViewModel @Inject constructor(
 
     fun getRewiew(packageID: String) = repository.getReviewOfPackage(packageID)
 
-    fun getTransporterName(transporterId: String) =
-        repository.getAllUser()
 
-    fun saveReview(review: Review) =
+    fun saveReview(review: ReviewTransferObject) =
         repository.createReview(review)
 
     fun updateReview(review: Review) =

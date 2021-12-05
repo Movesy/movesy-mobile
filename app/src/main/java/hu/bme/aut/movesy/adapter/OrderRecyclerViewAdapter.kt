@@ -61,7 +61,11 @@ class OrderRecyclerViewAdapter (val user: User): RecyclerView.Adapter<RecyclerVi
             holder.binding.tvExtendedTo.text =
                 parentContext.getString(R.string.package_to, currentPackage.to?.address)
             holder.binding.tvExtendedTransporter.text =
-                parentContext.getString(R.string.package_transporter, currentPackage.transporterName)
+                if(user.role == "USER"){
+                    parentContext.getString(R.string.package_transporter, currentPackage.transporterName)
+                } else {
+                    parentContext.getString(R.string.customer_name, currentPackage.username)
+                }
             holder.bindOnClickListener()
         }
         else if (holder is PackagePastViewHolder){
@@ -82,7 +86,11 @@ class OrderRecyclerViewAdapter (val user: User): RecyclerView.Adapter<RecyclerVi
             holder.binding.tvExtendedTo.text =
                 parentContext.getString(R.string.package_to, currentPackage.to?.address)
             holder.binding.tvExtendedTransporter.text =
-                parentContext.getString(R.string.package_transporter, currentPackage.transporterName)
+                if(user.role == "USER"){
+                    parentContext.getString(R.string.package_transporter, currentPackage.transporterName)
+                } else {
+                    parentContext.getString(R.string.customer_name, currentPackage.username)
+                }
         }
     }
 

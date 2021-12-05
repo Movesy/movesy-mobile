@@ -61,11 +61,21 @@ fun getcurrentDateAndTime(): String {
 }
 
 fun convertToSimpleDateFormat(date: String): String {
-    val splittedString = date.split("-")
+    val splittedString = date.split("-").toMutableList()
     val c = Calendar.getInstance()
+    if(splittedString[2].length < 2) splittedString[2] = "0${splittedString[2]}"
     c.set(splittedString[0].toInt(), splittedString[1].toInt(), splittedString[2].substring(0,2).toInt())
     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     return simpleDateFormat.format(c.time)
+}
+
+fun sizeSorter(size: String, sizeToSort: String): Boolean{
+    return when(size){
+        "SMALL" -> sizeToSort == "SMALL"
+        "MEDIUM" -> sizeToSort == "SMALL" || sizeToSort == "MEDIUM"
+        "BIG" -> sizeToSort != "HUGE"
+        else -> true
+    }
 }
 
 

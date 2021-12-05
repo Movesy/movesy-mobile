@@ -34,9 +34,9 @@ class Repository @Inject constructor(
     }
 
 
-    fun registerUser(user: User) = performPostOperation(
+    fun registerUser(user: UserTransferObject) = performPostOperation(
     networkCall = { restapi.registerUser(user) },
-    saveCallResult = { userDao.updateOrInsert(user) }
+    saveCallResult = {newUser ->  userDao.updateOrInsert(newUser) }
     )
 
     //--------------------------------------
@@ -124,14 +124,14 @@ class Repository @Inject constructor(
         saveCallResult = { reviews -> reviews.forEach {review -> reviewDao.updateOrInsert(review) } }
     )
 
-    fun createReview(review: Review) = performPostOperation(
+    fun createReview(review: ReviewTransferObject) = performPostOperation(
         networkCall = { restapi.createReview(review) },
-        saveCallResult = { reviewDao.createReview(review) }
+        saveCallResult = {newReview ->  reviewDao.createReview(newReview) }
     )
 
     fun editReview(review: Review) = performPostOperation(
         networkCall = { restapi.updateReview(review) },
-        saveCallResult = { reviewDao.updateReview(review) }
+        saveCallResult = {newReview -> reviewDao.updateReview(newReview) }
     )
 
     fun deleteReview(reviewID : String) = performPostOperationWithUnsafeBody(

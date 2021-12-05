@@ -12,7 +12,8 @@ class RestAPI @Inject constructor(
     ){
 
     companion object{
-        const val BASE_URL = "https://movesy.herokuapp.com/"
+        //const val BASE_URL = "https://movesy.herokuapp.com/"
+        const val BASE_URL = "https://movesy-test.herokuapp.com/"
     }
 
     //--------------------------------------
@@ -36,7 +37,7 @@ class RestAPI @Inject constructor(
         }
     }
 
-    suspend fun registerUser(user: User) = getResult { restApiInterface.registerUser(user) }
+    suspend fun registerUser(user: UserTransferObject) = getResult { restApiInterface.registerUser(user) }
 
     //--------------------------------------
     //      USER
@@ -64,7 +65,7 @@ class RestAPI @Inject constructor(
 
     suspend fun createPackage(newPackage: PackageTransferObject) = getResult { restApiInterface.createPackage(newPackage) }
 
-    suspend fun updatePackage(packageToEdit: Package) = getResult { restApiInterface.updatePackage( packageToEdit) }
+    suspend fun updatePackage(packageToEdit: Package) = getResult { restApiInterface.updatePackage( packageToEdit.id, packageToEdit) }
 
     suspend fun deletePackage(packageID: String) = getResultWithoutBody { restApiInterface.deletePackage(packageID) }
 
@@ -76,9 +77,9 @@ class RestAPI @Inject constructor(
 
     suspend fun getReviewOfTransporter(transporterID: String) = getResult { restApiInterface.getReviewsOfTransporter(transporterID) }
 
-    suspend fun createReview(review: Review) = getResult { restApiInterface.crateReview(review) }
+    suspend fun createReview(review: ReviewTransferObject) = getResult { restApiInterface.crateReview(review) }
 
-    suspend fun updateReview(review: Review) = getResult { restApiInterface.updateReview(review.id, review) }
+    suspend fun updateReview(review: Review) = getResult { restApiInterface.updateReview( review) }
 
     suspend fun deleteReview(reviewID : String) = getResult { restApiInterface.deleteReview(reviewID) }
 

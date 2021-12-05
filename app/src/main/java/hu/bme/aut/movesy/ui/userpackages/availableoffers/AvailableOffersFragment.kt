@@ -16,12 +16,18 @@ import hu.bme.aut.movesy.databinding.AvailableOrdersFragmentBinding
 import hu.bme.aut.movesy.model.Package
 import hu.bme.aut.movesy.ui.userpackages.addoffer.AddOfferDialogFragment
 import hu.bme.aut.movesy.utils.Status
+import hu.bme.aut.movesy.utils.UserUtils
+import hu.bme.aut.movesy.utils.sizeSorter
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AvailableOffersFragment: Fragment(), AvailableRecyclerViewAdapter.AvailableOrdersClickListener {
     private val viewModel: AvailableOffersViewModel by viewModels()
     private lateinit var binding: AvailableOrdersFragmentBinding
     private val adapter = AvailableRecyclerViewAdapter()
+
+    @Inject
+    lateinit var userUtils: UserUtils
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +47,8 @@ class AvailableOffersFragment: Fragment(), AvailableRecyclerViewAdapter.Availabl
                     if(it.data!!.isEmpty()){
                         binding.tvNoAvailableItems.visibility = View.VISIBLE
                     }
-                    adapter.setItems(it.data)
+                    val size = userUtils.getUser()!!.size ?: "HUGE"
+                    adapter.setItems(it.data.filter { data -> if(data.size != null) sizeSorter(size, data.size!!) else true })
                 }
                 Status.ERROR -> {
                     binding.pbAvailableItems.visibility = View.INVISIBLE

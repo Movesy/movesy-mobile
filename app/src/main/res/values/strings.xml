@@ -30,4 +30,5 @@
     <string name="new_order">New Order</string>
     <string name="profile">Profile</string>
     <string name="customer_name">Customer: %1$s</string>
+    <string name="package_user">"User: %1$s"</string>
 </resources>

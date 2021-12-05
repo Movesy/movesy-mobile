@@ -19,8 +19,8 @@ interface RestApiInterface {
 
     @POST("register")
     suspend fun registerUser(
-        @Body user: User,
-    ): Response<ResponseBody>
+        @Body user: UserTransferObject,
+    ): Response<User>
 
     //--------------------------------------
     //      USER
@@ -75,6 +75,7 @@ interface RestApiInterface {
 
     @PUT("package/edit/")
     suspend fun updatePackage(
+        @Query(value = "id") packageId: String,
         @Body packageToEdit: Package
     ): Response<ResponseBody>
 
@@ -99,14 +100,13 @@ interface RestApiInterface {
 
     @POST("review/create")
     suspend fun crateReview(
-        @Body review: Review,
-    ): Response<ResponseBody>
+        @Body review: ReviewTransferObject,
+    ): Response<Review>
 
     @PUT("review/edit/")
     suspend fun updateReview(
-        @Query(value = "reviewID") reviewID: String,
         @Body review: Review
-    ): Response<ResponseBody>
+    ): Response<Review>
 
     @DELETE("review/delete/")
     suspend fun deleteReview(

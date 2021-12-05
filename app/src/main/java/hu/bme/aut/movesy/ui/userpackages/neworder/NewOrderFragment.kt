@@ -79,7 +79,7 @@ class NewOrderFragment : Fragment() {
             null,
             userUtils.getUser()!!.id,
             name = binding.etPackageName.text.toString(),
-            deadline = "${binding.dpDeadline.year}-${binding.dpDeadline.month}-${binding.dpDeadline.dayOfMonth}",
+            deadline = convertToSimpleDateFormat("${binding.dpDeadline.year}-${binding.dpDeadline.month +1}-${binding.dpDeadline.dayOfMonth}"),
             from = geocode.data!!.first,
             to = geocode.data.second,
             status = PackageStatus.WAITING_FOR_REVIEW,
@@ -139,6 +139,7 @@ class NewOrderFragment : Fragment() {
     }
 
     private fun createOrder(newPackage : PackageTransferObject){
+        Log.d("debug", newPackage.toString())
         viewModel.addNewOrder(newPackage).observe(viewLifecycleOwner, { response ->
             when (response.status) {
                 Status.LOADING -> {

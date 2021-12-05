@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Username"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +19,6 @@
         android:id="@+id/tvRatingDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2021.10.17"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvRatingPackageName"
@@ -31,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Valami csomag"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/tvRatingDate"
         app:layout_constraintHorizontal_bias="0.5"
@@ -51,6 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:numStars="5"
+        android:rating="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvRatingPackageName" />
@@ -86,4 +85,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etmlDescription" />
+
+    <ProgressBar
+        android:id="@+id/pbReview"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

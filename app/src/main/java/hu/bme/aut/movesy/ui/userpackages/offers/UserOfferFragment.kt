@@ -55,7 +55,6 @@ class UserOfferFragment : Fragment(), OfferRecyclerViewAdapter.OfferActionsClick
         viewModel.getOffers(packageId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Log.d("status", "offers loaded ${it.data!!.toString()}")
                     adapter.setItems(it.data!!)
                     if(adapter.itemCount != 0){
                         binding.pbUserOffers.visibility = View.GONE

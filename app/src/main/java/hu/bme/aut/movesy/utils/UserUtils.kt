@@ -9,5 +9,4 @@ class UserUtils  @Inject constructor(){
     var token:Token? = null
     fun getUser() = token?.user
     fun getToken() = token?.jwtToken
-
 }

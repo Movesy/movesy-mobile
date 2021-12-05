@@ -78,7 +78,7 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
         } else {
             binding.btNewOrder.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putString("Mode", "CREATE")
+                bundle.putString("MODE", "CREATE")
                 Navigation.findNavController(requireActivity(), R.id.nav_orders_fragment_container)
                     .navigate(R.id.on_new_order_selected_global_action, bundle)
             }
@@ -99,7 +99,6 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
                         binding.btNewOrder.visibility = View.GONE
                         binding.tvNoItems.visibility = View.GONE
                     }
-                    Log.d("status", "succes ${orders.toString()}")
                 }
                 Status.ERROR -> {
                     if(it.message?.contains("204") == false){
@@ -146,6 +145,8 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
         bundle.putString("PACKAGE_NAME", pack.name)
         bundle.putString("TRANSPORTER_ID", pack.transporterID)
         bundle.putString("CREATION_DATE", pack.creationDate)
+        bundle.putString("TRANSPORTER_NAME", pack.transporterName)
+        bundle.putString("USER_NAME", pack.username)
         Navigation.findNavController(requireActivity(), R.id.nav_orders_fragment_container)
             .navigate(R.id.on_package_for_review_action, bundle)
     }
@@ -194,6 +195,7 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
                 }
                 Status.SUCCESS -> {
                     adapter.updatePackage(pack)
+                    setRecyclerViewData()
                     binding.orderListPb.visibility = View.GONE
                     Snackbar.make(this.requireView(), "Package Updated", Snackbar.LENGTH_SHORT).show()
                 }

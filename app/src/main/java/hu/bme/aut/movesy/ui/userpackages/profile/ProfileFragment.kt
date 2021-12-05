@@ -1,14 +1,18 @@
 package hu.bme.aut.movesy.ui.userpackages.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
+import hu.bme.aut.movesy.R
 
 import hu.bme.aut.movesy.databinding.ProfileTransporterDataBinding
 import hu.bme.aut.movesy.databinding.ProfileUserDataBinding
@@ -51,13 +55,33 @@ class ProfileFragment : Fragment() {
             binding.ProfileTransporterPackageProperties.root.visibility = View.VISIBLE
             binding.btnMyRatings.visibility = View.VISIBLE
             binding.tvTransportParameters.visibility = View.VISIBLE
+            binding.btnMyRatings.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("TRANSPORTER_ID", userUtils.getUser()!!.id)
+                bundle.putString("TRANSPORTER_NAME", userUtils.getUser()!!.username)
+                Navigation.findNavController(requireActivity(), R.id.nav_orders_fragment_container)
+                    .navigate(R.id.on_my_reviews_clicked, bundle)
+            }
         }
 
-        binding.ProfileTransporterPackageProperties.radioGroup.setOnCheckedChangeListener{_,_->
+        binding.ProfileTransporterPackageProperties.radioGroup.setOnCheckedChangeListener{_,selected->
             val user = userUtils.getUser()!!
-            when(id){
+            when(selected){
                 binding.ProfileTransporterPackageProperties.rdbtnSmall.id -> viewModel.saveUser(user.copy(size="SMALL"))
-                binding.ProfileTransporterPackageProperties.rdbtnMedium.id -> viewModel.saveUser(user.copy(size="MEDIUM"))
+                binding.ProfileTransporterPackageProperties.rdbtnMedium.id -> viewModel.saveUser(user.copy(size="MEDIUM")).observe(viewLifecycleOwner) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            Log.d("debug", it.data.toString())
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            Log.d("debug", it.message.toString())
+                        }
+                        Status.LOADING -> {
+                            Log.d("debug", "loading")
+                        }
+                    }
+                }
                 binding.ProfileTransporterPackageProperties.rdbtnBig.id -> viewModel.saveUser(user.copy(size="BIG"))
                 binding.ProfileTransporterPackageProperties.rdbtnHuge.id -> viewModel.saveUser(user.copy(size="HUGE"))
                 else->{}
@@ -186,11 +210,13 @@ class ProfileFragment : Fragment() {
         user.username = binding.transporterEditData.etProfilUsername.text.toString()
         user.email = binding.transporterEditData.etProfileEmail.text.toString()
         user.telephone = binding.transporterEditData.etProfilePhone.text.toString()
-
+        user.telephone =  user.telephone!!.replace(" ", "")
+        if(user.size == null) user.size = "HUGE"
+        Log.d("debug", user.toString())
         viewModel.saveUser(user).observe(viewLifecycleOwner){
             when(it.status){
                 Status.SUCCESS->{
-                    TODO("set userUtils to the refreshed user")
+                    userUtils.token = userUtils.token!!.copy(user =  user)
                 }
                 Status.LOADING ->{}
                 Status.ERROR ->{}

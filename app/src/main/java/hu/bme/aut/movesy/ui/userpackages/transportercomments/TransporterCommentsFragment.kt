@@ -1,6 +1,7 @@
 package hu.bme.aut.movesy.ui.userpackages.transportercomments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,10 +39,10 @@ class TransporterCommentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Log.d("debug", transporterID)
         viewModel.getCommentsOnTransporter(transporterID).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
+                    Log.d("debug", it.data.toString())
                     binding.pbTransporterReview.visibility = View.GONE
                     if(it.data!!.isEmpty()) binding.ratingBar3.rating = 0.0.toFloat()
                     else binding.ratingBar3.rating = (it.data.sumOf {review ->  review.rating }/it.data.size).toFloat()
