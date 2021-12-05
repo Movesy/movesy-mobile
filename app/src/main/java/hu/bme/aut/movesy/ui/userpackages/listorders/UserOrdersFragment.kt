@@ -197,6 +197,10 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
                     adapter.updatePackage(pack)
                     setRecyclerViewData()
                     binding.orderListPb.visibility = View.GONE
+                    if(adapter.itemCount == 0){
+                        binding.btNewOrder.visibility = View.VISIBLE
+                        binding.tvNoItems.visibility = View.VISIBLE
+                    }
                     Snackbar.make(this.requireView(), "Package Updated", Snackbar.LENGTH_SHORT).show()
                 }
             }
@@ -227,7 +231,7 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
                 var index = viewHolder.adapterPosition
                 val pack = adapter.getItemByPosition(index)
                 if(pack.status == PackageStatus.IN_TRANSIT || pack.status == PackageStatus.DELIVERED) return 0
-                if(pack.userID != userUtils.getUser()!!.id) return ItemTouchHelper.LEFT
+                if(pack.userID != userUtils.getUser()!!.id) return 0
                 return super.getSwipeDirs(recyclerView, viewHolder)
             }
         }
@@ -259,6 +263,7 @@ class UserOrdersFragment : Fragment(), OrderRecyclerViewAdapter.onOfferClickList
                     pack.transporterID = null
                     pack.price = null
                     pack.status = PackageStatus.WAITING_FOR_REVIEW
+                    Log.d("debug", pack.toString())
                     viewModel.editPackage(pack).observe(viewLifecycleOwner){
                         Log.d("debug", "${it.status} ${it.message}")
                     }

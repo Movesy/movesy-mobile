@@ -30,4 +30,15 @@ interface OfferDao {
         getOfferForExistence(offer.id) ?: return createOffer(offer)
         updateOffer(offer)
     }
+
+
+    @Query("SELECT * FROM offers WHERE packageID = :packageId")
+    fun getOffersOnPackageBlocking(packageId: String): MutableList<Offer>
+
+    suspend fun updateOffersOnPackage(offers: List<Offer>, packageId: String){
+        val currentOffers = getOffersOnPackageBlocking(packageId)
+        currentOffers.removeAll(offers)
+        currentOffers.forEach { offer -> deleteOffer(offer.id) }
+        offers.forEach { offer -> updateOrInsert(offer) }
+    }
 }

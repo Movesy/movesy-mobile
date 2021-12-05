@@ -50,7 +50,7 @@ class AddOfferDialogFragment: DialogFragment() {
             binding.editTextNumber.error = "Please set a price"
             return false
         }
-        if(packagePrice != null &&
+        if(packagePrice != null && packagePrice != 0 &&
             binding.editTextNumber.text.toString().toInt() >= packagePrice!!)
         {
             binding.editTextNumber.error = "Must set a lower price than $packagePrice"

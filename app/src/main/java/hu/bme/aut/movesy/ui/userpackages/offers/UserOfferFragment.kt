@@ -97,6 +97,7 @@ class UserOfferFragment : Fragment(), OfferRecyclerViewAdapter.OfferActionsClick
                 Status.SUCCESS -> {
                     Log.d("status", "offers accepted")
                     binding.pbUserOffers.visibility = View.GONE
+                    viewModel.deleteOffer(validOffer.id)
                     Navigation.findNavController(requireActivity(), R.id.nav_orders_fragment_container)
                         .navigate(R.id.on_order_selected_global_action)
                 }

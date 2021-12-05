@@ -109,23 +109,6 @@
         app:layout_constraintBottom_toTopOf="@+id/etEmail"
         app:layout_constraintStart_toStartOf="@+id/etEmail" />
 
-    <app.juky.squircleview.views.SquircleButton
-        android:id="@+id/btnForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forgot password"
-
-        android:padding="16dp"
-        android:textColor="#FFFFFF"
-        app:squircle_gradient_end_color="#aa076b"
-        app:squircle_gradient_start_color="#61045f"
-        app:squircle_shadow_elevation="2dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
     <ProgressBar
         android:id="@+id/loginPb"
         android:visibility="gone"

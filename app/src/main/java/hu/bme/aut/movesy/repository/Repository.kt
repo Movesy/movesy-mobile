@@ -146,7 +146,7 @@ class Repository @Inject constructor(
     fun getOffersOnPackage(packageID: String) = performGetOperation(
         databaseQuery = { offerDao.getOffersOnPackage(packageID) },
         networkCall = { restapi.getOffersOnPackage(packageID) },
-        saveCallResult = { offers -> offers.forEach { offer -> offerDao.updateOrInsert(offer) } }
+        saveCallResult = { offers -> offerDao.updateOffersOnPackage(offers, packageID) }
     )
 
     fun createOffer(offer: OfferTransferObject) = performPostOperation(

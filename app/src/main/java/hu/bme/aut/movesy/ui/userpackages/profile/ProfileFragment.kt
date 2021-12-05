@@ -67,23 +67,26 @@ class ProfileFragment : Fragment() {
         binding.ProfileTransporterPackageProperties.radioGroup.setOnCheckedChangeListener{_,selected->
             val user = userUtils.getUser()!!
             when(selected){
-                binding.ProfileTransporterPackageProperties.rdbtnSmall.id -> viewModel.saveUser(user.copy(size="SMALL"))
-                binding.ProfileTransporterPackageProperties.rdbtnMedium.id -> viewModel.saveUser(user.copy(size="MEDIUM")).observe(viewLifecycleOwner) {
-                    when (it.status) {
-                        Status.SUCCESS -> {
-                            Log.d("debug", it.data.toString())
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.d("debug", it.message.toString())
-                        }
-                        Status.LOADING -> {
-                            Log.d("debug", "loading")
-                        }
-                    }
+                binding.ProfileTransporterPackageProperties.rdbtnSmall.id -> {
+                    viewModel.saveUser(user.copy(size="SMALL"))
+                    user.size = "SMALL"
+                    userUtils.token = userUtils.token?.copy(user = user)
                 }
-                binding.ProfileTransporterPackageProperties.rdbtnBig.id -> viewModel.saveUser(user.copy(size="BIG"))
-                binding.ProfileTransporterPackageProperties.rdbtnHuge.id -> viewModel.saveUser(user.copy(size="HUGE"))
+                binding.ProfileTransporterPackageProperties.rdbtnMedium.id -> {
+                    viewModel.saveUser(user.copy(size="MEDIUM"))
+                    user.size = "MEDIUM"
+                    userUtils.token = userUtils.token?.copy(user = user)
+                }
+                binding.ProfileTransporterPackageProperties.rdbtnBig.id -> {
+                    viewModel.saveUser(user.copy(size="BIG"))
+                    user.size = "BIG"
+                    userUtils.token = userUtils.token?.copy(user = user)
+                }
+                binding.ProfileTransporterPackageProperties.rdbtnHuge.id -> {
+                    viewModel.saveUser(user.copy(size="HUGE"))
+                    user.size = "HUGE"
+                    userUtils.token = userUtils.token?.copy(user = user)
+                }
                 else->{}
             }
         }
@@ -229,6 +232,19 @@ class ProfileFragment : Fragment() {
         prop.etProfilUsername.setText(user.username)
         prop.etProfileEmail.setText(user.email)
         prop.etProfilePhone.setText(user.telephone)
+        if(user.role == "TRANSPORTER"){
+            binding.ProfileTransporterPackageProperties.etWeight.visibility = View.GONE
+            binding.ProfileTransporterPackageProperties.swFragile.visibility = View.GONE
+            binding.ProfileTransporterPackageProperties.tvWeight.visibility = View.GONE
+            when(user.size ?: "HUGE"){
+                "SMALL" ->  binding.ProfileTransporterPackageProperties.radioGroup.check(binding.ProfileTransporterPackageProperties.rdbtnSmall.id)
+                "MEDIUM" ->  binding.ProfileTransporterPackageProperties.radioGroup.check(binding.ProfileTransporterPackageProperties.rdbtnMedium.id)
+                "BIG" ->  binding.ProfileTransporterPackageProperties.radioGroup.check(binding.ProfileTransporterPackageProperties.rdbtnBig.id)
+                else  ->  binding.ProfileTransporterPackageProperties.radioGroup.check(binding.ProfileTransporterPackageProperties.rdbtnHuge.id)
+            }
+
+        }
+
     }
 
 }

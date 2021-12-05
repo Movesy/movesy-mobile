@@ -44,6 +44,7 @@ class AvailableOffersFragment: Fragment(), AvailableRecyclerViewAdapter.Availabl
             when(it.status){
                 Status.SUCCESS -> {
                     binding.pbAvailableItems.visibility = View.INVISIBLE
+                    binding.tvNoAvailableItems.visibility = View.GONE
                     if(it.data!!.isEmpty()){
                         binding.tvNoAvailableItems.visibility = View.VISIBLE
                     }

@@ -12,8 +12,8 @@ class RestAPI @Inject constructor(
     ){
 
     companion object{
-        //const val BASE_URL = "https://movesy.herokuapp.com/"
-        const val BASE_URL = "https://movesy-test.herokuapp.com/"
+        const val BASE_URL = "https://movesy.herokuapp.com/"
+        //const val BASE_URL = "https://movesy-test.herokuapp.com/"
     }
 
     //--------------------------------------
